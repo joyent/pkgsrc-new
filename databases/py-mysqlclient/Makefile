@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.13 2025/01/14 17:05:27 adam Exp $
 
 DISTNAME=	mysqlclient-2.2.7
-PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/mysql/${MYSQL_PKG_PREFIX}/}
 CATEGORIES=	databases python
 MASTER_SITES=	${MASTER_SITE_PYPI:=m/mysqlclient/}
 

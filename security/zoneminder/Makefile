@@ -163,7 +163,7 @@ CMAKE_CONFIGURE_ARGS+=	-DPERL_EXECUTABLE=${PREFIX}/bin/perl
 
 DEPENDS+=	p5-Archive-Zip-[0-9]*:../../archivers/p5-Archive-Zip
 DEPENDS+=	p5-Device-SerialPort-[0-9]*:../../comms/p5-Device-SerialPort
-DEPENDS+=	p5-DBD-mysql-[0-9]*:../../databases/p5-DBD-mysql
+DEPENDS+=	p5-DBD-{mariadb,mysql,percona}*-[0-9]*:../../databases/p5-DBD-mysql
 DEPENDS+=	p5-Class-Std-[0-9]*:../../devel/p5-Class-Std
 DEPENDS+=	p5-Class-Std-Fast-[0-9]*:../../devel/p5-Class-Std-Fast
 DEPENDS+=	p5-Data-Dump-[0-9]*:../../devel/p5-Data-Dump
