@@ -53,17 +53,17 @@ function check_pkg(DSO, lib,	pkg, found) {
 	}
 	if (pkg == "")
 		return 0
-	found=0
+	found = 0
 	while ((getline < depends_file) > 0) {
 		if ($3 == pkg) {
-			found=1
-			if ($1 != "full")
-				continue
-			close(depends_file)
-			return 0
+			found = 1
+			if ($1 == "full" || $1 == "implicit-full") {
+				close(depends_file)
+				return 0
+			}
 		}
 	}
-	if (found)
+	if (found || check_implicit)
 		print DSO ": " lib ": " pkg " is not a runtime dependency"
 	close(depends_file)
 }
@@ -127,6 +127,9 @@ BEGIN {
 	pkg_info_cmd = ENVIRON["PKG_INFO_CMD"]
 	depends_file = ENVIRON["DEPENDS_FILE"]
 	skip_system_libs = ENVIRON["SKIP_SYSTEM_LIBS"]
+	check_implicit = 0
+	if (tolower(ENVIRON["CHECK_SHLIBS_IMPLICIT"]) == "yes")
+		check_implicit = 1
 }
 
 { checkshlib($0); }

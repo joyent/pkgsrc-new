@@ -10,6 +10,16 @@
 #
 #	Default value: "yes" for PKG_DEVELOPERs, "no" otherwise.
 #
+# CHECK_SHLIBS_IMPLICIT
+#	Perform additional checks on implicit dependencies (packages that are
+#	not direct dependencies themselves but are included via buildlink).
+#	Libraries from these implicit dependencies may end up being linked
+#	against, but unless this option is enabled these will not be checked,
+#	and could result in software that fails at runtime if those implicit
+#	dependencies were included via a BUILDLINK_DEPMETHOD=build path.
+#
+#	Default value: "no", but "yes" is strongly recommended.
+#
 # CHECK_SHLIBS_TOXIC
 # 	A list of regular expressions that will cause the test to fail
 # 	if they match any resolved library paths.  For example, set
@@ -42,6 +52,7 @@ CHECK_SHLIBS?=			yes
 .else
 CHECK_SHLIBS?=			no
 .endif
+CHECK_SHLIBS_IMPLICIT?=		no
 CHECK_SHLIBS_SUPPORTED?=	yes
 CHECK_SHLIBS_SKIP?=		# none
 
@@ -74,6 +85,7 @@ CHECK_SHLIBS_NATIVE_ENV+=	DEPENDS_FILE=${_RRDEPENDS_FILE:Q}
 CHECK_SHLIBS_NATIVE_ENV+=	DESTDIR=${DESTDIR:Q}
 CHECK_SHLIBS_NATIVE_ENV+=	WRKDIR=${WRKDIR:Q}
 CHECK_SHLIBS_NATIVE_ENV+=	LANG=C
+CHECK_SHLIBS_NATIVE_ENV+=	CHECK_SHLIBS_IMPLICIT=${CHECK_SHLIBS_IMPLICIT}
 .  if defined(CHECK_WRKREF) && !empty(CHECK_WRKREF:Mextra)
 CHECK_SHLIBS_NATIVE_ENV+=	CHECK_WRKREF_EXTRA_DIRS=${CHECK_WRKREF_EXTRA_DIRS:Q}
 .  endif
