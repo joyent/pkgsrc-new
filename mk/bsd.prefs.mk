@@ -87,6 +87,32 @@ UNAME=/run/current-system/sw/bin/uname
 UNAME=echo Unknown
 .endif
 
+#
+# Set some known variables early, as they are expensively computed before
+# bsd.own.mk (and thus mk.conf) are pulled in.  Clearly these are specific
+# to each build!
+#
+# These variables are suitable for current 20210826 trunk builds only!
+#
+OPSYS=			SunOS
+OS_VERSION=		5.11
+OPSYS_VERSION=		051100
+_UNAME_V=		joyent_20210826T002459Z
+_GCC_VERSION=		13.2.0
+_GCC_REQD=		13.2.0
+_NEED_NEWER_GCC=	NO
+USE_NATIVE_GCC=		yes
+PKGTOOLS_VERSION=	20211115
+UNPRIVILEGED_USER=	pbulk
+UNPRIVILEGED_GROUP=	pbulk
+UNPRIVILEGED_GROUPS=	pbulk
+.for var in OPSYS OS_VERSION OPSYS_VERSION \
+	    PKGTOOLS_VERSION _UNAME_V \
+	    _GCC_VERSION _GCC_REQD _NEED_NEWER_GCC \
+	    UNPRIVILEGED_USER UNPRIVILEGED_GROUP UNPRIVILEGED_GROUPS
+MAKEFLAGS+=		${var}=${${var}:Q}
+.endfor
+
 .if !defined(OPSYS)
 OPSYS:=			${:!${UNAME} -s!:S/-//g:S/\///g:C/^CYGWIN_.*$/Cygwin/}
 MAKEFLAGS+=		OPSYS=${OPSYS:Q}
