@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.919 2023/12/30 12:58:43 wiz Exp $
+# $NetBSD: Makefile,v 1.921 2024/01/18 19:36:35 markd Exp $
 #
 
 COMMENT=	Desktop publishing
@@ -483,6 +483,8 @@ SUBDIR+=	tex-cjkpunct
 SUBDIR+=	tex-cjkpunct-doc
 SUBDIR+=	tex-cjkutils
 SUBDIR+=	tex-cjkutils-doc
+SUBDIR+=	tex-cjs-rcs-article
+SUBDIR+=	tex-cjs-rcs-article-doc
 SUBDIR+=	tex-classicthesis
 SUBDIR+=	tex-classicthesis-doc
 SUBDIR+=	tex-classpack
@@ -1300,6 +1302,8 @@ SUBDIR+=	tex-pagenote-doc
 SUBDIR+=	tex-pagesel
 SUBDIR+=	tex-pagesel-doc
 SUBDIR+=	tex-pageslts
+SUBDIR+=	tex-paracol
+SUBDIR+=	tex-paracol-doc
 SUBDIR+=	tex-paralist
 SUBDIR+=	tex-paralist-doc
 SUBDIR+=	tex-parskip

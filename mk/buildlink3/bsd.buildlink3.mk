@@ -1,4 +1,4 @@
-# $NetBSD: bsd.buildlink3.mk,v 1.261 2023/06/27 10:40:09 riastradh Exp $
+# $NetBSD: bsd.buildlink3.mk,v 1.263 2024/01/13 20:26:47 riastradh Exp $
 #
 # Copyright (c) 2004 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -404,12 +404,12 @@ _BLNK_PKG_DBDIR.${_pkg_}?=	_BLNK_PKG_DBDIR.${_pkg_}_not_found
 _BLNK_PKG_INFO.${_pkg_}?=	${TRUE}
 BUILDLINK_PKGNAME.${_pkg_}?=	${_pkg_}
 # Usual systems has builtin packages in /usr
-.    if exists(${_CROSS_DESTDIR:U}/usr)
+.    if exists(${TOOLS_CROSS_DESTDIR}/usr)
 BUILDLINK_PREFIX.${_pkg_}?=	/usr
 # Haiku OS has posix packages in /boot/sytem/develop (or /boot/common)
-.    elif exists(${_CROSS_DESTDIR:U}/boot/system/develop)
+.    elif exists(${TOOLS_CROSS_DESTDIR}/boot/system/develop)
 BUILDLINK_PREFIX.${_pkg_}?=	/boot/system/develop
-.    elif exists(${_CROSS_DESTDIR:U}/boot/common)
+.    elif exists(${TOOLS_CROSS_DESTDIR}/boot/common)
 BUILDLINK_PREFIX.${_pkg_}?=	/boot/common
 .    else
 # XXX: elsewhere?
@@ -442,9 +442,9 @@ MAKEVARS+=	_BLNK_PKG_DBDIR.${_pkg_}
 .  endif
 
 .  if empty(_BLNK_PKG_DBDIR.${_pkg_}:M*not_found)
-_BLNK_PKG_INFO.${_pkg_}?=	${PKG_INFO_CMD} -K ${_BLNK_PKG_DBDIR.${_pkg_}:H}
+_BLNK_PKG_INFO.${_pkg_}?=	${NATIVE_PKG_INFO_CMD} -K ${_BLNK_PKG_DBDIR.${_pkg_}:H}
 .  else
-_BLNK_PKG_INFO.${_pkg_}?=	${PKG_INFO_CMD} -K ${_PKG_DBDIR}
+_BLNK_PKG_INFO.${_pkg_}?=	${NATIVE_PKG_INFO_CMD} -K ${_PKG_DBDIR}
 .  endif
 
 BUILDLINK_PKGNAME.${_pkg_}?=	${_BLNK_PKG_DBDIR.${_pkg_}:T}
@@ -522,7 +522,7 @@ BUILDLINK_LIBS+=	${_flag_}
      !empty(BUILDLINK_AUTO_DIRS.${_pkg_}:M[yY][eE][sS])
 .  if !empty(BUILDLINK_INCDIRS.${_pkg_})
 .    for _dir_ in ${BUILDLINK_INCDIRS.${_pkg_}:S/^/${BUILDLINK_PREFIX.${_pkg_}}\//}
-.      if exists(${_CROSS_DESTDIR:U}${_dir_})
+.      if exists(${TOOLS_CROSS_DESTDIR}${_dir_})
 .        if empty(BUILDLINK_CPPFLAGS:M-I${_dir_})
 BUILDLINK_CPPFLAGS+=	-I${_dir_}
 .        endif
@@ -531,7 +531,7 @@ BUILDLINK_CPPFLAGS+=	-I${_dir_}
 .  endif
 .  if !empty(BUILDLINK_LIBDIRS.${_pkg_})
 .    for _dir_ in ${BUILDLINK_LIBDIRS.${_pkg_}:S/^/${BUILDLINK_PREFIX.${_pkg_}}\//}
-.      if exists(${_CROSS_DESTDIR:U}${_dir_})
+.      if exists(${TOOLS_CROSS_DESTDIR}${_dir_})
 .        if empty(BUILDLINK_LDFLAGS:M-L${_dir_})
 BUILDLINK_LDFLAGS+=	-L${_dir_}
 .        endif
@@ -540,7 +540,7 @@ BUILDLINK_LDFLAGS+=	-L${_dir_}
 .  endif
 .  if !empty(BUILDLINK_RPATHDIRS.${_pkg_})
 .    for _dir_ in ${BUILDLINK_RPATHDIRS.${_pkg_}:S/^/${BUILDLINK_PREFIX.${_pkg_}}\//}
-.      if exists(${_CROSS_DESTDIR:U}${_dir_})
+.      if exists(${TOOLS_CROSS_DESTDIR}${_dir_})
 .        if empty(BUILDLINK_LDFLAGS:M${COMPILER_RPATH_FLAG}${_dir_})
 BUILDLINK_LDFLAGS+=	${COMPILER_RPATH_FLAG}${_dir_}
 .        endif
@@ -557,7 +557,7 @@ BUILDLINK_LDFLAGS+=	${COMPILER_RPATH_FLAG}${_dir_}
 .for _pkg_ in ${_BLNK_PACKAGES}
 .  if !empty(BUILDLINK_RPATHDIRS.${_pkg_})
 .    for _dir_ in ${BUILDLINK_RPATHDIRS.${_pkg_}:S/^/${LOCALBASE}\//}
-.      if exists(${_CROSS_DESTDIR:U}${_dir_})
+.      if exists(${TOOLS_CROSS_DESTDIR}${_dir_})
 .        if empty(BUILDLINK_LDFLAGS:M${COMPILER_RPATH_FLAG}${_dir_})
 BUILDLINK_LDFLAGS+=	${COMPILER_RPATH_FLAG}${_dir_}
 .        endif
@@ -728,10 +728,10 @@ ${_BLNK_COOKIE.${_pkg_}}:
 	*)              buildlink_dir="${BUILDLINK_DIR}" ;;		\
 	esac;								\
 	[ -z "${BUILDLINK_PREFIX.${_pkg_}:Q}" ] ||			\
-	cd ${_CROSS_DESTDIR}${BUILDLINK_PREFIX.${_pkg_}} &&		\
+	cd ${TOOLS_CROSS_DESTDIR}${BUILDLINK_PREFIX.${_pkg_}} &&	\
 	${_BLNK_FILES_CMD.${_pkg_}} |					\
 	while read file; do						\
-		src="${_CROSS_DESTDIR}${BUILDLINK_PREFIX.${_pkg_}}/$$file"; \
+		src="${TOOLS_CROSS_DESTDIR}${BUILDLINK_PREFIX.${_pkg_}}/$$file"; \
 		[ -f "$$src" ] || continue;				\
 		dest="$$buildlink_dir/$$file";				\
 		if [ -n "${BUILDLINK_FNAME_TRANSFORM.${_pkg_}:Q}" ]; then \
@@ -768,10 +768,10 @@ ${_BLNK_COOKIE.${_pkg_}}:
 	*)              buildlink_dir="${BUILDLINK_DIR}" ;;		\
 	esac;								\
 	[ -z "${BUILDLINK_PREFIX.${_pkg_}:Q}" ] ||			\
-	cd ${_CROSS_DESTDIR}${BUILDLINK_PREFIX.${_pkg_}} &&		\
+	cd ${TOOLS_CROSS_DESTDIR}${BUILDLINK_PREFIX.${_pkg_}} &&	\
 	${_BLNK_FILES_CMD.${_pkg_}} |					\
 	while read file; do						\
-		src="${_CROSS_DESTDIR}${BUILDLINK_PREFIX.${_pkg_}}/$$file"; \
+		src="${TOOLS_CROSS_DESTDIR}${BUILDLINK_PREFIX.${_pkg_}}/$$file"; \
 		if [ ! -f "$$src" ]; then				\
 			msg="$$src: not found";				\
 		else							\
@@ -939,7 +939,7 @@ _CWRAPPERS_TRANSFORM+=	I:${_dir_}/:
 .for _pkg_ in ${_BLNK_PACKAGES}
 .  if !empty(BUILDLINK_LIBDIRS.${_pkg_})
 .    for _dir_ in ${BUILDLINK_LIBDIRS.${_pkg_}}
-.      if exists(${_CROSS_DESTDIR:U}${BUILDLINK_PREFIX.${_pkg_}}/${_dir_})
+.      if exists(${TOOLS_CROSS_DESTDIR}${BUILDLINK_PREFIX.${_pkg_}}/${_dir_})
 _BLNK_PASSTHRU_RPATHDIRS+=	${BUILDLINK_PREFIX.${_pkg_}}/${_dir_}
 .      endif
 .    endfor

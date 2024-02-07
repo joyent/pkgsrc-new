@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.22 2023/12/29 18:24:44 adam Exp $
+# $NetBSD: Makefile,v 1.24 2024/01/30 14:21:51 ryoon Exp $
 
-PKGREVISION= 13
+PKGREVISION= 14
 .include "Makefile.common"
 
 DISTNAME=	${DISTVERSION}-build
@@ -70,6 +70,8 @@ MAKE_FLAGS+=	config=release
 MAKE_FLAGS+=	verbose=1
 MAKE_FLAGS+=	-j ${_MAKE_JOBS_N:U1}
 MAKE_ENV+=	JOBS=${_MAKE_JOBS_N:U1}
+# TODO: We build mozjs78 without debug, global debug option will make 0ad fail
+# due to the lack of debug in mozjs. Undefine NDEBUG in this case.
 BUILD_DIRS=	build/workspaces/gcc
 
 .include "options.mk"

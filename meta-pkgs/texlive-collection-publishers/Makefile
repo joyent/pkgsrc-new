@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.32 2023/06/17 11:09:40 markd Exp $
+# $NetBSD: Makefile,v 1.34 2024/02/03 05:41:31 markd Exp $
 
 DISTNAME=	collection-publishers
-PKGNAME=	texlive-${DISTNAME}-2023pre1
+PKGNAME=	texlive-${DISTNAME}-2023pre2
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
-TEXLIVE_REV=	67281
+TEXLIVE_REV=	69489
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://www.tug.org/texlive/
@@ -24,6 +24,7 @@ DEPENDS+=	tex-acmconf-[0-9]*:../../print/tex-acmconf
 # depend afthesis
 # depend aguplus
 # depend aiaa
+# depend amnestyreport
 # depend anonymous-acm
 # depend anufinalexam
 # depend aomart
@@ -59,7 +60,9 @@ DEPENDS+=	tex-arsclassica-[0-9]*:../../print/tex-arsclassica
 # depend chem-journal
 # depend chifoot
 # depend chs-physics-report
+# depend cidarticle
 # depend cje
+DEPENDS+=	tex-cjs-rcs-article-[0-9]*:../../print/tex-cjs-rcs-article
 DEPENDS+=	tex-classicthesis-[0-9]*:../../print/tex-classicthesis
 # depend cleanthesis
 # depend cmpj
@@ -100,6 +103,7 @@ DEPENDS+=	tex-elsarticle-[0-9]*:../../print/tex-elsarticle
 # depend har2nat
 # depend hecthese
 # depend hep-paper
+# depend heria
 # depend hfutexam
 # depend hfutthesis
 # depend hithesis
@@ -144,6 +148,7 @@ DEPENDS+=	tex-ieeetran-[0-9]*:../../print/tex-IEEEtran
 # depend matc3mem
 # depend mcmthesis
 # depend mentis
+# depend mitthesis
 # depend mlacls
 # depend mluexercise
 # depend mnras
@@ -186,6 +191,7 @@ DEPENDS+=	tex-ieeetran-[0-9]*:../../print/tex-IEEEtran
 # depend ptptex
 # depend qrbill
 # depend quantumarticle
+# depend regulatory
 # depend resphilosophica
 # depend resumecls
 DEPENDS+=	tex-revtex-[0-9]*:../../print/tex-revtex
@@ -214,6 +220,7 @@ DEPENDS+=	tex-revtex4-[0-9]*:../../print/tex-revtex4
 # depend sr-vorl
 # depend srdp-mathematik
 # depend stellenbosch
+# depend stellenbosch-2
 # depend suftesi
 # depend sugconf
 # depend tabriz-thesis
@@ -245,6 +252,7 @@ DEPENDS+=	tex-toptesi-[0-9]*:../../print/tex-toptesi
 # depend ucalgmthesis
 # depend ucbthesis
 # depend ucdavisthesis
+# depend ucph-revy
 # depend ucsmonograph
 # depend ucthesis
 # depend udes-genie-these

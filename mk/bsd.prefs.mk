@@ -1,4 +1,4 @@
-# $NetBSD: bsd.prefs.mk,v 1.436 2023/07/30 19:04:02 nia Exp $
+# $NetBSD: bsd.prefs.mk,v 1.439 2024/01/26 03:25:47 riastradh Exp $
 #
 # This file includes the mk.conf file, which contains the user settings.
 #
@@ -367,6 +367,11 @@ MACHINE_PLATFORM?=		${OPSYS}-${OS_VERSION}-${MACHINE_ARCH}
 NATIVE_MACHINE_GNU_PLATFORM?=	${NATIVE_MACHINE_GNU_ARCH}-${LOWER_VENDOR}-${LOWER_OPSYS:C/[0-9]//g}${NATIVE_APPEND_ELF}${LOWER_OPSYS_VERSUFFIX}${NATIVE_APPEND_ABI}
 MACHINE_GNU_PLATFORM?=		${MACHINE_GNU_ARCH}-${LOWER_VENDOR}-${LOWER_OPSYS:C/[0-9]//g}${APPEND_ELF}${LOWER_OPSYS_VERSUFFIX}${APPEND_ABI}
 
+# Set this before <bsd.own.mk> does, since it doesn't know about Darwin
+.if ${OPSYS} == "Darwin"
+OBJECT_FMT?=		Mach-O
+.endif
+
 #
 # cross-libtool is special -- it is built as a native package, but it
 # needs tools set up as if for a cross-compiled package because it
@@ -402,11 +407,6 @@ NEED_OWN_INSTALL_TARGET=no
 USETOOLS=		no
 MAKE_ENV+=		USETOOLS=no
 
-# Set this before <bsd.own.mk> does, since it doesn't know about Darwin
-.if ${OPSYS} == "Darwin"
-OBJECT_FMT?=		Mach-O
-.endif
-
 ACCEPTABLE_LICENSES?=	${DEFAULT_ACCEPTABLE_LICENSES}
 
 # Provide PKGPATH early on so that mk.conf can use it.
@@ -414,6 +414,28 @@ PKGPATH?=		${.CURDIR:C|.*/([^/]*/[^/]*)$|\1|}
 
 # Load the settings from MAKECONF, which is /etc/mk.conf by default.
 .include <bsd.own.mk>
+
+# When cross-compilation support is requested, the following options
+# must be specified as well or guessable:
+# - MACHINE_ARCH is set to TARGET_ARCH if set.
+# - CROSS_DESTDIR is guessed from MAKEOBJDIR and MACHINE_ARCH.
+# - PKG_DBDIR is expanded and prefixed with CROSS_DESTDIR
+# - DESTDIR support is required
+#
+# _CROSS_DESTDIR is set for internal use to avoid conditionalising
+# the use.
+
+.if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
+.  if defined(TARGET_ARCH)
+MACHINE_ARCH=	${TARGET_ARCH}
+.  endif
+CROSS_DESTDIR?=	${MAKEOBJDIR}/destdir.${MACHINE_ARCH}
+.  if !exists(${CROSS_DESTDIR}/usr/include/stddef.h)
+PKG_FAIL_REASON+=	"The cross-compiling root ${CROSS_DESTDIR:Q} is incomplete"
+.  else
+_CROSS_DESTDIR=	${CROSS_DESTDIR}
+.  endif
+.endif
 
 .if ${OPSYS} == "OpenBSD"
 .  if defined(ELF_TOOLCHAIN) && ${ELF_TOOLCHAIN} == "yes"
@@ -474,28 +496,6 @@ SHAREMODE?=		${DOCMODE}
 	@${ECHO_MSG} "You CANNOT set PREFIX manually or in mk.conf. Set LOCALBASE or X11BASE"
 	@${ECHO_MSG} "depending on your needs. See the pkg system documentation for more info."
 	@${FALSE}
-.endif
-
-# When cross-compilation support is requested, the following options
-# must be specified as well or guessable:
-# - MACHINE_ARCH is set to TARGET_ARCH if set.
-# - CROSS_DESTDIR is guessed from MAKEOBJDIR and MACHINE_ARCH.
-# - PKG_DBDIR is expanded and prefixed with CROSS_DESTDIR
-# - DESTDIR support is required
-#
-# _CROSS_DESTDIR is set for internal use to avoid conditionalising
-# the use.
-
-.if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
-.  if defined(TARGET_ARCH)
-MACHINE_ARCH=	${TARGET_ARCH}
-.  endif
-CROSS_DESTDIR?=	${MAKEOBJDIR}/destdir.${MACHINE_ARCH}
-.  if !exists(${CROSS_DESTDIR}/usr/include/stddef.h)
-PKG_FAIL_REASON+=	"The cross-compiling root ${CROSS_DESTDIR:Q} is incomplete"
-.  else
-_CROSS_DESTDIR=	${CROSS_DESTDIR}
-.  endif
 .endif
 
 # Load the OS-specific definitions for program variables.  Default to loading
@@ -580,7 +580,11 @@ _MAKE_PACKAGE_AS_ROOT?=	yes
 # TOOLS_CROSS_DESTDIR is used for the libtool build to make a wrapper
 # that points at the cross-destdir as sysroot, without setting
 # _CROSS_DESTDIR because we're actually building a native package.
+.if ${TOOLS_USE_CROSS_COMPILE:tl} == "yes"
 TOOLS_CROSS_DESTDIR=		${CROSS_DESTDIR}
+.else
+TOOLS_CROSS_DESTDIR=		# empty
+.endif
 
 # Depends on MACHINE_ARCH override above
 .if ${OPSYS} == "NetBSD"

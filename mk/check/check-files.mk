@@ -1,4 +1,4 @@
-# $NetBSD: check-files.mk,v 1.39 2022/11/28 23:15:34 gutteridge Exp $
+# $NetBSD: check-files.mk,v 1.47 2024/01/21 03:12:56 rillig Exp $
 #
 # This file checks that the list of installed files matches the PLIST.
 # For that purpose it records the file list of LOCALBASE before and
@@ -16,6 +16,10 @@
 #	When set to "yes", VARBASE and PKG_SYSCONFDIR are checked in
 #	addition to LOCALBASE.
 #
+# CHECK_FILES_ONLY_PREFIX
+#	When set to "yes", the only directory below DESTDIR that may be
+#	modified during installation is PREFIX itself.
+#
 # Package-settable variables:
 #
 # CHECK_FILES_SKIP
@@ -25,12 +29,25 @@
 #	really handled by pkgsrc.
 #
 
-_VARGROUPS+=		check-files
-_USER_VARS.check-files=	CHECK_FILES CHECK_FILES_STRICT
-_PKG_VARS.check-files=	CHECK_FILES_SKIP
+_VARGROUPS+=			check-files
+_USER_VARS.check-files=		\
+	CHECK_FILES CHECK_FILES_STRICT CHECK_FILES_ONLY_PREFIX
+_PKG_VARS.check-files=		CHECK_FILES_SUPPORTED CHECK_FILES_SKIP
+_USE_VARS.check-files=		\
+	DESTDIR PREFIX PKG_SYSCONFDIR VARBASE PKG_DBDIR DISTDIR PACKAGES \
+	MAKE_DIRS MAKE_DIRS_PERMS OWN_DIRS OWN_DIRS_PERMS \
+	FONTS_DIRS.x11 FONTS_DIRS.ttf FONTS_DIRS.type1 \
+	PERL5_INSTALLARCHLIB \
+	WRKDIR ERROR_DIR \
+	PLIST INFO_FILES ICON_THEMES
+_IGN_VARS.check-files=		PKGNAME _CHECK_FILES_*
+_LISTED_VARS.check-files=	MAKE_DIRS MAKE_DIRS_PERMS OWN_DIRS OWN_DIRS_PERMS
+_SORTED_VARS.check-files=	CHECK_FILES_SKIP
 
-CHECK_FILES?=		yes
-CHECK_FILES_STRICT?=	no
+
+CHECK_FILES?=			yes
+CHECK_FILES_STRICT?=		no
+CHECK_FILES_ONLY_PREFIX?=	no
 
 # Info index files updated when a new info file is added.
 .if defined(INFO_FILES)
@@ -50,7 +67,7 @@ CHECK_FILES_SKIP+=	${PREFIX}/lib/R/doc/html/search/index.txt
 
 CHECK_FILES_SKIP+=	${PKG_DBDIR}/.*
 
-# We don't care about what's under linux/proc and linux32/proc in Linux 
+# We don't care about what's under linux/proc and linux32/proc in Linux
 # emulation, which just holds run-time generated data.
 #
 CHECK_FILES_SKIP+=	${PREFIX}/emul/linux/proc.*
@@ -64,7 +81,7 @@ CHECK_FILES_SKIP+=	${PACKAGES}/.*
 CHECK_FILES_SKIP+=	${DISTDIR}/.*
 
 # For unprivileged builds, VARBASE is below LOCALBASE.
-.if !empty(CHECK_FILES_STRICT:M[Nn][Oo])
+.if ${CHECK_FILES_STRICT:tl} == no
 CHECK_FILES_SKIP+=	${VARBASE}/.*
 .endif
 
@@ -72,33 +89,29 @@ CHECK_FILES_SKIP+=	${VARBASE}/.*
 # be using for mutable data.
 #
 .for d in ${MAKE_DIRS} ${OWN_DIRS}
-CHECK_FILES_SKIP+=	${d:C/^([^\/])/${PREFIX}\/\1/}.*
+CHECK_FILES_SKIP+=	${d:C|^([^/])|${PREFIX}/\1|}.*
 .endfor
-.for _var_ in MAKE_DIRS_PERMS OWN_DIRS_PERMS
-.  if empty(${_var_}) || empty(${_var_}:C/.*/4/:M*:S/4 4 4 4//gW)
-.    for d o g m in ${${_var_}}
-CHECK_FILES_SKIP+=	${d:C/^([^\/])/${PREFIX}\/\1/}.*
-.    endfor
-.  endif
+.for dir owner group mode in ${MAKE_DIRS_PERMS} ${OWN_DIRS_PERMS}
+CHECK_FILES_SKIP+=	${dir:C|^([^/])|${PREFIX}/\1|}.*
 .endfor
 
 # Mutable X11 font database files
-.if (defined(FONTS_DIRS.x11) && !empty(FONTS_DIRS.x11:M*))
+.if !empty(FONTS_DIRS.x11:M*)
 CHECK_FILES_SKIP+=	${PREFIX}/.*/encodings.dir
 CHECK_FILES_SKIP+=	${PREFIX}/.*/fonts.dir
 .endif
-.if (defined(FONTS_DIRS.ttf) && !empty(FONTS_DIRS.ttf:M*)) || \
-    (defined(FONTS_DIRS.type1) && !empty(FONTS_DIRS.type1:M*))
+.if !empty(FONTS_DIRS.ttf:M*) || \
+    !empty(FONTS_DIRS.type1:M*)
 CHECK_FILES_SKIP+=	${PREFIX}/.*/fonts.scale
 .endif
-.if (defined(FONTS_DIRS.ttf) && !empty(FONTS_DIRS.ttf:M*)) || \
-    (defined(FONTS_DIRS.type1) && !empty(FONTS_DIRS.type1:M*)) || \
-    (defined(FONTS_DIRS.x11) && !empty(FONTS_DIRS.x11:M*))
+.if !empty(FONTS_DIRS.ttf:M*) || \
+    !empty(FONTS_DIRS.type1:M*) || \
+    !empty(FONTS_DIRS.x11:M*)
 CHECK_FILES_SKIP+=	${PREFIX}/.*/fonts.cache-1
 .endif
 
 # Mutable icon theme cache files
-.if !empty(ICON_THEMES:M[Yy][Ee][Ss])
+.if ${ICON_THEMES:tl} == yes
 CHECK_FILES_SKIP+=	${PREFIX}/share/icons/.*/icon-theme.cache
 .endif
 
@@ -127,22 +140,27 @@ _CHECK_FILES_SKIP_FILTER=	${GREP} -vx ${CHECK_FILES_SKIP:@f@-e ${DESTDIR:Q}${f:Q
 # determine if the package is installing files where it shouldn't be.
 #
 _CHECK_FILES_ERRMSG.prefix=	${ERROR_DIR}/check-files-prefix
-_CHECK_FILES_PRE.prefix=	${WRKDIR}/.prefix.pre
-_CHECK_FILES_POST.prefix=	${WRKDIR}/.prefix.post
+_CHECK_FILES_PRE.prefix=	${WRKDIR}/.check-files.prefix.pre
+_CHECK_FILES_POST.prefix=	${WRKDIR}/.check-files.prefix.post
 
-_CHECK_FILES_ERRMSG.sysconfdir=	${ERROR_DIR}/.check-files-sysconfdir
-_CHECK_FILES_PRE.sysconfdir=	${WRKDIR}/.sysconfdir.pre
-_CHECK_FILES_POST.sysconfdir=	${WRKDIR}/.sysconfdir.post
+_CHECK_FILES_ERRMSG.sysconfdir=	${ERROR_DIR}/check-files-sysconfdir
+_CHECK_FILES_PRE.sysconfdir=	${WRKDIR}/.check-files.sysconfdir.pre
+_CHECK_FILES_POST.sysconfdir=	${WRKDIR}/.check-files.sysconfdir.post
 
-_CHECK_FILES_ERRMSG.varbase=	${ERROR_DIR}/.check-files-varbase
-_CHECK_FILES_PRE.varbase=	${WRKDIR}/.varbase.pre
-_CHECK_FILES_POST.varbase=	${WRKDIR}/.varbase.post
+_CHECK_FILES_ERRMSG.varbase=	${ERROR_DIR}/check-files-varbase
+_CHECK_FILES_PRE.varbase=	${WRKDIR}/.check-files.varbase.pre
+_CHECK_FILES_POST.varbase=	${WRKDIR}/.check-files.varbase.post
+
+_CHECK_FILES_ERRMSG.only-prefix=	${ERROR_DIR}/check-files-only-prefix
 
 _CHECK_FILES_ERRMSGS=		# empty
 _CHECK_FILES_ERRMSGS+=		${_CHECK_FILES_ERRMSG.prefix}
-.if empty(CHECK_FILES_STRICT:M[nN][oO])
+.if ${CHECK_FILES_STRICT:tl} != no
 _CHECK_FILES_ERRMSGS+=		${_CHECK_FILES_ERRMSG.sysconfdir}
 _CHECK_FILES_ERRMSGS+=		${_CHECK_FILES_ERRMSG.varbase}
+.endif
+.if ${CHECK_FILES_ONLY_PREFIX:tl} == yes
+_CHECK_FILES_ERRMSGS+=		${_CHECK_FILES_ERRMSG.only-prefix}
 .endif
 
 ###########################################################################
@@ -152,7 +170,7 @@ _CHECK_FILES_ERRMSGS+=		${_CHECK_FILES_ERRMSG.varbase}
 #
 _CHECK_FILES_PRE=		#
 _CHECK_FILES_PRE+=		${_CHECK_FILES_PRE.prefix}
-.if empty(CHECK_FILES_STRICT:M[nN][oO])
+.if ${CHECK_FILES_STRICT:tl} != no
 _CHECK_FILES_PRE+=		${_CHECK_FILES_PRE.sysconfdir}
 _CHECK_FILES_PRE+=		${_CHECK_FILES_PRE.varbase}
 .endif
@@ -164,12 +182,12 @@ _CHECK_FILES_PRE+=		${_CHECK_FILES_PRE.varbase}
 #
 _CHECK_FILES_POST=		#
 _CHECK_FILES_POST+=		${_CHECK_FILES_POST.prefix}
-.if empty(CHECK_FILES_STRICT:M[nN][oO])
+.if ${CHECK_FILES_STRICT:tl} != no
 _CHECK_FILES_POST+=		${_CHECK_FILES_POST.sysconfdir}
 _CHECK_FILES_POST+=		${_CHECK_FILES_POST.varbase}
 .endif
 
-.if empty(CHECK_FILES:M[nN][oO])
+.if ${CHECK_FILES:tl} != no
 privileged-install-hook: check-files
 .endif
 
@@ -188,7 +206,7 @@ check-files-post-message:
 	@${STEP_MSG} "Generating post-install file lists"
 
 ${_CHECK_FILES_PRE.prefix} ${_CHECK_FILES_POST.prefix}:
-	${RUN}					\
+	${RUN}								\
 	${FIND} ${DESTDIR}${PREFIX}/. \( -type f -o -type l \) -print 2>/dev/null \
 		| ${SED} -e 's,/\./,/,'					\
 		| ${_CHECK_FILES_SKIP_FILTER}				\
@@ -196,7 +214,7 @@ ${_CHECK_FILES_PRE.prefix} ${_CHECK_FILES_POST.prefix}:
                 || ${TRUE}
 
 ${_CHECK_FILES_PRE.sysconfdir} ${_CHECK_FILES_POST.sysconfdir}:
-	${RUN}					\
+	${RUN}								\
 	${FIND} ${DESTDIR}${PKG_SYSCONFDIR}/. -print 2>/dev/null	\
 		| ${SED} -e 's,/\./,/,'					\
 		| ${_CHECK_FILES_SKIP_FILTER} 				\
@@ -204,7 +222,7 @@ ${_CHECK_FILES_PRE.sysconfdir} ${_CHECK_FILES_POST.sysconfdir}:
 		|| ${TRUE}
 
 ${_CHECK_FILES_PRE.varbase} ${_CHECK_FILES_POST.varbase}:
-	${RUN}					\
+	${RUN}								\
 	${FIND} ${DESTDIR}${VARBASE}/. -print 2>/dev/null		\
 		| ${SED} -e 's,/\./,/,'					\
 		| ${_CHECK_FILES_SKIP_FILTER} 				\
@@ -225,7 +243,7 @@ check-files-varbase: ${_CHECK_FILES_ERRMSG.varbase}
 # subtarget.
 #
 .PHONY: check-files
-.if !empty(CHECK_FILES_SUPPORTED:M[nN][oO])
+.if ${CHECK_FILES_SUPPORTED:U:tl} == no
 check-files:
 	@${DO_NADA}
 .else
@@ -249,28 +267,28 @@ _CHECK_FILES_MISSING_REAL=	${WRKDIR}/.check_files_missing_real
 _CHECK_FILES_EXTRA=		${WRKDIR}/.check_files_extra
 
 ${_CHECK_FILES_DIFF}: ${_CHECK_FILES_PRE.prefix} ${_CHECK_FILES_POST.prefix}
-	${RUN}					\
+	${RUN}								\
 	${DIFF} -u ${_CHECK_FILES_PRE.prefix}				\
 		  ${_CHECK_FILES_POST.prefix}				\
 		> ${.TARGET} || ${TRUE}
 
 ${_CHECK_FILES_ADDED}: ${_CHECK_FILES_DIFF}
-	${RUN}					\
+	${RUN}								\
 	${GREP} '^+/' ${_CHECK_FILES_DIFF} | ${SED} "s|^+||" | ${SORT}	\
 		> ${.TARGET}
 
 ${_CHECK_FILES_DELETED}: ${_CHECK_FILES_DIFF}
-	${RUN}					\
+	${RUN}								\
 	${GREP} '^-/' ${_CHECK_FILES_DIFF} | ${SED} "s|^-||" | ${SORT}	\
 		> ${.TARGET}
 
 ${_CHECK_FILES_EXPECTED}: plist
-	${RUN}					\
+	${RUN}								\
 	${GREP} '^[^@]' ${PLIST} | ${SED} "s|^|${DESTDIR}${PREFIX}/|" | ${SORT}	\
 		> ${.TARGET}
 
 ${_CHECK_FILES_MISSING}: ${_CHECK_FILES_EXPECTED} ${_CHECK_FILES_ADDED}
-	${RUN}					\
+	${RUN}								\
 	${DIFF} -u ${_CHECK_FILES_EXPECTED} ${_CHECK_FILES_ADDED} |	\
 	${GREP} '^-[^-]' | ${SED} "s|^-||" |				\
 	while read file; do						\
@@ -278,21 +296,21 @@ ${_CHECK_FILES_MISSING}: ${_CHECK_FILES_EXPECTED} ${_CHECK_FILES_ADDED}
 	done > ${.TARGET}
 
 ${_CHECK_FILES_MISSING_REAL}: ${_CHECK_FILES_MISSING}
-	${RUN}					\
+	${RUN}								\
 	${_CHECK_FILES_SKIP_FILTER} < ${_CHECK_FILES_MISSING} 		\
 		> ${.TARGET} || ${TRUE}
 
 ${_CHECK_FILES_MISSING_SKIP}:						\
 		${_CHECK_FILES_MISSING}					\
 		${_CHECK_FILES_MISSING_REAL}
-	${RUN}					\
+	${RUN}								\
 	${DIFF} -u ${_CHECK_FILES_MISSING}				\
 		   ${_CHECK_FILES_MISSING_REAL} |			\
 	${GREP} '^-[^-]' | ${SED} "s|^-||"				\
 		> ${.TARGET}
 
 ${_CHECK_FILES_EXTRA}: ${_CHECK_FILES_EXPECTED} ${_CHECK_FILES_ADDED}
-	${RUN}					\
+	${RUN}								\
 	${DIFF} -u  ${_CHECK_FILES_EXPECTED} ${_CHECK_FILES_ADDED} |	\
 	${GREP} '^+[^+]' | ${SED} "s|^+||" |				\
 	while read file; do						\
@@ -332,12 +350,12 @@ ${_CHECK_FILES_ERRMSG.prefix}:						\
 	fi >> ${.TARGET}
 
 # Check ${PKG_SYSCONFDIR} for files which are not in the PLIST and are
-# also not copied into place by the INSTALL scripts. 
+# also not copied into place by the INSTALL scripts.
 #
 ${_CHECK_FILES_ERRMSG.sysconfdir}:					\
 		${_CHECK_FILES_PRE.sysconfdir}				\
 		${_CHECK_FILES_POST.sysconfdir}
-	${RUN}					\
+	${RUN}								\
 	if ${CMP} -s ${_CHECK_FILES_PRE.sysconfdir}			\
 		     ${_CHECK_FILES_POST.sysconfdir}; then		\
 		${TRUE};						\
@@ -357,7 +375,7 @@ ${_CHECK_FILES_ERRMSG.sysconfdir}:					\
 ${_CHECK_FILES_ERRMSG.varbase}:						\
 		${_CHECK_FILES_PRE.varbase}				\
 		${_CHECK_FILES_POST.varbase}
-	${RUN}					\
+	${RUN}								\
 	if ${CMP} -s ${_CHECK_FILES_PRE.varbase}			\
 		       ${_CHECK_FILES_POST.varbase}; then		\
 		${TRUE};						\
@@ -371,6 +389,17 @@ ${_CHECK_FILES_ERRMSG.varbase}:						\
 		${GREP} '^+[^+]' | ${SED} "s|^+|	|";		\
 	fi > ${.TARGET}
 
+${_CHECK_FILES_ERRMSG.only-prefix}:
+	${RUN}								\
+	files=${WRKDIR}/.check-files-only-prefix;			\
+	${FIND} ${DESTDIR} \( -type f -o -type l \) -print		\
+	| ${GREP} -v '^${DESTDIR}${PREFIX}/' > "$$files" || :;		\
+	if [ -s "$$files" ]; then					\
+		${ECHO} "************************************************************"; \
+		${ECHO} "The package has installed files outside ${PREFIX}:"; \
+		${SED} -e 's,^,        ,' "$$files";			\
+	fi > ${.TARGET}
+
 ###########################################################################
 # check-files-clean removes the state files related to the "check-files"
 # target so that the check-files-{pre,post} targets may be re-run.
@@ -378,7 +407,7 @@ ${_CHECK_FILES_ERRMSG.varbase}:						\
 .PHONY: check-files-clean
 check-clean: check-files-clean
 check-files-clean:
-	${RUN}					\
+	${RUN}								\
 	${RM} -f ${_CHECK_FILES_ERRMSGS}				\
 		${_CHECK_FILES_PRE} ${_CHECK_FILES_POST}		\
 		${_CHECK_FILES_DIFF} ${_CHECK_FILES_ADDED}		\

@@ -1,4 +1,4 @@
-# $NetBSD: builtin.mk,v 1.11 2019/11/02 22:54:26 rillig Exp $
+# $NetBSD: builtin.mk,v 1.15 2024/01/24 23:18:03 adam Exp $
 
 BUILTIN_PKG:=	libarchive
 
@@ -24,7 +24,7 @@ MAKEVARS+=		IS_BUILTIN.libarchive
 ### a package name to represent the built-in package.
 ###
 .if !defined(BUILTIN_PKG.libarchive) && \
-    !empty(IS_BUILTIN.libarchive:M[yY][eE][sS]) && \
+    ${IS_BUILTIN.libarchive:tl} == yes && \
     empty(H_ARCHIVE:M__nonexistent__)
 BUILTIN_VERSION.libarchive!=						\
 	${AWK} '/\#define[ 	]*ARCHIVE_LIBRARY_VERSION/ {		\
@@ -53,7 +53,7 @@ BUILTIN_VERSION.libarchive!=						\
 			else if (found == 2)				\
 				print vers_str;				\
 		}							\
-	' ${H_ARCHIVE:Q}
+	' ${_CROSS_DESTDIR:U:Q}${H_ARCHIVE:Q}
 .  if !empty(BUILTIN_VERSION.libarchive)
 BUILTIN_PKG.libarchive=	libarchive-${BUILTIN_VERSION.libarchive}
 .  else
@@ -72,12 +72,12 @@ USE_BUILTIN.libarchive=	no
 .  else
 USE_BUILTIN.libarchive=	${IS_BUILTIN.libarchive}
 .    if defined(BUILTIN_PKG.libarchive) && \
-        !empty(IS_BUILTIN.libarchive:M[yY][eE][sS])
+        ${IS_BUILTIN.libarchive:tl} == yes
 USE_BUILTIN.libarchive=	yes
 .      for _dep_ in ${BUILDLINK_API_DEPENDS.libarchive}
-.        if !empty(USE_BUILTIN.libarchive:M[yY][eE][sS])
+.        if ${USE_BUILTIN.libarchive:tl} == yes
 USE_BUILTIN.libarchive!=	\
-	if ${PKG_ADMIN} pmatch ${_dep_:Q} ${BUILTIN_PKG.libarchive:Q}; then	\
+	if ${PKG_ADMIN} pmatch ${_dep_:Q} ${BUILTIN_PKG.libarchive}; then \
 		${ECHO} yes;						\
 	else								\
 		${ECHO} no;						\
@@ -94,18 +94,19 @@ MAKEVARS+=		USE_BUILTIN.libarchive
 ### solely to determine whether a built-in implementation exists.
 ###
 CHECK_BUILTIN.libarchive?=	no
-.if !empty(CHECK_BUILTIN.libarchive:M[nN][oO])
-.  if !empty(USE_BUILTIN.libarchive:M[yY][eE][sS])
+.if ${CHECK_BUILTIN.libarchive:tl} == no
+.  if ${USE_BUILTIN.libarchive:tl} == yes
 
 BUILDLINK_TARGETS+=	fake-libarchive-pc
 
 _FAKE_LIBARCHIVE_PC=	${BUILDLINK_DIR}/lib/pkgconfig/libarchive.pc
 _LIBARCHIVE_LIBS=	-llzma -lbz2 -lz
 
+.PHONY: fake-libarchive-pc
 fake-libarchive-pc:
 	${RUN}  \
 	sedsrc=../../archivers/libarchive/files/build/pkgconfig/libarchive.pc.in;	\
-	src=${BUILDLINK_PREFIX.libarchive:Q}/lib${LIBABISUFFIX}/pkgconfig/libarchive.pc;\
+	src=${BUILDLINK_PREFIX.libarchive}/lib${LIBABISUFFIX}/pkgconfig/libarchive.pc;	\
 	dst=${_FAKE_LIBARCHIVE_PC};				  			\
 	${MKDIR} ${BUILDLINK_DIR}/lib/pkgconfig;					\
 	if [ ! -f $${dst} ]; then       						\
@@ -114,12 +115,13 @@ fake-libarchive-pc:
 			${LN} -sf $${src} $${dst};					\
 		else									\
 			${ECHO_BUILDLINK_MSG} "Creating $${dst}";			\
-			${SED}  -e s,@prefix@,${BUILDLINK_PREFIX.libarchive:Q},		\
-					-e s,@exec_prefix@,${BUILDLINK_PREFIX.libarchive:Q},\
-					-e s,@libdir@,${BUILDLINK_PREFIX.libarchive:Q}/lib${LIBABISUFFIX},\
-					-e s,@includedir@,${BUILDLINK_PREFIX.libarchive:Q}/include,\
+			${SED}  -e s,@prefix@,${BUILDLINK_PREFIX.libarchive},		\
+					-e s,@exec_prefix@,${BUILDLINK_PREFIX.libarchive},\
+					-e s,@libdir@,${BUILDLINK_PREFIX.libarchive}/lib${LIBABISUFFIX},\
+					-e s,@includedir@,${BUILDLINK_PREFIX.libarchive}/include,\
 					-e s,@VERSION@,${BUILTIN_VERSION.libarchive},	\
 					-e s,@LIBS@,${_LIBARCHIVE_LIBS:Q},		\
+					-e s,@LIBSREQUIRED@,,				\
 				$${sedsrc} > $${dst};					\
 		fi									\
 	fi

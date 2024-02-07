@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1107 2024/01/11 20:49:11 pin Exp $
+# $NetBSD: Makefile,v 1.1109 2024/02/06 11:19:46 markd Exp $
 #
 
 COMMENT=	System utilities
@@ -395,7 +395,6 @@ SUBDIR+=	kdbusaddons
 SUBDIR+=	kdf
 SUBDIR+=	kfilemetadata
 SUBDIR+=	kfilemetadata5
-SUBDIR+=	kfloppy
 SUBDIR+=	krusader
 SUBDIR+=	ksystemlog
 SUBDIR+=	lambd
@@ -466,6 +465,7 @@ SUBDIR+=	mklivecd
 SUBDIR+=	mkmemstick
 SUBDIR+=	mksunbootcd
 SUBDIR+=	mktemp
+SUBDIR+=	mlog
 SUBDIR+=	monit
 SUBDIR+=	monitoring
 SUBDIR+=	mrsync

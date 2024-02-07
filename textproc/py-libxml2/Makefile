@@ -1,6 +1,5 @@
-# $NetBSD: Makefile,v 1.92 2023/12/18 16:09:47 wiz Exp $
+# $NetBSD: Makefile,v 1.94 2024/01/27 10:07:46 wiz Exp $
 
-PKGREVISION= 4
 .include "../../textproc/libxml2/Makefile.common"
 
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
@@ -25,7 +24,7 @@ USE_TOOLS+=	pkg-config
 # The following attempts to patch around this, but it is not good
 # enough with pkgsrc xml2 and native iconv because the iconv include
 # path is first.  This can happen on old macOS.
-# 
+#
 # \todo Patch setup.py.in to have @LIBXML2_PREFIX@ and @ICONV_PREFIX@
 # (in order) and then substite those, or at least ensure that the
 # iconv prefix is afterwwards.
@@ -57,7 +56,5 @@ EGG_NAME=	${DISTNAME:S/-/_python-/}
 .include "../../lang/python/egg.mk"
 .include "../../converters/libiconv/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libxml2+=	libxml2>=${PKGVERSION_NOREV}
-# for added symbols
-BUILDLINK_ABI_DEPENDS.libxml2+= libxml2>=2.10.4nb6
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

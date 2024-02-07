@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1008 2023/12/10 11:50:57 wiz Exp $
+# $NetBSD: Makefile,v 1.1011 2024/02/06 03:28:25 markd Exp $
 #
 
 COMMENT=	Packages to support the X Window System
@@ -134,6 +134,7 @@ SUBDIR+=	keylaunch
 SUBDIR+=	kglobalaccel
 SUBDIR+=	kguiaddons
 SUBDIR+=	kinit
+SUBDIR+=	kirigami-addons
 SUBDIR+=	kirigami2
 SUBDIR+=	kitemviews
 SUBDIR+=	kitty
@@ -525,6 +526,7 @@ SUBDIR+=	xf86dga
 SUBDIR+=	xfce4-clipman-plugin
 SUBDIR+=	xfce4-dashboard
 SUBDIR+=	xfce4-desktop
+SUBDIR+=	xfce4-docklike-plugin
 SUBDIR+=	xfce4-exo
 SUBDIR+=	xfce4-eyes-plugin
 SUBDIR+=	xfce4-garcon
@@ -583,6 +585,7 @@ SUBDIR+=	xmag
 SUBDIR+=	xman
 SUBDIR+=	xmascot
 SUBDIR+=	xmem
+SUBDIR+=	xmenu
 SUBDIR+=	xmessage
 SUBDIR+=	xmh
 SUBDIR+=	xmindpath

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.79 2021/01/14 15:42:35 schmonz Exp $
+# $NetBSD: Makefile,v 1.82 2024/02/07 04:55:47 schmonz Exp $
 #
 
-DISTNAME=		qmail-run-20210114
+DISTNAME=		qmail-run-20240206
 CATEGORIES=		mail
 MASTER_SITES=		# empty
 DISTFILES=		# empty
@@ -15,6 +15,7 @@ DEPENDS+=		greylisting-spp-[0-9]*:../../mail/greylisting-spp
 DEPENDS+=		pkg_alternatives-[0-9]*:../../pkgtools/pkg_alternatives
 DEPENDS+=		qmail>=1.03nb42:../../mail/qmail
 DEPENDS+=		qmail-acceptutils>=20201214:../../mail/qmail-acceptutils
+DEPENDS+=		qmail-dkim-wrappers>=0.0.20211012:../../mail/qmail-dkim-wrappers
 DEPENDS+=		qmail-qfilter>1.5nb1:../../mail/qmail-qfilter
 DEPENDS+=		qmail-rejectutils>=20181230:../../mail/qmail-rejectutils
 DEPENDS+=		qmail-spp-spf-[0-9]*:../../mail/qmail-spp-spf
@@ -57,7 +58,8 @@ CONF_FILES+=		${PREFIX}/${EGDIR}/greylist-${f} \
 .endfor
 
 INSTALLATION_DIRS=	bin share/doc/qmail-run ${EGDIR}
-BUILD_DEFS+=		QMAIL_DAEMON_USER QMAIL_LOG_USER QMAIL_SEND_USER
+BUILD_DEFS+=		QMAIL_DAEMON_USER QMAIL_LOG_USER
+BUILD_DEFS+=		QMAIL_REMOTE_USER QMAIL_SEND_USER
 BUILD_DEFS+=		QMAIL_QMAIL_GROUP PKG_SYSCONFBASE
 BUILD_DEFS+=		UCSPI_SSL_USER UCSPI_SSL_GROUP
 
@@ -67,7 +69,7 @@ SUBST_FILES.paths=	mailer.conf README.pkgsrc
 SUBST_FILES.paths+=	greylisting-spp-wrapper ofmipd-with-user-cdb
 SUBST_FILES.paths+=	qmail-isspam-* qmail-procmail qmail-qread-client
 SUBST_FILES.paths+=	rcptchecks ofmipfilters smtpfilters smtpplugins tcprules-*
-SUBST_VARS.paths=	PKGNAME PKG_SYSCONFDIR PREFIX RCD_SCRIPTS_DIR
+SUBST_VARS.paths=	PKGNAME PKG_SYSCONFDIR PREFIX QMAIL_REMOTE_USER RCD_SCRIPTS_DIR
 SUBST_VARS.paths+=	CAT ECHO GREP SED SH SORT TRUE
 
 post-extract:

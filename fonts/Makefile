@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.417 2023/11/20 07:23:02 wiz Exp $
+# $NetBSD: Makefile,v 1.419 2024/01/17 20:21:42 markd Exp $
 #
 
 COMMENT=	Fonts
@@ -551,6 +551,8 @@ SUBDIR+=	tex-fonetika
 SUBDIR+=	tex-fonetika-doc
 SUBDIR+=	tex-fontawesome
 SUBDIR+=	tex-fontawesome-doc
+SUBDIR+=	tex-fontawesome5
+SUBDIR+=	tex-fontawesome5-doc
 SUBDIR+=	tex-fontinst
 SUBDIR+=	tex-fontinst-doc
 SUBDIR+=	tex-fontmfizz
@@ -856,6 +858,8 @@ SUBDIR+=	tex-stix
 SUBDIR+=	tex-stix-doc
 SUBDIR+=	tex-stix2-otf
 SUBDIR+=	tex-stix2-otf-doc
+SUBDIR+=	tex-stix2-type1
+SUBDIR+=	tex-stix2-type1-doc
 SUBDIR+=	tex-stmaryrd
 SUBDIR+=	tex-stmaryrd-doc
 SUBDIR+=	tex-superiors

@@ -1,9 +1,12 @@
-# $NetBSD: Makefile,v 1.195 2024/01/01 13:41:44 gdt Exp $
+# $NetBSD: Makefile,v 1.198 2024/01/30 14:22:07 ryoon Exp $
 
 # This is intentionally 3.28 Long Term Release.  Please do not update
 # to later branches, and instead discuss whether/how we want multiple
-# versions, or to only track the most recent branch.
-DISTNAME=	qgis-3.28.14
+# versions, or to only track one LTR branch.  3.34 LTR is pending
+# testing, on the theory that slightly old solid is better than
+# up-to-date with issues.
+DISTNAME=	qgis-3.28.15
+PKGREVISION=	1
 CATEGORIES=	geography
 MASTER_SITES=	https://qgis.org/downloads/
 EXTRACT_SUFX=	.tar.bz2
@@ -112,6 +115,7 @@ pre-configure:
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../geography/libspatialite/buildlink3.mk"
 .include "../../geography/spatialindex/buildlink3.mk"
+.include "../../security/libtasn1/buildlink3.mk"
 .include "../../security/qca2-qt5/buildlink3.mk"
 .include "../../security/qt5-qtkeychain/buildlink3.mk"
 .include "../../x11/qt5-qtbase/buildlink3.mk"

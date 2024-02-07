@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2023/11/12 13:22:35 wiz Exp $
+# $NetBSD: Makefile,v 1.6 2024/02/06 11:05:25 markd Exp $
 
 DISTNAME=	kmail-${KAPPSVER}
-PKGREVISION=	3
 CATEGORIES=	mail
 
 HOMEPAGE=	https://kontact.kde.org/
@@ -21,11 +20,12 @@ USE_TOOLS+=	msgmerge
 
 .include "../../devel/boost-headers/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
-.include "../../misc/kdepim-runtime/buildlink3.mk"
-.include "../../misc/kontactinterface/buildlink3.mk"
 .include "../../mail/ktnef/buildlink3.mk"
 .include "../../mail/libksieve/buildlink3.mk"
 .include "../../mail/mailcommon/buildlink3.mk"
+.include "../../misc/kdepim-runtime/buildlink3.mk"
+.include "../../misc/kontactinterface/buildlink3.mk"
+.include "../../misc/kuserfeedback/buildlink3.mk"
 .include "../../security/qt5-qtkeychain/buildlink3.mk"
 .include "../../x11/qt5-qtbase/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

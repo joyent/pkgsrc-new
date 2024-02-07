@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.123 2023/12/22 07:35:07 thor Exp $
+# $NetBSD: Makefile,v 1.126 2024/01/30 18:29:18 adam Exp $
 
+PKGREVISION= 2
 .include "Makefile.common"
 
 DISTNAME=	opencv-${OPENCV_VERSION}
@@ -30,6 +31,7 @@ post-install:
 
 .include "../../mk/bsd.prefs.mk"
 
+.include "../../devel/cmake/build.mk"
 .include "../../devel/protobuf/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/libwebp/buildlink3.mk"

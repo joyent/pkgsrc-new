@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.683 2023/11/20 18:26:25 adam Exp $
+# $NetBSD: Makefile,v 1.689 2024/02/01 09:40:30 wiz Exp $
 #
 
 COMMENT=	Audio tools, players, and libraries
@@ -40,11 +40,9 @@ SUBDIR+=	bml
 SUBDIR+=	bmp
 SUBDIR+=	bmp-crossfade
 SUBDIR+=	bmp-mac
-SUBDIR+=	bmp-musepack
 SUBDIR+=	bmp-pulse
 SUBDIR+=	buzztrax
 SUBDIR+=	cam
-SUBDIR+=	cantata
 SUBDIR+=	cd-discid
 SUBDIR+=	cddb-bundle
 SUBDIR+=	cddbd
@@ -239,7 +237,6 @@ SUBDIR+=	libmp3splt
 SUBDIR+=	libmpcdec
 SUBDIR+=	libmpd
 SUBDIR+=	libmpdclient
-SUBDIR+=	libmtag
 SUBDIR+=	libmusepack
 SUBDIR+=	libmusicbrainz5
 SUBDIR+=	libmysofa
@@ -384,7 +381,6 @@ SUBDIR+=	py-hsaudiotag3k
 SUBDIR+=	py-id3
 SUBDIR+=	py-id3lib
 SUBDIR+=	py-last
-SUBDIR+=	py-libmtag
 SUBDIR+=	py-mad
 SUBDIR+=	py-mediafile
 SUBDIR+=	py-mpd
@@ -421,6 +417,7 @@ SUBDIR+=	snd
 SUBDIR+=	sndfile-tools
 SUBDIR+=	solfege
 SUBDIR+=	sonata
+SUBDIR+=	sonic
 SUBDIR+=	sound-juicer
 SUBDIR+=	sound-theme-freedesktop
 SUBDIR+=	soundtouch
@@ -440,13 +437,13 @@ SUBDIR+=	spotify-player
 SUBDIR+=	spotify-qt
 SUBDIR+=	spotifyd
 SUBDIR+=	sptk
+SUBDIR+=	sptui
 SUBDIR+=	strawberry
 SUBDIR+=	streamripper
 SUBDIR+=	streamtuner
 SUBDIR+=	suil
 SUBDIR+=	sweep
 SUBDIR+=	taglib
-SUBDIR+=	taglib-extras
 SUBDIR+=	tap-plugins
 SUBDIR+=	tcd
 SUBDIR+=	tcl-snack

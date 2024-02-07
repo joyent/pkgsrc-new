@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2023/11/12 13:23:53 wiz Exp $
+# $NetBSD: Makefile,v 1.6 2024/02/06 11:17:44 markd Exp $
 
 DISTNAME=	akregator-${KAPPSVER}
-PKGREVISION=	3
 CATEGORIES=	www
 
 HOMEPAGE=	https://kontact.kde.org/
@@ -19,6 +18,7 @@ USE_TOOLS+=	msgmerge
 .include "../../devel/ktexteditor/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../misc/kontactinterface/buildlink3.mk"
+.include "../../misc/kuserfeedback/buildlink3.mk"
 .include "../../net/messagelib/buildlink3.mk"
 .include "../../www/syndication/buildlink3.mk"
 .include "../../x11/qt5-qtbase/buildlink3.mk"

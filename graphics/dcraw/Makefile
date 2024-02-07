@@ -1,16 +1,18 @@
-# $NetBSD: Makefile,v 1.47 2023/04/11 06:10:58 adam Exp $
+# $NetBSD: Makefile,v 1.49 2024/01/26 15:58:44 gdt Exp $
 #
 # Changes can be found in the RCS file at
 # http://www.cybercom.net/~dcoffin/dcraw/RCS/dcraw.c,v
 
-DISTNAME=	dcraw-9.27.0
-PKGREVISION=	2
+DISTNAME=	dcraw-9.28.0
 CATEGORIES=	graphics
-MASTER_SITES=	http://www.cybercom.net/~dcoffin/dcraw/archive/
+MASTER_SITES=	https://www.dechifro.org/dcraw/archive/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.cybercom.net/~dcoffin/dcraw/
+HOMEPAGE=	https://www.dechifro.org/dcraw/
 COMMENT=	Raw digital camera decoder
+# Multiple options in the header; choose GPL2 as the only
+# straightforward method suitable for pkgsrc.
+LICENSE=	gnu-gpl-v2
 
 WRKSRC=			${WRKDIR}/${PKGBASE}
 

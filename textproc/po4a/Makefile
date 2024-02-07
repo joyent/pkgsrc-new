@@ -1,21 +1,21 @@
-# $NetBSD: Makefile,v 1.61 2023/11/08 13:21:08 wiz Exp $
+# $NetBSD: Makefile,v 1.64 2024/02/03 18:58:08 schmonz Exp $
 
-DISTNAME=	po4a-0.69
-PKGREVISION=	5
+DISTNAME=	po4a-0.70
+PKGREVISION=	2
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_GITHUB:=mquinson/}
-GITHUB_RELEASE=	v${PKGVERSION_NOREV}
+GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://po4a.org/
 COMMENT=	Tool for using gettext where it was not intended to be used
 LICENSE=	gnu-gpl-v2
 
-#DEPENDS+=	/p5-Keyword-Syntax-Try
 
 DEPENDS+=	docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 DEPENDS+=	p5-gettext>=1.01:../../devel/p5-gettext
 DEPENDS+=	p5-SGMLS-[0-9]*:../../textproc/p5-SGMLS
+DEPENDS+=	p5-Syntax-Keyword-Try-[0-9]*:../../devel/p5-Syntax-Keyword-Try
 DEPENDS+=	p5-Term-ReadKey-[0-9]*:../../devel/p5-Term-ReadKey
 DEPENDS+=	p5-Pod-Parser-[0-9]*:../../textproc/p5-Pod-Parser
 DEPENDS+=	p5-Text-WrapI18N-[0-9]*:../../textproc/p5-Text-WrapI18N

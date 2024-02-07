@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.79 2023/11/12 13:23:55 wiz Exp $
+# $NetBSD: Makefile,v 1.81 2024/02/06 10:46:32 markd Exp $
 
 DISTNAME=	khtml-${KF5VER}
-PKGREVISION=	3
 CATEGORIES=	www
 
 HOMEPAGE=	https://community.kde.org/Frameworks

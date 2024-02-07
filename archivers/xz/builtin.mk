@@ -1,4 +1,4 @@
-# $NetBSD: builtin.mk,v 1.10 2022/12/02 09:17:59 adam Exp $
+# $NetBSD: builtin.mk,v 1.12 2024/01/27 22:39:10 wiz Exp $
 
 BUILTIN_PKG:=	xz
 
@@ -37,7 +37,7 @@ BUILTIN_VERSION.xz!=							\
 			}						\
 		}							\
 		END { printf "%s%s%s%s\n", M, m, p, s}			\
-	' ${H_LZMA_VERSION:Q}
+	' ${_CROSS_DESTDIR:U:Q}${H_LZMA_VERSION:Q}
 
 BUILTIN_PKG.xz=	xz-${BUILTIN_VERSION.xz}
 .endif
@@ -100,6 +100,7 @@ BUILDLINK_FILES.xz+=	lib/pkgconfig/liblzma.pc
 
 .  if ${USE_BUILTIN.xz:tl} == yes
 .    if !empty(USE_TOOLS:C/:.*//:Mpkg-config)
+.PHONY: override-liblzma-pkgconfig override-message-liblzma-pkgconfig
 do-configure-pre-hook: override-liblzma-pkgconfig
 
 BLKDIR_PKGCFG=		${BUILDLINK_DIR}/lib/pkgconfig

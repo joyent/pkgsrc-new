@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.300 2024/01/08 08:16:52 tnn Exp $
+# $NetBSD: Makefile,v 1.302 2024/01/15 15:15:01 jperkin Exp $
 
 DISTNAME=	rustc-1.74.1-src
 PKGNAME=	${DISTNAME:S/rustc/rust/:S/-src//}
 CATEGORIES=	lang
+PKGREVISION=	1
 MASTER_SITES=	https://static.rust-lang.org/dist/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -578,6 +579,11 @@ do-install:
 	${SETENV} ${MAKE_ENV} ${INSTALL_ENV} 				\
 		${PYTHONBIN} ./x.py -v install -j ${_MAKE_JOBS_N}
 
+SUBST_CLASSES+=		destdir
+SUBST_STAGE.destdir=	post-install
+SUBST_FILES.destdir=	${DESTDIR}${PREFIX}/lib/rustlib/manifest-*
+SUBST_SED.destdir=	-e 's|file:${DESTDIR}${PREFIX}|file:${PREFIX}|'
+
 GENERATE_PLIST+=	${FIND} ${DESTDIR}${PREFIX} \( -type f -o -type l \) -print | \
 			${SED} -e 's,${DESTDIR}${PREFIX}/,,' | ${SORT} ;
 
@@ -639,8 +645,8 @@ stage0-bootstrap: install
 		${CP} `${PKG_CC} -print-file-name=$${lib}` \
 		    ${BOOTSTRAP_TMPDIR}/lib/pkgsrc/; \
 	done; \
-	for lib in libLLVM-15.so libcrypto.so.1.1 libcurl.so.4 \
-		   libssl.so.1.1 libz.so.1 libzstd.so.1; do \
+	for lib in libLLVM-16.so libcrypto.so.3 libcurl.so.4 \
+		   libssl.so.3 libz.so.1 libzstd.so.1; do \
 		${CP} ${PREFIX}/lib/$${lib} ${BOOTSTRAP_TMPDIR}/lib/pkgsrc/; \
 	done; \
 	for lib in libiconv.so.2 libidn2.so.0 libintl.so.8 liblber.so.2 \

@@ -498,6 +498,7 @@ ldap			Enable LDAP support.
 lensfun			Enable lensfun (camera lens distortion rectifyer) support.
 libao			Enable the platform-independent 'ao' audio library.
 libappindicator		Enable libappindicator support.
+libarchive		Enable libarchive support.
 libchamplain		Enable libchamplain support (map widget).
 libdbi			Enable libdbi support (similar p5-DBI but for C).
 libdrm			Enable libdrm support.
@@ -518,6 +519,7 @@ libofa			Enable Open Fingerprint Architecture library support.
 libofx			Enable OFX support.
 libotf			Enable libotf support.
 libpcap			Enable libpcap support.
+libraw			Enable libraw support.
 libsmi			Use libsmi for SMI MIB support.
 libsoup			Use libsoup for SOUP support.
 libsoxr			Enable libsoxr (resample) support.
@@ -778,8 +780,9 @@ rtmp			Enable rtmp:// support using rtmpdump.
 rtree			Enable R-tree support.
 ruby			Enable Ruby support.
 ruby-build-ri-db	Build and install database for Ruby's ri utility.
+ruby-rjit		Enable in-process RJIT compiler (experimental).
 ruby-unicorn		Enable unicorn support.
-ruby-yjit		Enable  in-process JIT compiler (require Rust).
+ruby-yjit		Enable in-process YJIT compiler (require Rust).
 rust			Enable Rust support.
 rust-cargo-static	Build cargo semi-statically with built-in curl+openssl
 rust-internal-llvm	Use Rust internal LLVM in builds.

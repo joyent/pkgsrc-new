@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.40 2023/11/14 14:03:03 wiz Exp $
+# $NetBSD: Makefile,v 1.42 2024/01/30 14:22:36 ryoon Exp $
 
 DISTNAME=	arcticfox-43.0
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GITHUB:=rmottola/}
 GITHUB_PROJECT=	Arctic-Fox

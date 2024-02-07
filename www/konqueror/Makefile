@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.5 2023/11/12 13:23:55 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2024/02/06 11:17:44 markd Exp $
 
 DISTNAME=	konqueror-${KAPPSVER}
-PKGREVISION=	3
 CATEGORIES=	www
 
 HOMEPAGE=	https://konqueror.org/
@@ -44,6 +43,7 @@ CONF_FILES+=	${PREFIX}/share/examples/kde-xdg/translaterc \
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../security/kdesu/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+.include "../../x11/kactivities5/buildlink3.mk"
 .include "../../x11/qt5-qtscript/buildlink3.mk"
 .include "../../x11/qt5-qtwebengine/buildlink3.mk"
 .include "../../x11/qt5-qtbase/buildlink3.mk"

@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.79 2023/11/12 13:22:07 wiz Exp $
+# $NetBSD: Makefile,v 1.81 2024/02/06 11:05:24 markd Exp $
 
 DISTNAME=	libksane-${KAPPSVER}
-PKGREVISION=	3
 CATEGORIES=	graphics
 
 HOMEPAGE=	https://kde.org/applications/graphics/

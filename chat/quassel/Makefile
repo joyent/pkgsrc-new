@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.38 2023/11/12 13:20:50 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2024/02/05 13:41:38 tm Exp $
 
 DISTNAME=	quassel-0.14.0
-PKGREVISION=	14
+PKGREVISION=	15
 CATEGORIES=	chat
 MASTER_SITES=	https://quassel-irc.org/pub/
 EXTRACT_SUFX=	.tar.bz2
@@ -22,6 +22,8 @@ REPLACE_BASH+=	scripts/tx-sync.sh
 
 REPLACE_PERL+=	data/scripts/inxi
 REPLACE_PERL+=	data/scripts/mpris
+
+LDFLAGS.SunOS+=	-lsocket -lnsl
 
 .include "options.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"

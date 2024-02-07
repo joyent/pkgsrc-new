@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.23 2023/12/28 13:12:24 thor Exp $
+# $NetBSD: Makefile,v 1.25 2024/02/02 15:50:55 tsutsui Exp $
 
 .include "dist.mk"
 
@@ -38,6 +38,7 @@ USE_CC_FEATURES+=	c11
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}
+CONFIGURE_ARGS+=	--with-readline=readline # XXX editline?
 CONFIGURE_ARGS+=	--with-system-expat
 CONFIGURE_ARGS+=	--with-system-ffi
 CONFIGURE_ARGS+=	--without-ensurepip
@@ -69,6 +70,11 @@ CONFIGURE_ARGS+=	ac_cv_buggy_getaddrinfo=false
 .  endif
 CONFIGURE_ARGS.NetBSD+=	ac_cv_file__dev_ptmx=yes
 CONFIGURE_ARGS.NetBSD+=	ac_cv_file__dev_ptc=no
+.endif
+
+.if ${MACHINE_ARCH} == "vax"
+# XXX "checking whether float word ordering is bigendian... unknown"
+CONFIGURE_ARGS+=	ax_cv_c_float_words_bigendian=no
 .endif
 
 # http://bugs.python.org/issue13241

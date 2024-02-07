@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.35 2023/12/22 07:35:07 thor Exp $
+# $NetBSD: Makefile,v 1.37 2024/01/30 18:29:18 adam Exp $
 
+PKGREVISION= 1
 .include "../../graphics/opencv/Makefile.common"
 
 DISTNAME=	opencv_contrib-${OPENCV_VERSION}
@@ -66,6 +67,11 @@ CMAKE_ARGS+=		-DBUILD_opencv_videostab=OFF
 #CMAKE_ARGS+=		-DBUILD_opencv_plot=OFF
 #CMAKE_ARGS+=		-DBUILD_opencv_tracking=OFF
 #CMAKE_ARGS+=		-DBUILD_opencv_video=OFF
+
+# XXX: INSTALL_DIRS currently do not work as desired in cmake/build.mk.
+USE_CMAKE=	yes
+pre-configure:
+	${MKDIR} ${WRKSRC}/build
 
 BUILDLINK_API_DEPENDS.opencv+=	opencv>=${PKGVERSION_NOREV}
 .include "../../graphics/opencv/buildlink3.mk"

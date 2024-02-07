@@ -1,4 +1,4 @@
-# $NetBSD: url2pkg_test.py,v 1.47 2023/10/30 07:12:49 wiz Exp $
+# $NetBSD: url2pkg_test.py,v 1.51 2024/01/17 21:01:07 rillig Exp $
 
 # URLs for manual testing:
 #
@@ -772,8 +772,10 @@ def test_Adjuster_read_dependencies():
     child_process_output = [
         'DEPENDS\tpackage>=112.0:../../pkgtools/pkglint',
         'DEPENDS\tpackage>=120.0:../../pkgtools/x11-links',
-        'BUILD_DEPENDS\turl2pkg>=1.0',
-        'BUILD_DEPENDS\tdoes-not-exist>=1.0',
+        'BUILD_DEPENDS\turl2pkg>=1.0b',
+        'BUILD_DEPENDS\tdoes-not-exist-build>=1.0',
+        'TOOL_DEPENDS\turl2pkg>=1.0t',
+        'TOOL_DEPENDS\tdoes-not-exist-tool>=1.0',
         'TEST_DEPENDS\tpkglint',
         'A line that is not a dependency at all',
         '',
@@ -797,13 +799,19 @@ def test_Adjuster_read_dependencies():
         ".include \"../../pkgtools/x11-links/buildlink3.mk\"",
     ]
     assert adjuster.build_depends == [
-        'url2pkg>=1.0:../../pkgtools/url2pkg',
-        '# TODO: does-not-exist>=1.0',
+        '# TODO: does-not-exist-build>=1.0',
+        'url2pkg>=1.0b:../../pkgtools/url2pkg',
+    ]
+    assert adjuster.tool_depends == [
+        '# TODO: does-not-exist-tool>=1.0',
+        'url2pkg>=1.0t:../../pkgtools/url2pkg',
     ]
     assert adjuster.test_depends == ['pkglint>=0:../../pkgtools/pkglint']
     assert detab(adjuster.generate_lines()) == [
-        'BUILD_DEPENDS+= url2pkg>=1.0:../../pkgtools/url2pkg',
-        'BUILD_DEPENDS+= # TODO: does-not-exist>=1.0',
+        'BUILD_DEPENDS+= # TODO: does-not-exist-build>=1.0',
+        'BUILD_DEPENDS+= url2pkg>=1.0b:../../pkgtools/url2pkg',
+        'TOOL_DEPENDS+=  # TODO: does-not-exist-tool>=1.0',
+        'TOOL_DEPENDS+=  url2pkg>=1.0t:../../pkgtools/url2pkg',
         'DEPENDS+=       package>=112.0:../../pkgtools/pkglint',
         'TEST_DEPENDS+=  pkglint>=0:../../pkgtools/pkglint',
         '',
@@ -832,9 +840,9 @@ def test_Adjuster_read_dependencies__lookup_python():
     adjuster.read_dependencies(cmd, env, '.', python=True)
 
     assert adjuster.depends == [
-        '${PYPKGPREFIX}-pyobjc-framework-Quartz>=0:../../devel/py-pyobjc-framework-Quartz',
         '${PYPKGPREFIX}-asn1>=0:../../security/py-asn1',
         '${PYPKGPREFIX}-asn1-modules>=0:../../security/py-asn1-modules',
+        '${PYPKGPREFIX}-pyobjc-framework-Quartz>=0:../../devel/py-pyobjc-framework-Quartz',
         '# TODO: typing_extensions;python_version<"3.8.0">=0',
     ]
 
@@ -890,6 +898,7 @@ def test_Adjuster_generate_adjusted_Makefile_lines__dependencies():
     # some dependencies whose directory is explicitly given
     adjuster.depends.append('depends>=11.0:../../devel/depends')
     adjuster.build_depends.append('build-depends>=12.0:../../devel/build-depends')
+    adjuster.tool_depends.append('tool-depends>=12.5:../../devel/tool-depends')
     adjuster.test_depends.append('test-depends>=13.0:../../devel/test-depends')
 
     lines = adjuster.generate_lines()
@@ -897,10 +906,10 @@ def test_Adjuster_generate_adjusted_Makefile_lines__dependencies():
     assert detab(lines) == [
         mkcvsid,
         '',
-        '# TODO: dependency TOOL_DEPENDS # TODO: tool-depends>=6.0',
-        '',
         'BUILD_DEPENDS+= # TODO: build-depends>=7.0',
         'BUILD_DEPENDS+= build-depends>=12.0:../../devel/build-depends',
+        'TOOL_DEPENDS+=  # TODO: tool-depends>=6.0',
+        'TOOL_DEPENDS+=  tool-depends>=12.5:../../devel/tool-depends',
         'DEPENDS+=       # TODO: depends>=5.0',
         'DEPENDS+=       depends>=11.0:../../devel/depends',
         'TEST_DEPENDS+=  # TODO: test-depends>=8.0',
@@ -1168,18 +1177,49 @@ def test_Adjuster_adjust_meson(tmp_path: Path):
 
 
 def test_Adjuster_adjust_perl_module_Build_PL(tmp_path: Path):
-    g.perl5 = 'echo perl5'
+    g.perl5 = "cat dependencies #"
     g.libdir = '/libdir'
-    g.verbose = True
+    g.verbose = False
     adjuster = Adjuster(g, '', Lines())
     adjuster.abs_wrksrc = tmp_path
+    (tmp_path / 'dependencies').write_text(
+        'TOOL_DEPENDS\tp5-Module-Build>=0\n'
+        'TOOL_DEPENDS\tp5-Data-Float>=0.008\n'
+        'TOOL_DEPENDS\tp5-Test-More>=0\n'
+        'TOOL_DEPENDS\tp5-IO-File>=1.03\n'
+        'TOOL_DEPENDS\tp5-Module-Build>=0\n'
+        'TOOL_DEPENDS\tp5-Crypt-Rijndael>=0\n'
+        'DEPENDS\tp5-IO-File>=1.03\n'
+        'DEPENDS\tp5-Data-Float>=0.008\n'
+        'DEPENDS\tp5-Params-Classify>=0\n'
+        'DEPENDS\tp5-Carp>=0\n'
+        'DEPENDS\tp5-HTTP-Lite>=2.2\n'
+        'DEPENDS\tp5-Crypt-Rijndael>=0\n'
+        'DEPENDS\tp5-Errno>=1.00\n'
+        'DEPENDS\tp5-Exporter>=0\n'
+        'cmd\tlicense\tperl\n'
+        'cmd\tlicense_default\t# TODO: perl (from Build.PL)\n'
+    )
 
     adjuster.adjust_perl_module_Build_PL()
 
     assert str_vars(adjuster.build_vars) == ['PERL5_MODULE_TYPE=Module::Build']
-    assert g.err.written() == [
-        f'url2pkg: reading dependencies: cd \'{tmp_path}\' && env {{}} \'echo perl5 -I/libdir -I. Build.PL\'',
-        'url2pkg: unknown dependency line: \'perl5 -I/libdir -I. Build.PL\''
+    assert g.err.written() == []
+    assert adjuster.tool_depends == [
+          'p5-Crypt-Rijndael>=0:../../security/p5-Crypt-Rijndael',
+          'p5-Data-Float>=0.008:../../devel/p5-Data-Float',
+          '# TODO: p5-IO-File>=1.03',
+          '# TODO: p5-Test-More>=0',
+    ]
+    assert adjuster.depends == [
+          'p5-Carp>=0:../../devel/p5-Carp',
+          'p5-Crypt-Rijndael>=0:../../security/p5-Crypt-Rijndael',
+          'p5-Data-Float>=0.008:../../devel/p5-Data-Float',
+          '# TODO: p5-Errno>=1.00',
+          '# TODO: p5-Exporter>=0',
+          'p5-HTTP-Lite>=2.2:../../www/p5-HTTP-Lite',
+          '# TODO: p5-IO-File>=1.03',
+          'p5-Params-Classify>=0:../../devel/p5-Params-Classify',
     ]
 
 

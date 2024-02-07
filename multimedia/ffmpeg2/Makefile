@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.93 2023/11/12 13:22:55 wiz Exp $
+# $NetBSD: Makefile,v 1.97 2024/01/30 14:22:22 ryoon Exp $
 
 PKGNAME=	${DISTNAME:S/ffmpeg/ffmpeg2/}
-PKGREVISION=	13
+PKGREVISION=	16
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://ffmpeg.org/
 COMMENT=	Decoding, encoding and streaming software (v2.x)
@@ -21,14 +21,6 @@ CONF_FILES+=	${PREFIX}/share/examples/ffmpeg2/ffserver.conf \
 		${PKG_SYSCONFDIR}/ffserver.conf
 
 .include "../../mk/bsd.prefs.mk"
-
-.if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
-CONFIGURE_ARGS+=	--enable-cross-compile
-CONFIGURE_ARGS+=	--arch=${MACHINE_ARCH}
-CONFIGURE_ARGS+=	--host-cc=${NATIVE_CC:Q}
-CONFIGURE_ARGS+=	--host-ld=${NATIVE_CC:Q}
-CONFIGURE_ARGS+=	--target-os=${LOWER_OPSYS}
-.endif
 
 PRINT_PLIST_AWK+=	/html/ { $$0 = "$${PLIST.doc}" $$0 }
 PRINT_PLIST_AWK+=	/opencl/ { $$0 = "$${PLIST.opencl}" $$0 }

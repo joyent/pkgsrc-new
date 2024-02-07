@@ -1,6 +1,5 @@
-# $NetBSD: Makefile,v 1.176 2023/12/17 15:46:59 wiz Exp $
+# $NetBSD: Makefile,v 1.179 2024/01/30 00:12:48 gutteridge Exp $
 
-PKGREVISION= 6
 .include "../../textproc/libxml2/Makefile.common"
 
 COMMENT=	XML parser library from the GNOME project
@@ -20,7 +19,11 @@ CONFIGURE_ARGS+=	--without-python
 
 PKGCONFIG_OVERRIDE=	libxml-2.0.pc.in
 
-USE_LANGUAGES+=		c99
+USE_LANGUAGES+=		c
+FORCE_C_STD=		c99
+
+# for struct addrinfo on glibc
+CPPFLAGS.Linux+=	-D_POSIX_C_SOURCE=200112L  
 
 TEST_TARGET=	check
 

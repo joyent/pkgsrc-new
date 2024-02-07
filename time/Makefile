@@ -1,10 +1,13 @@
-# $NetBSD: Makefile,v 1.262 2023/10/29 18:28:52 pho Exp $
+# $NetBSD: Makefile,v 1.267 2024/01/24 21:49:04 adam Exp $
 #
 
 COMMENT=	Clocks, calendars, daily planners and other time related applications
 
+SUBDIR+=	R-RcppCCTZ
+SUBDIR+=	R-RcppDate
 SUBDIR+=	R-hms
 SUBDIR+=	R-lubridate
+SUBDIR+=	R-nanotime
 SUBDIR+=	R-sftime
 SUBDIR+=	R-timeDate
 SUBDIR+=	R-timechange
@@ -153,10 +156,10 @@ SUBDIR+=	php-calendar
 SUBDIR+=	php-mrbs
 SUBDIR+=	plan
 SUBDIR+=	polclock
-SUBDIR+=	projclock
 SUBDIR+=	projectlibre
 SUBDIR+=	py-aniso8601
 SUBDIR+=	py-arrow
+SUBDIR+=	py-backports-datetime-fromisoformat
 SUBDIR+=	py-backports.zoneinfo
 SUBDIR+=	py-cftime
 SUBDIR+=	py-ciso8601

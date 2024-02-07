@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.584 2023/12/31 10:41:28 pin Exp $
+# $NetBSD: Makefile,v 1.587 2024/01/26 01:43:42 mef Exp $
 
 COMMENT=	Mathematics
 
@@ -46,6 +46,7 @@ SUBDIR+=	R-classInt
 SUBDIR+=	R-coda
 SUBDIR+=	R-combinat
 SUBDIR+=	R-compositions
+SUBDIR+=	R-conflicted
 SUBDIR+=	R-date
 SUBDIR+=	R-dplyr
 SUBDIR+=	R-e1071
@@ -53,6 +54,7 @@ SUBDIR+=	R-ellipsis
 SUBDIR+=	R-emdbook
 SUBDIR+=	R-energy
 SUBDIR+=	R-estimability
+SUBDIR+=	R-fastmatch
 SUBDIR+=	R-forcats
 SUBDIR+=	R-forecast
 SUBDIR+=	R-fracdiff
@@ -111,6 +113,7 @@ SUBDIR+=	R-sandwich
 SUBDIR+=	R-sets
 SUBDIR+=	R-sgeostat
 SUBDIR+=	R-shapefiles
+SUBDIR+=	R-slam
 SUBDIR+=	R-sp
 SUBDIR+=	R-spacetime
 SUBDIR+=	R-splancs

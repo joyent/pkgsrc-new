@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.8 2023/08/21 01:41:19 khorben Exp $
+$NetBSD: distinfo,v 1.10 2024/01/31 17:29:25 adam Exp $
 
-BLAKE2s (emoji-2.8.0.tar.gz) = ce19fa1e839d805f3f00eef53092bfbfe81a14eabd3b0f63bada3e881c39c570
-SHA512 (emoji-2.8.0.tar.gz) = e53fdf5f086260b34239b85dec8642c9f2cad042432a498636c7abc696712fadc69f0bb43b0f48321edbce761f62f5ffa38d171308e9bec0e5a27d5885322578
-Size (emoji-2.8.0.tar.gz) = 363892 bytes
+BLAKE2s (emoji-2.10.1.tar.gz) = d354a35356a6b0ad23aed2e5f639ef470b8274527518cecac4edf51f6ad3c6e9
+SHA512 (emoji-2.10.1.tar.gz) = 782df7ad3ecb1c599313c9ebc2bddcb33d1160eda73fc5cd3abe6daac82a546cd4828a68248711cbfae7158af2329bbfa264175e81919eed6f4e44b8e3dbc9ae
+Size (emoji-2.10.1.tar.gz) = 428315 bytes

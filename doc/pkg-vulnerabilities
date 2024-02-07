@@ -1,4 +1,4 @@
-# $NetBSD: pkg-vulnerabilities,v 1.105 2024/01/01 00:11:56 wiz Exp $
+# $NetBSD: pkg-vulnerabilities,v 1.116 2024/02/05 20:08:49 nia Exp $
 #
 #FORMAT 1.0.0
 #
@@ -22339,7 +22339,7 @@ bind>=9.16<9.16.22	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2021-2
 htmldoc<1.9.12		denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2021-40985
 grafana>=8.0.0<8.2.3	cross-site-scripting	https://nvd.nist.gov/vuln/detail/CVE-2021-41174
 libxls-[0-9]*		denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2021-27836
-libheif-[0-9]*		heap-overflow		https://nvd.nist.gov/vuln/detail/CVE-2020-23109
+libheif<1.7.0		heap-overflow		https://nvd.nist.gov/vuln/detail/CVE-2020-23109
 cryptopp-[0-9]*		side-channel		https://nvd.nist.gov/vuln/detail/CVE-2021-43398
 vim<8.2.3581		heap-overflow		https://nvd.nist.gov/vuln/detail/CVE-2021-3928
 vim<8.2.3582		stack-overflow		https://nvd.nist.gov/vuln/detail/CVE-2021-3927
@@ -25497,7 +25497,7 @@ avahi-[0-9]*	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2023-38470
 avahi-[0-9]*	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2023-38471
 avahi-[0-9]*	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2023-38472
 avahi-[0-9]*	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2023-38473
-libxml2-[0-9]*	use-after-free	https://nvd.nist.gov/vuln/detail/CVE-2023-45322
+libxml2<2.12.2	use-after-free	https://nvd.nist.gov/vuln/detail/CVE-2023-45322
 libcue<2.2.1nb1	memory-corruption	https://nvd.nist.gov/vuln/detail/CVE-2023-43641
 mutt<2.2.12	null-pointer-dereference	https://nvd.nist.gov/vuln/detail/CVE-2023-4874
 mutt<2.2.12	null-pointer-dereference	https://nvd.nist.gov/vuln/detail/CVE-2023-4875
@@ -25664,8 +25664,8 @@ tiff<4.4.0	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2022-40090
 consul>=1.15.0<1.15.3	sensitive-information-leak	https://nvd.nist.gov/vuln/detail/CVE-2023-2816
 consul>=1.13.0<1.15.3	sensitive-information-leak	https://nvd.nist.gov/vuln/detail/CVE-2023-1297
 consul<1.16.1	sensitive-information-leak	https://nvd.nist.gov/vuln/detail/CVE-2023-3518
-faad2-[0-9]*	buffer-overflow	https://nvd.nist.gov/vuln/detail/CVE-2023-38858
-faad2-[0-9]*	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2023-38857
+faad2<2.11.0	buffer-overflow	https://nvd.nist.gov/vuln/detail/CVE-2023-38858
+faad2<2.11.0	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2023-38857
 bitcoin<24.1	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2023-33297
 bitcoin-[0-9]*	memory-leak	https://nvd.nist.gov/vuln/detail/CVE-2023-37192
 gnuplot-[0-9]*	buffer-overflow	https://nvd.nist.gov/vuln/detail/CVE-2020-25969
@@ -25745,7 +25745,7 @@ varnish-[0-9]*	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2023-44487
 apache<2.4.58	out-of-bounds-read	https://nvd.nist.gov/vuln/detail/CVE-2023-31122
 apache<2.4.58	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2023-43622
 apache<2.4.58	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2023-45802
-minizip-[0-9]*	buffer-overflow	https://nvd.nist.gov/vuln/detail/CVE-2023-45853
+minizip<1.3.1	buffer-overflow	https://nvd.nist.gov/vuln/detail/CVE-2023-45853
 py{27,37,38,39,310,311,312}-configobj<5.0.8nb1	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2023-26112
 modular-xorg-server<21.1.9	out-of-bounds-write	https://nvd.nist.gov/vuln/detail/CVE-2023-5367
 modular-xorg-server<21.1.9	use-after-free	https://nvd.nist.gov/vuln/detail/CVE-2023-5380
@@ -25849,3 +25849,21 @@ filezilla<3.66.4	extension-negotiation-downgrade	https://nvd.nist.gov/vuln/detai
 libheif<1.17.6	integer-overflow	https://nvd.nist.gov/vuln/detail/CVE-2023-49462
 libde265<1.0.15	buffer-overflow	https://nvd.nist.gov/vuln/detail/CVE-2023-49468
 gst-plugins1-bad<1.22.8	buffer-overflow	https://gstreamer.freedesktop.org/security/sa-2023-0011.html
+modular-xorg-server<21.1.11	heap-buffer-overflow	https://nvd.nist.gov/vuln/detail/CVE-CVE-2023-6816
+coreutils<9.4		heap-overflow	https://nvd.nist.gov/vuln/detail/CVE-2024-0684
+gnutls<3.8.3	timing-side-channel	https://nvd.nist.gov/vuln/detail/CVE-2023-0553
+py{27,38,39,310,311,312}-Pillow<10.2.0	arbitrary-code-execution	https://nvd.nist.gov/vuln/detail/CVE-2023-50447
+postgresql-server>=11<12	eol	http://ftp.NetBSD.org/pub/NetBSD/packages/vulns/eol-packages
+nodejs>=16<18	eol	http://ftp.NetBSD.org/pub/NetBSD/packages/vulns/eol-packages
+py{27,37,38,39,310,311,312}-aiohttp<3.9.2	directory-traversal	https://nvd.nist.gov/vuln/detail/CVE-2024-23334
+py{27,37,38,39,310,311,312}-aiohttp<3.9.2	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2024-23829
+curl<8.6.0	out-of-bounds	https://nvd.nist.gov/vuln/detail/CVE-2023-52071
+mbedtls<2.28.7	sensitive-information-disclosure	https://nvd.nist.gov/vuln/detail/CVE-2024-23170
+mbedtls>=3<3.5.2	sensitive-information-disclosure	https://nvd.nist.gov/vuln/detail/CVE-2024-23170
+mbedtls<2.28.7	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2024-23775
+mbedtls>=3<3.5.2	denial-of-service	https://nvd.nist.gov/vuln/detail/CVE-2024-23775
+opensc-[0-9]*	sensitive-information-disclosure	https://nvd.nist.gov/vuln/detail/CVE-2023-5992
+py{27,37,38,39,310,311,312}-octoprint-[0-9]*	sensitive-information-disclosure	https://nvd.nist.gov/vuln/detail/CVE-2024-23637
+glpi<10.0.12	code-injection	https://nvd.nist.gov/vuln/detail/CVE-2023-51446
+glpi<10.0.12	cross-site-scripting	https://nvd.nist.gov/vuln/detail/CVE-2024-23645
+graphviz<10	out-of-bounds-read	https://nvd.nist.gov/vuln/detail/CVE-2023-46045

@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.119 2023/12/30 12:57:53 wiz Exp $
+# $NetBSD: Makefile,v 1.121 2024/02/06 11:17:32 markd Exp $
 
 DISTNAME=	cantor-${KAPPSVER}
-PKGREVISION=	8
 CATEGORIES=	math
 
 HOMEPAGE=	https://kde.org/applications/education/cantor/
@@ -16,6 +15,7 @@ USE_TOOLS+=	msgmerge pkg-config
 
 CMAKE_ARGS+=	-DCMAKE_DISABLE_FIND_PACKAGE_R=TRUE
 CMAKE_ARGS+=	-DCMAKE_DISABLE_FIND_PACKAGE_LuaJIT=TRUE
+CMAKE_ARGS+=	-DBUILD_TESTING=OFF
 
 #  only try to build python3 support
 PYTHON_VERSIONS_INCOMPATIBLE=	27

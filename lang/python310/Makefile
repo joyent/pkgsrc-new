@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.29 2023/11/23 12:43:35 jperkin Exp $
+# $NetBSD: Makefile,v 1.31 2024/01/23 06:51:44 adam Exp $
 
 .include "dist.mk"
 
@@ -38,6 +38,7 @@ USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}
+CONFIGURE_ARGS+=	--with-readline=readline # XXX editline?
 CONFIGURE_ARGS+=	--with-system-expat
 CONFIGURE_ARGS+=	--with-system-ffi
 CONFIGURE_ARGS+=	--without-ensurepip
@@ -70,13 +71,13 @@ CONFIGURE_ARGS.NetBSD+=	ac_cv_file__dev_ptc=no
 ALL_ENV+=		\
 	_PYTHON_HOST_PLATFORM=${LOWER_OPSYS}-${MACHINE_GNU_ARCH}
 ALL_ENV+=		\
-	_PYTHON_PROJECT_BASE=${WRKSRC:Q}
+	_PYTHON_PROJECT_BASE=${WRKSRC}
 ALL_ENV+=		\
 	_PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_${PY_PLATNAME:Q}
 .endif
 
 # http://bugs.python.org/issue13241
-.if !empty(MACHINE_PLATFORM:MDarwin-1[12].*)
+.if ${MACHINE_PLATFORM:MDarwin-1[12].*}
 PKGSRC_COMPILER=	clang
 PKG_CC=			clang
 PKG_CXX=		clang++

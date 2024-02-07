@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.635 2024/01/10 16:48:25 schmonz Exp $
+# $NetBSD: Makefile,v 1.640 2024/02/04 07:12:15 schmonz Exp $
 #
 
 COMMENT=	Electronic mail utilities
@@ -65,7 +65,7 @@ SUBDIR+=	deliver
 SUBDIR+=	demime
 SUBDIR+=	distribute
 SUBDIR+=	dk-milter
-SUBDIR+=	dkim-milter
+SUBDIR+=	dkimproxy
 SUBDIR+=	dnsbl-milter
 SUBDIR+=	dot-forward
 SUBDIR+=	dovecot2
@@ -137,6 +137,7 @@ SUBDIR+=	kmbox
 SUBDIR+=	kmime
 SUBDIR+=	ksmtp
 SUBDIR+=	ktnef
+SUBDIR+=	libdkim
 SUBDIR+=	libesmtp
 SUBDIR+=	libetpan
 SUBDIR+=	libksieve
@@ -353,6 +354,7 @@ SUBDIR+=	qmail
 SUBDIR+=	qmail-acceptutils
 SUBDIR+=	qmail-autoresponder
 SUBDIR+=	qmail-conf
+SUBDIR+=	qmail-dkim-wrappers
 SUBDIR+=	qmail-lint
 SUBDIR+=	qmail-qfilter
 SUBDIR+=	qmail-rejectutils
@@ -399,6 +401,7 @@ SUBDIR+=	safecat
 SUBDIR+=	sendmail
 SUBDIR+=	sendmail-cidrexpand
 SUBDIR+=	sendmail-qtool
+SUBDIR+=	sendmail-snapshot
 SUBDIR+=	sendymail
 SUBDIR+=	serialmail
 SUBDIR+=	sid-milter

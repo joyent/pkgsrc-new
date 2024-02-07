@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.714 2023/12/18 16:52:37 wiz Exp $
+# $NetBSD: Makefile,v 1.718 2024/01/30 21:04:34 adam Exp $
 #
 
 COMMENT=	Programming languages
@@ -192,7 +192,6 @@ SUBDIR+=	newsqueak
 SUBDIR+=	nim
 SUBDIR+=	njs
 SUBDIR+=	nodejs
-SUBDIR+=	nodejs16
 SUBDIR+=	nodejs18
 SUBDIR+=	nodejs20
 SUBDIR+=	nqp
@@ -234,6 +233,7 @@ SUBDIR+=	picoc
 SUBDIR+=	pict
 SUBDIR+=	polyml
 SUBDIR+=	purescript
+SUBDIR+=	py-annotated-types
 SUBDIR+=	py-asttokens
 SUBDIR+=	py-basicproperty
 SUBDIR+=	py-byterun
@@ -300,6 +300,7 @@ SUBDIR+=	ruby31
 SUBDIR+=	ruby31-base
 SUBDIR+=	ruby32
 SUBDIR+=	ruby32-base
+SUBDIR+=	ruby33
 SUBDIR+=	runawk
 SUBDIR+=	rust
 SUBDIR+=	rust-bin
@@ -340,6 +341,7 @@ SUBDIR+=	tcl-expect
 SUBDIR+=	tcl-otcl
 SUBDIR+=	tcl85
 SUBDIR+=	tcltutor
+SUBDIR+=	tclx
 SUBDIR+=	tinyscheme
 SUBDIR+=	ucblogo
 SUBDIR+=	umb-scheme

@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.27 2023/11/13 15:40:34 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2024/01/30 14:22:23 ryoon Exp $
 
 PKGNAME=	${DISTNAME:S/ffmpeg/ffmpeg5/}
+PKGREVISION=	4
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://ffmpeg.org/
 COMMENT=	Decoding, encoding and streaming software (v5.x)
@@ -15,13 +16,6 @@ INSTALLATION_DIRS=	lib/ffmpeg5 share/doc/ffmpeg5
 
 .if ${_USE_RPATH:tl} != "no"
 CONFIGURE_ARGS+=	--enable-rpath
-.endif
-
-.if ${USE_CROSS_COMPILE:U:tl} == yes
-CONFIGURE_ARGS+=	--enable-cross-compile
-CONFIGURE_ARGS+=	--host-cc=${NATIVE_CC:Q}
-CONFIGURE_ARGS+=	--host-ld=${NATIVE_CC:Q}
-CONFIGURE_ARGS+=	--target-os=${LOWER_OPSYS}
 .endif
 
 PRINT_PLIST_AWK+=	/html/ { $$0 = "$${PLIST.doc}" $$0 }

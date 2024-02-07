@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.71 2023/07/23 12:18:08 taca Exp $
+$NetBSD: distinfo,v 1.73 2024/02/06 14:57:20 taca Exp $
 
-BLAKE2s (rmagick-5.3.0.gem) = 221cee5f688909f21d903ad5fa26fdd131fe8a456427d5f646eb7f1ab5ef18e7
-SHA512 (rmagick-5.3.0.gem) = b53475dd2520188079f1710d0d85b31e32d9d7bc144ce4e2e547aa899763787dc9582319f2bc42f7c908dbce2eb76c8e86b8a2a4c9cd4648d605d5d860a2b922
-Size (rmagick-5.3.0.gem) = 241664 bytes
+BLAKE2s (rmagick-5.4.1.gem) = f64568159d022d83a7542cc5ce8d46d884b050b11f4c4d79ffe76364b2beda29
+SHA512 (rmagick-5.4.1.gem) = 34ea2db6f378328887d0ef64002e7cf15b5c2f075ec34e840595372069837ea25174b3f4cb93ce1c923f5d50daacf914fe6ca38782f0cef8f9c48d9285681dc1
+Size (rmagick-5.4.1.gem) = 243712 bytes

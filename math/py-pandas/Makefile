@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.56 2023/12/15 09:29:59 adam Exp $
+# $NetBSD: Makefile,v 1.58 2024/01/24 16:31:15 wiz Exp $
 
-DISTNAME=	pandas-2.1.4
+DISTNAME=	pandas-2.2.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	math graphics python
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/pandas/}
@@ -27,6 +27,9 @@ USE_LANGUAGES=	c c++
 USE_TOOLS+=	pkg-config
 
 USE_CXX_FEATURES=	c++11
+
+# __has_builtin
+GCC_REQD+=		10
 
 SUBST_CLASSES+=		python
 SUBST_STAGE.python=	pre-configure

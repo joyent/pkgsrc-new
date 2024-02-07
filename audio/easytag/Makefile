@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.127 2023/11/14 14:01:20 wiz Exp $
+# $NetBSD: Makefile,v 1.129 2024/02/01 09:45:59 wiz Exp $
 
 DISTNAME=	easytag-2.4.3
-PKGREVISION=	16
+PKGREVISION=	17
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/easytag/2.4/}
 EXTRACT_SUFX=	.tar.xz
@@ -16,8 +16,6 @@ USE_LANGUAGES=		c c++
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake intltool pkg-config xgettext
 USE_TOOLS+=		itstool
-
-PLIST_VARS+=		man
 
 .include "options.mk"
 

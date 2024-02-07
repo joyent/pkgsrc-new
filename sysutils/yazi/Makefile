@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2023/10/22 19:42:04 pin Exp $
+# $NetBSD: Makefile,v 1.6 2024/01/22 07:34:01 pin Exp $
 
-DISTNAME=	yazi-0.1.5
+DISTNAME=	yazi-0.2.2
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GITHUB:=sxyazi/}
 GITHUB_TAG=	v${PKGVERSION_NOREV}
@@ -16,19 +16,16 @@ USE_TOOLS+=	pkg-config
 
 INSTALLATION_DIRS=	bin share/examples/yazi
 
-RUSTFLAGS+=	-C link-arg=${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.LuaJIT2}/lib
-RUSTFLAGS+=	-C link-arg=-L${BUILDLINK_PREFIX.LuaJIT2}/lib
-
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/target/release/yazi \
 		${DESTDIR}${PREFIX}/bin
-	${INSTALL_DATA} ${WRKSRC}/config/preset/keymap.toml \
+	${INSTALL_DATA} ${WRKSRC}/yazi-config/preset/keymap.toml \
 		${DESTDIR}${PREFIX}/share/examples/yazi
-	${INSTALL_DATA} ${WRKSRC}/config/preset/theme.toml \
+	${INSTALL_DATA} ${WRKSRC}/yazi-config/preset/theme.toml \
 		${DESTDIR}${PREFIX}/share/examples/yazi
-	${INSTALL_DATA} ${WRKSRC}/config/preset/yazi.toml \
+	${INSTALL_DATA} ${WRKSRC}/yazi-config/preset/yazi.toml \
 		${DESTDIR}${PREFIX}/share/examples/yazi
 
 .include "../../lang/rust/cargo.mk"
-.include "../../lang/LuaJIT2/buildlink3.mk"
+.include "../../lang/lua54/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

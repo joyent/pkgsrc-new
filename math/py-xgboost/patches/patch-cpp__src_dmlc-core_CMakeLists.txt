@@ -1,0 +1,22 @@
+$NetBSD: patch-cpp__src_dmlc-core_CMakeLists.txt,v 1.2 2024/01/24 22:43:20 adam Exp $
+
+Fix build.
+
+--- cpp_src/dmlc-core/CMakeLists.txt.orig	2020-02-02 00:00:00.000000000 +0000
++++ cpp_src/dmlc-core/CMakeLists.txt
+@@ -179,14 +179,12 @@ else()
+ endif()
+ 
+ message(STATUS "${CMAKE_LOCAL}/build_config.h.in -> include/dmlc/build_config.h")
+-configure_file("cmake/build_config.h.in" "include/dmlc/build_config.h")
++configure_file("cmake/build_config.h.in" "${CMAKE_CURRENT_SOURCE_DIR}/include/dmlc/build_config.h")
+ 
+ target_include_directories(dmlc PUBLIC
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
+   $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/include>)
+-target_compile_definitions(dmlc PRIVATE -D_XOPEN_SOURCE=700
+-  -D_POSIX_SOURCE -D_POSIX_C_SOURCE=200809L -D_DARWIN_C_SOURCE)
+ # Older stdc++ enable c++11 items
+ target_compile_definitions(dmlc PUBLIC -D__USE_XOPEN2K8)
+ # DMLC_CORE_USE_CMAKE macro constant indicates the use of CMake

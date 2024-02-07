@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.25 2023/11/12 13:21:25 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2024/01/30 14:21:50 ryoon Exp $
 
-DISTNAME=	SDL2_ttf-2.20.2
-PKGREVISION=	2
+DISTNAME=	SDL2_ttf-2.22.0
+PKGREVISION=	1
 CATEGORIES=	fonts devel
 MASTER_SITES=	https://www.libsdl.org/projects/SDL_ttf/release/
 
@@ -10,7 +10,8 @@ HOMEPAGE=	https://www.libsdl.org/projects/SDL_ttf/
 COMMENT=	Use TrueType fonts in your SDL2 applications
 LICENSE=	zlib
 
-USE_LANGUAGES=		c c++11
+USE_LANGUAGES=		c c++
+USE_CXX_FEATURES+=	c++11
 USE_LIBTOOL=		yes
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes

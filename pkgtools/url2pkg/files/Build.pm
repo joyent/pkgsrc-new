@@ -45,6 +45,8 @@ sub url2pkg_write_dependencies($$$) {
 
 	my $deps = $self->{$key};
 	foreach my $item (keys %$deps) {
+		next if $item =~ m"^[a-z]+>=0$";
+		next if $item =~ m"^perl>=5\.(\d+)$" && $2 < 38;
 		my $pkgbase = "p5-$item" =~ s/::/-/gr;
 		printf("%s\t%s>=%s\n", $varname, $pkgbase, $deps->{$item});
 	}
@@ -76,8 +78,8 @@ sub new(%) {
 sub create_build_script($) {
 	my ($self) = @_;
 
-	$self->url2pkg_write_dependencies("BUILD_DEPENDS", "configure_requires");
-	$self->url2pkg_write_dependencies("BUILD_DEPENDS", "build_requires");
+	$self->url2pkg_write_dependencies("TOOL_DEPENDS", "configure_requires");
+	$self->url2pkg_write_dependencies("TOOL_DEPENDS", "build_requires");
 	$self->url2pkg_write_dependencies("DEPENDS", "requires");
 	$self->url2pkg_write_dependencies("TEST_DEPENDS", "test_requires");
 	$self->url2pkg_write_dependencies("#RECOMMENDS", "recommends");
@@ -86,7 +88,7 @@ sub create_build_script($) {
 	my $license = $self->{"license"} || "";
 	if ($license ne "") {
 		$self->url2pkg_write_cmd("license", $license);
-		$self->url2pkg_write_var("license_default", "# TODO: $license (from Build.PL)")
+		$self->url2pkg_write_cmd("license_default", "# TODO: $license (from Build.PL)")
 	}
 }
 

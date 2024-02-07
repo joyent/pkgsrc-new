@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.41 2023/06/06 12:41:59 riastradh Exp $
+# $NetBSD: Makefile.common,v 1.43 2024/01/27 02:54:36 riastradh Exp $
 # used by multimedia/ffmpeg3/Makefile
 # used by multimedia/ffplay3/Makefile
 
@@ -33,6 +33,30 @@ CONFIGURE_ARGS+=	--incdir=${PREFIX}/include/ffmpeg3
 CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/ffmpeg3
 CONFIGURE_ARGS+=	--shlibdir=${PREFIX}/lib/ffmpeg3
 LDFLAGS+=		${COMPILER_RPATH_FLAG}${PREFIX}/lib/ffmpeg3
+
+.if ${USE_CROSS_COMPILE:tl} == yes
+CONFIGURE_ARGS+=	--enable-cross-compile
+CONFIGURE_ARGS+=	--host-cc=${NATIVE_CC:Q}
+CONFIGURE_ARGS+=	--host-ld=${NATIVE_CC:Q}
+CONFIGURE_ARGS+=	--target-os=${LOWER_OPSYS:Q}
+.  include "../../mk/endian.mk"
+.  if ${MACHINE_ENDIAN} == "big"
+CONFIGURE_ENV+=		bigendian=yes
+.  endif
+.endif
+
+# altivec support is detected at runtime, and only code that is gated
+# on the runtime detection can use it.  The code in ffmpeg that is
+# gated on the runtime detection doesn't need -maltivec -mabi=altivec.
+# But passing -maltivec -mabi=altivec tells the compiler that _any_
+# code, whether or not gated on runtime detection, can be done with
+# altivec -- and the compiler will quietly take advantage of this,
+# e.g. to zero-initialize objects on the stack.  This doesn't work too
+# well on powerpc CPUs without altivec, so nix the arguments.
+.if !empty(MACHINE_ARCH:Mpowerpc*)
+BUILDLINK_TRANSFORM+=	rm:-maltivec
+BUILDLINK_TRANSFORM+=	rm:-mabi=altivec
+.endif
 
 PLIST_VARS+=		opencl
 

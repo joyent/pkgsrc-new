@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.25 2023/11/12 13:23:30 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2024/02/06 11:17:42 markd Exp $
 
 DISTNAME=	dolphin-${KAPPSVER}
-PKGREVISION=	3
 CATEGORIES=	sysutils
 
 HOMEPAGE=	https://kde.org/applications/system/dolphin/
@@ -26,6 +25,7 @@ MAKE_ENV+=	LD_LIBRARY_PATH=${WRKSRC}/_KDE_build/bin
 .include "../../devel/kcmutils/buildlink3.mk"
 .include "../../devel/kparts/buildlink3.mk"
 .include "../../lang/ruby/buildlink3.mk"
+.include "../../misc/kuserfeedback/buildlink3.mk"
 .include "../../net/knewstuff/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../sysutils/baloo-widgets/buildlink3.mk"

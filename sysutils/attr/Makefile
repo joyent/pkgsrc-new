@@ -1,45 +1,38 @@
-# $NetBSD: Makefile,v 1.8 2023/04/30 05:23:52 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2024/01/24 20:25:45 wiz Exp $
 
-ATTR_VERS=	2.4.47
-PKGNAME=	attr-${ATTR_VERS}
-DISTNAME=	attr-${ATTR_VERS}.src
-PKGREVISION=	1
+DISTNAME=	attr-2.5.2
 CATEGORIES=	sysutils
 MASTER_SITES=	https://download.savannah.gnu.org/releases/attr/
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://savannah.nongnu.org/projects/attr
 COMMENT=	Commands for Manipulating Filesystem Extended Attributes
 LICENSE=	gnu-gpl-v2
 
-WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		gmake msgfmt perl:test
 USE_LIBTOOL=		yes
-BUILD_TARGET=		default
-INSTALL_SH_OVERRIDE=	no
-
-# 114 commands (34 passed, 80 failed)
-TEST_TARGET=		tests
+# first test part:
+# 119 commands (88 passed, 31 failed)
+# second test part (only run as root):
+# 30 commands (15 passed, 15 failed)
+TEST_TARGET=		check
 REPLACE_PERL+=		test/run
-REPLACE_PERL+=		test/sort-getfattr-output
 
-LDFLAGS.Darwin+=	-lintl
-LDFLAGS.NetBSD+=	-lintl
+PKGCONFIG_OVERRIDE+=	libattr.pc.in
+INSTALLATION_DIRS+=	share/examples/attr
 
-SUBST_CLASSES.Darwin+=	rmldarg
-SUBST_CLASSES.SunOS+=	rmldarg
-SUBST_STAGE.rmldarg=	pre-configure
-SUBST_FILES.rmldarg=	libattr/Makefile
-SUBST_SED.rmldarg=	-e '/version-script/d'
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 
-pre-install:
-	cd ${WRKSRC}/libattr && env ${MAKE_ENV} \
-            ${MAKE_PROGRAM} ${INSTALL_MAKE_FLAGS} \
-                -f ${MAKE_FILE} install-lib install-dev
-	cd ${WRKSRC}/include && env ${MAKE_ENV} \
-            ${MAKE_PROGRAM} ${INSTALL_MAKE_FLAGS} \
-                -f ${MAKE_FILE} install-dev
+CONF_FILES+=	share/examples/attr/xattr.conf ${PKG_SYSCONFDIR}/xattr.conf
+
+post-install:
+	${MV} ${DESTDIR}${PKG_SYSCONFDIR}/xattr.conf ${DESTDIR}${PREFIX}/share/examples/attr
+	# https://savannah.nongnu.org/bugs/index.php?65161
+	cd ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3 && \
+		${MV} attr_get.3 attr_attr_get.3 && \
+		${MV} attr_set.3 attr_attr_set.3
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.96 2023/11/15 18:14:44 wiz Exp $
+# $NetBSD: Makefile,v 1.98 2024/02/06 11:17:37 markd Exp $
 
 DISTNAME=	marble-${KAPPSVER}
-PKGREVISION=	5
 CATEGORIES=	misc
 
 HOMEPAGE=	https://marble.kde.org/
@@ -12,7 +11,7 @@ LICENSE=	gnu-lgpl-v2 AND gnu-gpl-v3 AND gnu-fdl-v1.2
 
 TOOL_DEPENDS+=	kdoctools>=5.19.0:../../devel/kdoctools
 
-USE_TOOLS+=	msgmerge perl
+USE_TOOLS+=	msgmerge perl pkg-config
 
 CMAKE_ARGS+=	-DQT_PLUGINS_DIR=${QTDIR}/plugins
 CMAKE_ARGS+=	-DMARBLE_PRI_INSTALL_USE_QT_SYS_PATHS=TRUE

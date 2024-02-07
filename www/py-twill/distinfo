@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.5 2022/11/14 19:29:38 adam Exp $
+$NetBSD: distinfo,v 1.7 2024/01/28 17:35:39 adam Exp $
 
-BLAKE2s (twill-3.1.tar.gz) = 3b8090e17970ea5ebc659ba2916ddf03aee873b7a440f759f5f38cbee6b0b464
-SHA512 (twill-3.1.tar.gz) = e0f25d011bd70b8f26075febb6729198a07dda69b66bf460d1983e130f8598375f4d7e870afe4400ed2cb9d9341a148c2f03cefe538f654b58cd40d92b3e08fe
-Size (twill-3.1.tar.gz) = 82442 bytes
+BLAKE2s (twill-3.2.2.tar.gz) = e540e54d92b927e86cb9fd983768bbd5870f62daf79fb74d59258462d1d2a7ce
+SHA512 (twill-3.2.2.tar.gz) = 7a7f9f8dd16182c676a59d01c0e90cbaf8c6cc5320546ef5391ce07b418f7f2b08e0667610110f0b1d56eb02e1df8d1a215b4e781e11527dbdb81d984c0b1b38
+Size (twill-3.2.2.tar.gz) = 89146 bytes

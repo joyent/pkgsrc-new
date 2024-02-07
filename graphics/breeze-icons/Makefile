@@ -1,12 +1,13 @@
-# $NetBSD: Makefile,v 1.43 2023/11/12 13:21:51 wiz Exp $
+# $NetBSD: Makefile,v 1.45 2024/02/06 10:46:27 markd Exp $
 
 DISTNAME=	breeze-icons-${KF5VER}
-PKGREVISION=	4
 CATEGORIES=	graphics
 
 HOMEPAGE=	https://community.kde.org/Frameworks
 COMMENT=	Breeze icon themes
 LICENSE=	gnu-lgpl-v2.1 AND gnu-lgpl-v3
+
+PYTHON_VERSIONS_INCOMPATIBLE=	27
 
 .include "../../meta-pkgs/kde/kf5.mk"
 

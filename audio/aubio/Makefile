@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.35 2023/12/25 10:11:17 wiz Exp $
+# $NetBSD: Makefile,v 1.37 2024/02/04 01:33:38 ryoon Exp $
 
 DISTNAME=	aubio-0.4.9
-PKGREVISION=	16
+PKGREVISION=	17
 CATEGORIES=	audio
 MASTER_SITES=	https://aubio.org/pub/
 EXTRACT_SUFX=	.tar.bz2
@@ -20,6 +20,8 @@ TOOLS_PATH.doxygen=	${FALSE}
 
 PKGCONFIG_OVERRIDE+=	aubio.pc.in
 
+WAF_ENV+=	DOXYGEN=none
+WAF_ENV+=	SPHINX=none
 WAF_ARGS+=	--disable-tests
 
 TOOL_DEPENDS+=	txt2man-[0-9]*:../../converters/txt2man

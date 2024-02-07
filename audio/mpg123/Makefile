@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.70 2023/11/08 10:58:25 nia Exp $
+# $NetBSD: Makefile,v 1.72 2024/02/05 06:35:16 adam Exp $
 
 PKGNAME=	${DISTNAME:C/[^[:alnum:]]*//}
 COMMENT=	MPEG layer 1, 2, and 3 audio player

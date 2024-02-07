@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.101 2023/11/20 10:19:00 nia Exp $
+# $NetBSD: Makefile,v 1.103 2024/01/30 14:21:49 ryoon Exp $
 
+PKGREVISION= 1
 .include "../../emulators/snes9x/Makefile.common"
 
 PKGNAME=	snes9x-gtk-${SNES9X_VERSION}
@@ -21,7 +22,7 @@ TOOL_DEPENDS+=	gettext-m4-[0-9]*:../../devel/gettext-m4
 
 CONFIGURE_DIR=	gtk
 
-USE_CXX_FEATURES+=	c++17
+USE_CXX_FEATURES+=	c++17 filesystem
 
 .include "../../mk/oss.buildlink3.mk"
 

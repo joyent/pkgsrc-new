@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.19 2023/07/06 09:39:28 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2024/01/23 13:42:35 mef Exp $
 #
 
 DISTNAME=	Mac-SystemDirectory-0.10

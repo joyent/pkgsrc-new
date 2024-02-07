@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.96 2023/11/14 14:02:35 wiz Exp $
+# $NetBSD: Makefile,v 1.98 2024/02/06 11:17:39 markd Exp $
 
 DISTNAME=	kmix-${KAPPSVER}
-PKGREVISION=	5
 CATEGORIES=	multimedia
 
 HOMEPAGE=	https://kde.org/applications/multimedia/kmix/
@@ -14,6 +13,8 @@ TOOL_DEPENDS+=	kdoctools>=5.19.0:../../devel/kdoctools
 DEPENDS+=	kinit>=5.19.0:../../x11/kinit
 
 USE_TOOLS+=	msgmerge pkg-config
+
+CMAKE_ARGS+=	-DHAVE_SYS_AUDIOIO_H=false
 
 SUBST_CLASSES+=		xdg
 SUBST_STAGE.xdg=	pre-configure

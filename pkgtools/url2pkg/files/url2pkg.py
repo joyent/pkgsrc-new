@@ -1,5 +1,5 @@
 #! @PYTHONBIN@
-# $NetBSD: url2pkg.py,v 1.51 2023/10/30 07:12:49 wiz Exp $
+# $NetBSD: url2pkg.py,v 1.54 2024/01/17 21:01:07 rillig Exp $
 
 # Copyright (c) 2019 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -683,6 +683,7 @@ class Adjuster:
     # "package>=version:../../category/package".
     depends: List[str]
     build_depends: List[str]
+    tool_depends: List[str]
     test_depends: List[str]
 
     # .include, interleaved with BUILDLINK3_API_DEPENDS.
@@ -731,6 +732,7 @@ class Adjuster:
         self.categories = []
         self.depends = []
         self.build_depends = []
+        self.tool_depends = []
         self.test_depends = []
         self.bl3_lines = []
         self.includes = []
@@ -783,6 +785,8 @@ class Adjuster:
             self.depends.append(value)
         elif kind == 'BUILD_DEPENDS':
             self.build_depends.append(value)
+        elif kind == 'TOOL_DEPENDS':
+            self.tool_depends.append(value)
         elif kind == 'TEST_DEPENDS':
             self.test_depends.append(value)
         else:
@@ -832,6 +836,7 @@ class Adjuster:
 
         self.set_license(license_name, license_default)
         self.add_dependencies(dep_lines, python)
+        self.sort_dependencies()
 
     def add_dependencies(self, dep_lines: List[Tuple[str, str, str, str]],
                          python: bool):
@@ -853,6 +858,16 @@ class Adjuster:
                         break
 
             self.add_dependency(kind, pkgbase, constraint, dep_dir)
+
+    def sort_dependencies(self):
+        def key(d):
+            a = d.removeprefix('# TODO: ')
+            return re.sub('[<>=].*', '', a)
+
+        self.depends.sort(key=key)
+        self.build_depends.sort(key=key)
+        self.tool_depends.sort(key=key)
+        self.test_depends.sort(key=key)
 
     def set_or_add(self, varname: str, value: str):
         if not self.makefile_lines.set(varname, value):
@@ -966,6 +981,8 @@ class Adjuster:
 
         cmd = f'{self.g.perl5} -I{self.g.libdir} -I. Build.PL'
         self.read_dependencies(cmd, {}, self.abs_wrksrc)
+        self.tool_depends = [d for d in self.tool_depends
+                             if not d.startswith('p5-Module-Build')]
         self.build_vars.append(Var('PERL5_MODULE_TYPE', '=', 'Module::Build'))
 
     def adjust_perl_module_Makefile_PL(self):
@@ -1198,6 +1215,8 @@ class Adjuster:
         depend_vars = []
         depend_vars.extend(
             Var('BUILD_DEPENDS', '+=', d) for d in self.build_depends)
+        depend_vars.extend(
+            Var('TOOL_DEPENDS', '+=', d) for d in self.tool_depends)
         depend_vars.extend(
             Var('DEPENDS', '+=', d) for d in self.depends)
         depend_vars.extend(

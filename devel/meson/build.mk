@@ -1,4 +1,4 @@
-# $NetBSD: build.mk,v 1.22 2023/11/14 12:45:23 wiz Exp $
+# $NetBSD: build.mk,v 1.26 2024/02/03 22:49:14 nros Exp $
 
 MESON_REQD?=	0
 .for version in ${MESON_REQD}
@@ -28,6 +28,7 @@ MAKE_ENV+=	CMAKE=${TOOLS_PATH.false}
 .include "../../mk/bsd.prefs.mk"
 
 .if ${USE_CROSS_COMPILE:U:tl} == yes
+
 MESON_CPU_FAMILY.amd64=		x86_64
 MESON_CPU_FAMILY.arm26?=	arm
 MESON_CPU_FAMILY.arm32?=	arm
@@ -89,31 +90,40 @@ MESON_CROSS_FILE=	${WRKDIR}/.meson_cross
 meson-configure: ${MESON_CROSS_FILE}
 ${MESON_CROSS_FILE}:
 	@${STEP_MSG} Creating meson cross file
-	${RUN}${ECHO} '[properties]' >$@.tmp
+	${RUN}${ECHO} '[properties]' >${.TARGET}.tmp
 .  for _v_ in ${MESON_CROSS_VARS}
 .    if defined(MESON_CROSS.${_v_})
-	${RUN}${ECHO} ${_v_} = ${MESON_CROSS.${_v_}:Q} >>$@.tmp
+	${RUN}${ECHO} ${_v_} = ${MESON_CROSS.${_v_}:Q} >>${.TARGET}.tmp
 .    endif
 .  endfor
 .  for _v_ in ${MESON_CROSS_OPSYS_VARS}
 .    if defined(MESON_CROSS.${OPSYS}.${_v_})
-	${RUN}${ECHO} ${_v_} = ${MESON_CROSS.${OPSYS}.${_v_}:Q} >>$@.tmp
+	${RUN}${ECHO} ${_v_} = ${MESON_CROSS.${OPSYS}.${_v_}:Q} \
+		>>${.TARGET}.tmp
 .    endif
 .  endfor
 .  for _v_ in ${MESON_CROSS_ARCH_VARS}
 .    if defined(MESON_CROSS.${MACHINE_ARCH}.${_v_})
-	${RUN}${ECHO} ${_v_} = ${MESON_CROSS.${MACHINE_ARCH}.${_v_}:Q} >>$@.tmp
+	${RUN}${ECHO} ${_v_} = ${MESON_CROSS.${MACHINE_ARCH}.${_v_}:Q} \
+		>>${.TARGET}.tmp
 .    endif
 .  endfor
-	${RUN}${ECHO} '[host_machine]' >>$@.tmp
-	${RUN}${ECHO} "system = '${LOWER_OPSYS}'" >>$@.tmp
-	${RUN}${ECHO} "cpu_family = '${MESON_CPU_FAMILY}'" >>$@.tmp
-	${RUN}${ECHO} "cpu = '${MESON_CPU}'" >>$@.tmp
-	${RUN}${ECHO} "endian = '${MESON_CPU_ENDIAN}'" >>$@.tmp
-	${RUN}${MV} -f $@.tmp $@
+	${RUN}${ECHO} '[host_machine]' >>${.TARGET}.tmp
+	${RUN}${ECHO} "system = '${LOWER_OPSYS}'" >>${.TARGET}.tmp
+	${RUN}${ECHO} "cpu_family = '${MESON_CPU_FAMILY}'" >>${.TARGET}.tmp
+	${RUN}${ECHO} "cpu = '${MESON_CPU}'" >>${.TARGET}.tmp
+	${RUN}${ECHO} "endian = '${MESON_CPU_ENDIAN}'" >>${.TARGET}.tmp
+	${RUN}${ECHO} '[binaries]' >>${.TARGET}.tmp
+.  for _v_ in ${MESON_CROSS_BINARIES}
+.    if defined(MESON_CROSS_BINARY.${_v_})
+	${RUN}${ECHO} ${_v_} = \'${MESON_CROSS_BINARY.${_v_}:Q}\' \
+		>>${.TARGET}.tmp
+.    endif
+.  endfor
+	${RUN}${MV} -f ${.TARGET}.tmp ${.TARGET}
 MESON_CROSS_ARGS+=	--cross-file ${MESON_CROSS_FILE:Q}
 
-.endif
+.endif				# ${USE_CROSS_COMPILE:U:tl} == yes
 
 do-configure: meson-configure
 meson-configure:
@@ -127,6 +137,7 @@ meson-configure:
 		--libexecdir libexec \
 		--mandir ${PKGMANDIR} \
 		--sysconfdir ${PKG_SYSCONFDIR} \
+		--wrap-mode=nodownload \
 		${MESON_CROSS_ARGS} \
 		--buildtype=plain ${MESON_ARGS} . output
 .endfor
@@ -174,9 +185,72 @@ _PKG_VARS.meson+=	TEST_DIRS TEST_ENV
 _PKG_VARS.meson+=	INSTALL_DIRS INSTALL_ENV
 _PKG_VARS.meson+=	LLVM_CONFIG_PATH
 _PKG_VARS.meson+=	USE_CMAKE MESON_ARGS
+_PKG_VARS.meson+=	MESON_CROSS_ARCH_VARS
+_PKG_VARS.meson+=	MESON_CROSS_OPSYS_VARS
+_PKG_VARS.meson+=	MESON_CROSS_VARS MESON_CROSS.*
+_PKG_VARS.meson+=	MESON_CROSS_BINARIES MESON_CROSS_BINARY.*
 _USER_VARS.meson=	MAKE_JOBS PKG_SYSCONFDIR
-_USE_VARS.meson=	TOOLS_PATH.false WRKSRC PREFIX PKGMANDIR
+_USE_VARS.meson=	TOOLS_PATH.false WRKDIR WRKSRC PREFIX PKGMANDIR
+_USE_VARS.meson+=	MACHINE_ARCH
+_USE_VARS.meson+=	LOWER_OPSYS
+_USE_VARS.meson+=	OPSYS
+_USE_VARS.meson+=	USE_CROSS_COMPILE
+_USE_VARS.meson+=	_CROSS_DESTDIR
 _USE_VARS.meson+=	_MAKE_JOBS_N
-_DEF_VARS.meson=	TOOL_DEPENDS
+_DEF_VARS.meson+=	MESON_CPU
+_DEF_VARS.meson+=	MESON_CPU_ENDIAN
+_DEF_VARS.meson+=	MESON_CPU_FAMILY
+_DEF_VARS.meson+=	TOOL_DEPENDS
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.earmeb
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.earmhfeb
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.earmv4eb
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.earmv5eb
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.earmv6eb
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.earmv6hfeb
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.earmv7eb
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.earmv7hfeb
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.mips64eb
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.mipseb
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.powerpc
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.powerpc64
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.sh3eb
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.sparc
+_IGN_VARS.meson+=	MESON_CPU_ENDIAN.sparc64
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.amd64
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.arm26
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.arm32
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earm
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmeb
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmhf
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmhfeb
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmv4
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmv4eb
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmv5
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmv5eb
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmv6
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmv6eb
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmv6hf
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmv6hfeb
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmv7
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmv7eb
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmv7hf
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.earmv7hfeb
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.hppa
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.i386
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.i486
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.i586
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.i686
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.m68000
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.mips64eb
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.mips64el
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.mipseb
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.mipsel
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.powerpc
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.powerpc64
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.sh3eb
+_IGN_VARS.meson+=	MESON_CPU_FAMILY.sh3el
+_IGN_VARS.meson+=	MESON_CROSS.sys_root
+_IGN_VARS.meson+=	MESON_CROSS_ARGS
+_IGN_VARS.meson+=	MESON_CROSS_FILE
 _LISTED_VARS.meson=	*_ARGS *_DEPENDS
 _SORTED_VARS.meson=	*_ENV

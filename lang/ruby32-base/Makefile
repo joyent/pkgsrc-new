@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2023/10/24 22:09:40 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2024/01/21 08:35:39 taca Exp $
 
 DISTNAME=	${RUBY_DISTNAME}
 PKGNAME=	${RUBY_PKGPREFIX}-base-${RUBY_VERSION}
-PKGREVISION=	3
 CATEGORIES=	lang ruby
 MASTER_SITES=	${MASTER_SITE_RUBY}
 
@@ -29,12 +28,10 @@ USE_CC_FEATURES+=	c11
 .include "options.mk"
 .include "../../lang/ruby/platform.mk"
 
-.if !empty(RUBY_SUFFIX)
 CONFIGURE_ARGS+=	--program-suffix=${RUBY_SUFFIX}
 CONFIGURE_ARGS+=	--with-soname=${RUBY_NAME}
 CONFIGURE_ARGS+=	--with-ruby-version=${RUBY_VER_DIR}
 CONFIGURE_ARGS+=	--with-ruby-pc="ruby-${RUBY_VERSION}.pc"
-.endif
 
 CONFIGURE_ENV+=		ac_cv_path_MJIT_CC=${CC:Q}
 CONFIGURE_ENV.Darwin+=	ac_cv_prog_dsymutil=
@@ -51,7 +48,7 @@ OPENSSL_EXAMPLES=	c_rehash.rb cert2text.rb certstore.rb cipher.rb \
 
 REPLACE_RUBY=		\
 	libexec/bundle libexec/bundler libexec/erb libexec/irb \
-	libexec/racc libexec/rdoc libexec/ri \
+	libexec/racc libexec/rdoc libexec/ri libexec/syntax_suggest \
 	.bundle/gems/debug-${RUBY_DEBUG_VER}/exe/rdbg \
 	.bundle/gems/rake-${RUBY_RAKE_VER}/exe/rake \
 	.bundle/gems/rbs-${RUBY_RBS_VER}/exe/rbs \
