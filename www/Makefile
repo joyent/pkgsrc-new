@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1777 2024/02/04 08:42:06 taca Exp $
+# $NetBSD: Makefile,v 1.1780 2024/02/09 12:39:06 adam Exp $
 #
 
 COMMENT=	Packages related to the World Wide Web
@@ -711,6 +711,7 @@ SUBDIR+=	py-django-admin-sortable2
 SUBDIR+=	py-django-allauth
 SUBDIR+=	py-django-appconf
 SUBDIR+=	py-django-binary-database-files
+SUBDIR+=	py-django-bootstrap5
 SUBDIR+=	py-django-celery-beat
 SUBDIR+=	py-django-classy-tags
 SUBDIR+=	py-django-cms
@@ -754,6 +755,7 @@ SUBDIR+=	py-django-tastypie
 SUBDIR+=	py-django-timezone-field
 SUBDIR+=	py-django-treebeard
 SUBDIR+=	py-django3
+SUBDIR+=	py-django4
 SUBDIR+=	py-djangocms-admin-style
 SUBDIR+=	py-djangocms-attributes-field
 SUBDIR+=	py-djangocms-audio
@@ -840,6 +842,7 @@ SUBDIR+=	py-jupyterlab
 SUBDIR+=	py-jupyterlab-server
 SUBDIR+=	py-jwcrypto
 SUBDIR+=	py-klein
+SUBDIR+=	py-laces
 SUBDIR+=	py-landslide
 SUBDIR+=	py-livereload
 SUBDIR+=	py-lti1p3

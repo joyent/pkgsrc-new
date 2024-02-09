@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.154 2024/02/03 21:29:43 abs Exp $
+# $NetBSD: Makefile,v 1.156 2024/02/08 01:54:36 gutteridge Exp $
 
 DISTNAME=		xscreensaver-6.08
+PKGREVISION=		2
 CATEGORIES=		x11
 MASTER_SITES=		https://www.jwz.org/xscreensaver/
 
@@ -46,12 +47,8 @@ INSTALLATION_DIRS=	share/doc/${PKGBASE}
 
 REPLACE_PERL+=	hacks/*.pl hacks/*/*.pl
 
-REPLACE_INTERPRETER+=	xdg-open
-REPLACE.xdg-open.old=	.*/bin/env xdg-open
-REPLACE.xdg-open.new=	${PREFIX}/bin/xdg-open
-REPLACE_FILES.xdg-open=	driver/xscreensaver.desktop.in driver/xscreensaver-settings.desktop.in
-
 post-install:
+	${CHMOD} a-x ${DESTDIR}${PREFIX}/share/applications/*.desktop
 	${INSTALL_DATA} ${FILESDIR}/README.pkgsrc ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 
 .include "options.mk"
