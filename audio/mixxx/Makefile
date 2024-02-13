@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.54 2024/02/01 08:33:30 wiz Exp $
+# $NetBSD: Makefile,v 1.56 2024/02/10 10:28:34 wiz Exp $
 
 DISTNAME=	mixxx-2.3.1
 PKGREVISION=	27

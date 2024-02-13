@@ -1,0 +1,15 @@
+$NetBSD: patch-src_modules_spell_CMakeLists.txt,v 1.1 2024/02/10 09:58:33 ryoon Exp $
+
+* pkgsrc drops $ORIGIN and use LD_LIBRARY_PATH to run tool during build.
+
+--- src/modules/spell/CMakeLists.txt.orig	2023-11-25 13:43:52.518645056 +0000
++++ src/modules/spell/CMakeLists.txt
+@@ -42,7 +42,7 @@ fcitx5_extract(spell-en-extract "${SPELL
+ add_custom_command(
+   OUTPUT "${SPELL_EN_DICT}"
+   DEPENDS "${SPELL_EN_DICT_SRC}" Fcitx5::comp-spell-dict spell-en-extract
+-  COMMAND Fcitx5::comp-spell-dict --comp-dict
++  COMMAND "${CMAKE_COMMAND}" -E env "LD_LIBRARY_PATH=${PROJECT_BINARY_DIR}/src/lib/fcitx-utils" ./comp-spell-dict --comp-dict
+   "${SPELL_EN_DICT_SRC}" "${SPELL_EN_DICT}")
+ add_custom_target(spell_en_dict ALL DEPENDS "${SPELL_EN_DICT}")
+ install(FILES "${SPELL_EN_DICT}" DESTINATION "${FCITX_INSTALL_PKGDATADIR}/spell")

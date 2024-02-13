@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4172 2024/02/05 15:47:47 taca Exp $
+# $NetBSD: Makefile,v 1.4178 2024/02/12 14:29:28 adam Exp $
 #
 
 COMMENT=	Development utilities
@@ -475,7 +475,6 @@ SUBDIR+=	googletest
 SUBDIR+=	gopls
 SUBDIR+=	goredo
 SUBDIR+=	got
-SUBDIR+=	got-portable
 SUBDIR+=	gotags
 SUBDIR+=	gotelemetry
 SUBDIR+=	gotests
@@ -1917,6 +1916,7 @@ SUBDIR+=	p5-Object-Pluggable
 SUBDIR+=	p5-Object-Realize-Later
 SUBDIR+=	p5-Object-Signature
 SUBDIR+=	p5-Ouch
+SUBDIR+=	p5-Overload-FileCheck
 SUBDIR+=	p5-PAR
 SUBDIR+=	p5-PAR-Dist
 SUBDIR+=	p5-PAR-Packer
@@ -2122,6 +2122,7 @@ SUBDIR+=	p5-Test-Bits
 SUBDIR+=	p5-Test-CPAN-Meta
 SUBDIR+=	p5-Test-CPAN-Meta-JSON
 SUBDIR+=	p5-Test-CPAN-Meta-YAML
+SUBDIR+=	p5-Test-Carp
 SUBDIR+=	p5-Test-CheckDeps
 SUBDIR+=	p5-Test-CheckManifest
 SUBDIR+=	p5-Test-Class
@@ -2166,8 +2167,10 @@ SUBDIR+=	p5-Test-Manifest
 SUBDIR+=	p5-Test-Memory-Cycle
 SUBDIR+=	p5-Test-Metrics-Any
 SUBDIR+=	p5-Test-MinimumVersion
+SUBDIR+=	p5-Test-Mock-Cmd
 SUBDIR+=	p5-Test-Mock-Guard
 SUBDIR+=	p5-Test-Mock-LWP
+SUBDIR+=	p5-Test-MockFile
 SUBDIR+=	p5-Test-MockModule
 SUBDIR+=	p5-Test-MockObject
 SUBDIR+=	p5-Test-Modern
@@ -2653,6 +2656,7 @@ SUBDIR+=	py-jaraco.envs
 SUBDIR+=	py-jaraco.functools
 SUBDIR+=	py-jaraco.itertools
 SUBDIR+=	py-jaraco.path
+SUBDIR+=	py-jaraco.test
 SUBDIR+=	py-jaraco.vcs
 SUBDIR+=	py-jaraco.versioning
 SUBDIR+=	py-jaraco_util

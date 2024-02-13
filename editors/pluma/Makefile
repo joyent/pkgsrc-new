@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.57 2023/11/14 14:01:44 wiz Exp $
+# $NetBSD: Makefile,v 1.59 2024/02/11 19:16:01 gutteridge Exp $
 
 PYTHON_VERSIONS_INCOMPATIBLE=	27
 
-PKGREVISION= 5
+PKGREVISION= 6
 .include "../../meta-pkgs/mate/Makefile.common"
 
 DISTNAME=	pluma-${VERSION:R}.1
@@ -34,4 +34,5 @@ post-install:
 .include "../../x11/mate-desktop/buildlink3.mk"
 .include "../../x11/gtksourceview4/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+.include "../../textproc/libxml2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

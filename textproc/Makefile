@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1451 2024/02/06 12:26:00 mef Exp $
+# $NetBSD: Makefile,v 1.1453 2024/02/12 11:41:09 markd Exp $
 #
 
 COMMENT=	Text processing utilities (does not include desktop publishing)
@@ -1073,6 +1073,7 @@ SUBDIR+=	py-jsbeautifier
 SUBDIR+=	py-json-logger
 SUBDIR+=	py-json5
 SUBDIR+=	py-jsonlib3
+SUBDIR+=	py-jsonlines
 SUBDIR+=	py-jsonpickle
 SUBDIR+=	py-jsonref
 SUBDIR+=	py-jsonrpc-server
@@ -1106,6 +1107,7 @@ SUBDIR+=	py-mdit-py-plugins
 SUBDIR+=	py-mecab
 SUBDIR+=	py-merge3
 SUBDIR+=	py-mistune
+SUBDIR+=	py-mistune2
 SUBDIR+=	py-mkdocs
 SUBDIR+=	py-mkdocs-bootstrap
 SUBDIR+=	py-mkdocs-bootswatch

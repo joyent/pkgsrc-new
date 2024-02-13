@@ -1,8 +1,9 @@
-@comment $NetBSD: PLIST,v 1.4 2023/01/24 20:33:07 adam Exp $
-${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
-${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
-${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
-${PYSITELIB}/${EGG_INFODIR}/top_level.txt
+@comment $NetBSD: PLIST,v 1.6 2024/02/12 12:35:22 adam Exp $
+${PYSITELIB}/${WHEEL_INFODIR}/LICENSE.rst
+${PYSITELIB}/${WHEEL_INFODIR}/METADATA
+${PYSITELIB}/${WHEEL_INFODIR}/RECORD
+${PYSITELIB}/${WHEEL_INFODIR}/WHEEL
+${PYSITELIB}/${WHEEL_INFODIR}/top_level.txt
 ${PYSITELIB}/cachelib/__init__.py
 ${PYSITELIB}/cachelib/__init__.pyc
 ${PYSITELIB}/cachelib/__init__.pyo
@@ -18,6 +19,9 @@ ${PYSITELIB}/cachelib/file.pyo
 ${PYSITELIB}/cachelib/memcached.py
 ${PYSITELIB}/cachelib/memcached.pyc
 ${PYSITELIB}/cachelib/memcached.pyo
+${PYSITELIB}/cachelib/mongodb.py
+${PYSITELIB}/cachelib/mongodb.pyc
+${PYSITELIB}/cachelib/mongodb.pyo
 ${PYSITELIB}/cachelib/py.typed
 ${PYSITELIB}/cachelib/redis.py
 ${PYSITELIB}/cachelib/redis.pyc

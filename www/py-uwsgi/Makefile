@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.62 2023/11/08 13:21:23 wiz Exp $
+# $NetBSD: Makefile,v 1.64 2024/02/12 10:31:55 wiz Exp $
 
-DISTNAME=	uwsgi-2.0.23
+DISTNAME=	uwsgi-2.0.24
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	${MASTER_SITE_PYPI:=u/uwsgi/}
 
@@ -11,10 +10,15 @@ HOMEPAGE=	https://uwsgi-docs.readthedocs.io/
 COMMENT=	Feature-rich WSGI server
 LICENSE=	gnu-gpl-v2 # with linking exception
 
+TOOL_DEPENDS+=	${PYPKGPREFIX}-setuptools-[0-9]*:../../devel/py-setuptools
+TOOL_DEPENDS+=	${PYPKGPREFIX}-wheel-[0-9]*:../../devel/py-wheel
+
 USE_TOOLS+=	pkg-config
 
 PLIST_SUBST+=	PYPKGPREFIX=${PYPKGPREFIX}
-EGG_NAME=	${DISTNAME:S/uwsgi/uWSGI/}
+WHEEL_NAME=	${DISTNAME:S/uwsgi/uWSGI/}
+
+PYTHON_VERSIONS_INCOMPATIBLE=	27
 
 .include "options.mk"
 
@@ -28,7 +32,7 @@ post-install:
 		${DESTDIR}${PREFIX}/share/examples/${PYPKGPREFIX}-uwsgi
 
 .include "../../devel/zlib/buildlink3.mk"
-.include "../../lang/python/egg.mk"
+.include "../../lang/python/wheel.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
