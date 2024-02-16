@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.937 2024/02/11 21:46:47 ryoon Exp $
+# $NetBSD: Makefile,v 1.939 2024/02/15 06:57:25 wiz Exp $
 #
 
 COMMENT=	Security and cryptography tools and libraries
@@ -166,6 +166,7 @@ SUBDIR+=	kgpg
 SUBDIR+=	kleopatra
 SUBDIR+=	knc
 SUBDIR+=	kpcli
+SUBDIR+=	krb5-strength
 SUBDIR+=	kstart
 SUBDIR+=	kwallet
 SUBDIR+=	kwalletmanager
@@ -443,6 +444,7 @@ SUBDIR+=	py-bcrypt
 SUBDIR+=	py-botan3
 SUBDIR+=	py-certbot
 SUBDIR+=	py-certbot-apache
+SUBDIR+=	py-certbot-dns-cloudflare
 SUBDIR+=	py-certbot-dns-digitalocean
 SUBDIR+=	py-certbot-dns-dnsimple
 SUBDIR+=	py-certbot-dns-dnsmadeeasy
