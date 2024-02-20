@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.163 2024/01/22 13:17:02 ryoon Exp $
+# $NetBSD: Makefile,v 1.165 2024/02/17 22:49:22 wiz Exp $
 #
 # NOTE: if you are updating both mplayer and gmplayer, you must ensure
 # that *both* distinfo files contain the correct, up-to-date files and

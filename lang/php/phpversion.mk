@@ -1,4 +1,4 @@
-# $NetBSD: phpversion.mk,v 1.421 2024/01/21 07:56:15 taca Exp $
+# $NetBSD: phpversion.mk,v 1.424 2024/02/19 15:42:29 taca Exp $
 #
 # This file selects a PHP version, based on the user's preferences and
 # the installed packages. It does not add a dependency on the PHP
@@ -11,7 +11,7 @@
 #	the package.
 #
 #	Possible: 56 74 80 81 82 83
-#	Default: 81
+#	Default: 82
 #
 # === Infrastructure variables ===
 #
@@ -28,7 +28,7 @@
 #	The PHP versions that are accepted by the package.
 #
 #	Possible: 56 74 80 81 82 83
-#	Default: 81 82 83 74 56 80
+#	Default: 82 81 83 74 56 80
 #
 # PHP_VERSIONS_INCOMPATIBLE
 #	The PHP versions that are not supported by the package.
@@ -92,8 +92,8 @@ PHP56_VERSION=	5.6.40
 PHP74_VERSION=	7.4.33
 PHP80_VERSION=	8.0.30
 PHP81_VERSION=	8.1.27
-PHP82_VERSION=	8.2.15
-PHP83_VERSION=	8.3.2
+PHP82_VERSION=	8.2.16
+PHP83_VERSION=	8.3.3
 
 # Define API version or initial release of major version.
 PHP56_RELDATE=	20140828
@@ -111,8 +111,8 @@ _SYS_VARS.php=	PKG_PHP_VERSION PKG_PHP PHPPKGSRCDIR PHP_PKG_PREFIX \
 
 .include "../../mk/bsd.prefs.mk"
 
-PHP_VERSION_DEFAULT?=		81
-PHP_VERSIONS_ACCEPTED?=		81 82 83 74 56 80
+PHP_VERSION_DEFAULT?=		82
+PHP_VERSIONS_ACCEPTED?=		82 81 83 74 56 80
 .for pv in ${PHP_VERSIONS_ACCEPTED}
 .  if empty(PHP_VERSIONS_INCOMPATIBLE:M${pv})
 _PHP_VERSIONS_ACCEPTED+=	${pv}

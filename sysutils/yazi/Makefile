@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.7 2024/02/09 13:57:19 pin Exp $
+# $NetBSD: Makefile,v 1.9 2024/02/19 07:17:55 pin Exp $
 
 DISTNAME=	yazi-0.2.3
 CATEGORIES=	sysutils
@@ -12,7 +12,8 @@ LICENSE=	mit
 
 .include "cargo-depends.mk"
 
-USE_TOOLS+=	pkg-config
+USE_LANGUAGES+=	c c++
+USE_TOOLS+=	gmake pkg-config
 
 INSTALLATION_DIRS=	bin share/examples/yazi
 

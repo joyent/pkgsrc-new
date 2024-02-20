@@ -1,4 +1,4 @@
-$NetBSD: TODO,v 1.24047 2024/02/15 22:14:32 wiz Exp $
+$NetBSD: TODO,v 1.24068 2024/02/20 16:51:57 jperkin Exp $
 
 Suggested new packages
 ======================
@@ -390,7 +390,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o HElib-2.1.0
 	o JBidwatcher-2.5.6 [wants launch4j]
 	o LPRng-core-3.8.35
-	o MesaLib-24.0
+	o MesaLib-24.0.1
 	o OdfConverter-4.0
 	o PACK-0.0.4
 	o QuantLib-1.22
@@ -651,6 +651,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o ftplibpp-2.0.2
 	o fuse-unionfs-2.1
 	o fvwm2-themes-0.7.0
+	o fwknop-2.6.11
 	o gajim-1.7.3
 	o gallery3-3.0.9
 	o gammu-1.42.0
@@ -681,6 +682,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o gimp-docs-ru-2.10.0
 	o gimp-docs-sv-2.10.0
 	o gimp-docs-zh_CN-2.10.0
+	o git-2.43.2
 	o gjs-1.70.1
 	o gkrellm-2.3.11
 	o gkrellm-multiping-2.0.13
@@ -737,7 +739,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o grantlee-5.0.0
 	o greed-4.2
 	o gromacs-2021.1
-	o grpc-1.61.0
+	o grpc-1.61.1 [wait for py-grpcio]
 	o gss-1.0.3
 	o gst-plugins1-omx-1.10.0
 	o gstreamer1-1.22.9
@@ -947,7 +949,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o monocypher-3.1.2
 	o mopher-0.6.0
 	o moserial-2.30.0
-	o mozilla-rootcerts-1.0.20240131
 	o mserv-devel-0.41
 	o mtail-1.2.0
 	o multitail-6.4.2
@@ -1003,7 +1004,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o oo2c-2.1.7
 	o opal-3.16.2
 	o open-vm-tools-12.3.0 [security fix: CVE-2023-20900]
-	o openblas-0.3.26
 	o opencl-3.0.12
 	o opencpn-plugin-draw-1.8.5.2
 	o opencsg-1.4.2
@@ -1138,8 +1138,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o py-HappyDoc-3.0
 	o py-MyHDL-0.11
 	o py-OTXv2-1.5.2
-	o py-barman-3.0.1
-	o py-borgbackup-1.2.7
 	o py-cairocffi-1.6.1
 	o py-cassa-1.11.0
 	o py-configparser-5.0.0 [drops python-2.x support; pkgsrc only needs this package for python 2.x]
@@ -1149,6 +1147,9 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o py-foolscap-23.3.0
 	o py-gammu-3.1
 	o py-gcovr-6.0
+	o py-google-api-core-2.17.1
+	o py-google-api-python-client-2.118.0
+	o py-google-auth-2.28.0
 	o py-gsutil-5.6
 	o py-hgview-1.9.0
 	o py-hyperscan-0.2.0
@@ -1181,7 +1182,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o py-yubiauth-0.3.10
 	o pythontidy-1.23
 	o q5go-2.1.1
-	o qalculate-3.18.0
 	o qalculate-gtk-3.18.0
 	o qca2-2.3.2
 	o qca2-gnupg-2.3.2
@@ -1444,7 +1444,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o xtux-20030306
 	o xu4-1.4
 	o xview-3.2.1.4.25.5
-	o xvkbd-3.7
 	o xwrits-2.26
 	o xye-0.12.2
 	o yacas-1.6.1

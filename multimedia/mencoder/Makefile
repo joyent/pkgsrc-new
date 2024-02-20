@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.78 2024/01/22 13:17:03 ryoon Exp $
+# $NetBSD: Makefile,v 1.80 2024/02/17 22:49:22 wiz Exp $
 
 PKGNAME=	mencoder-${MPLAYER_VERSION}
 PKGREVISION=	3
