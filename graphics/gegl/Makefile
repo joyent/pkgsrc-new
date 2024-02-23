@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.130 2024/01/30 14:22:08 ryoon Exp $
+# $NetBSD: Makefile,v 1.132 2024/02/22 13:15:41 ryoon Exp $
 
-DISTNAME=	gegl-0.4.46
-PKGREVISION=	7
+DISTNAME=	gegl-0.4.48
 CATEGORIES=	graphics
 MASTER_SITES=	https://download.gimp.org/pub/gegl/${PKGVERSION_NOREV:R}/
 EXTRACT_SUFX=	.tar.xz
@@ -16,6 +15,7 @@ MESON_ARGS+=	-Dlibv4l2=disabled
 # Some binaries that are required to generate docs
 # are built with RPATH $ORIGIN. Disable docs explicitly.
 MESON_ARGS+=	-Ddocs=false
+MESON_ARGS+=	-Dgi-docgen=disabled
 
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	bash pkg-config xgettext

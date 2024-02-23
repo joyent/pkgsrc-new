@@ -1,4 +1,4 @@
-# $NetBSD: cargo-depends.mk,v 1.6 2024/02/12 14:15:05 pin Exp $
+# $NetBSD: cargo-depends.mk,v 1.8 2024/02/23 10:04:23 pin Exp $
 
 CARGO_CRATE_DEPENDS+=	addr2line-0.20.0
 CARGO_CRATE_DEPENDS+=	adler-1.0.2
@@ -31,8 +31,8 @@ CARGO_CRATE_DEPENDS+=	cc-1.0.81
 CARGO_CRATE_DEPENDS+=	cfg-if-1.0.0
 CARGO_CRATE_DEPENDS+=	chrono-0.4.34
 CARGO_CRATE_DEPENDS+=	cipher-0.4.4
-CARGO_CRATE_DEPENDS+=	clap-4.5.0
-CARGO_CRATE_DEPENDS+=	clap_builder-4.5.0
+CARGO_CRATE_DEPENDS+=	clap-4.5.1
+CARGO_CRATE_DEPENDS+=	clap_builder-4.5.1
 CARGO_CRATE_DEPENDS+=	clap_derive-4.5.0
 CARGO_CRATE_DEPENDS+=	clap_lex-0.7.0
 CARGO_CRATE_DEPENDS+=	colorchoice-1.0.0
@@ -121,7 +121,7 @@ CARGO_CRATE_DEPENDS+=	polyval-0.6.1
 CARGO_CRATE_DEPENDS+=	proc-macro2-1.0.74
 CARGO_CRATE_DEPENDS+=	quote-1.0.35
 CARGO_CRATE_DEPENDS+=	rand_core-0.6.4
-CARGO_CRATE_DEPENDS+=	ratatui-0.26.0
+CARGO_CRATE_DEPENDS+=	ratatui-0.26.1
 CARGO_CRATE_DEPENDS+=	redox_syscall-0.3.5
 CARGO_CRATE_DEPENDS+=	regex-1.10.3
 CARGO_CRATE_DEPENDS+=	regex-automata-0.4.5
@@ -136,9 +136,9 @@ CARGO_CRATE_DEPENDS+=	schannel-0.1.22
 CARGO_CRATE_DEPENDS+=	scopeguard-1.2.0
 CARGO_CRATE_DEPENDS+=	security-framework-2.9.2
 CARGO_CRATE_DEPENDS+=	security-framework-sys-2.9.1
-CARGO_CRATE_DEPENDS+=	serde-1.0.196
-CARGO_CRATE_DEPENDS+=	serde_derive-1.0.196
-CARGO_CRATE_DEPENDS+=	serde_json-1.0.113
+CARGO_CRATE_DEPENDS+=	serde-1.0.197
+CARGO_CRATE_DEPENDS+=	serde_derive-1.0.197
+CARGO_CRATE_DEPENDS+=	serde_json-1.0.114
 CARGO_CRATE_DEPENDS+=	serde_urlencoded-0.7.1
 CARGO_CRATE_DEPENDS+=	signal-hook-0.3.17
 CARGO_CRATE_DEPENDS+=	signal-hook-mio-0.2.3
