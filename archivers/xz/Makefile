@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.43 2024/01/27 18:50:16 adam Exp $
+# $NetBSD: Makefile,v 1.45 2024/02/25 09:52:29 wiz Exp $
 
-DISTNAME=	xz-5.4.6
+DISTNAME=	xz-5.6.0
 CATEGORIES=	archivers
 MASTER_SITES=	${MASTER_SITE_GITHUB:=tukaani-project/}
 GITHUB_RELEASE=	v${PKGVERSION_NOREV}
@@ -9,7 +9,7 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://tukaani.org/xz/
 COMMENT=	General-purpose data compression software
-LICENSE=	public-domain AND gnu-gpl-v2
+LICENSE=	0-clause-bsd AND gnu-gpl-v2
 
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
