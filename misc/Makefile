@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.637 2024/02/08 22:36:14 adam Exp $
+# $NetBSD: Makefile,v 1.640 2024/02/26 19:23:23 pin Exp $
 #
 
 COMMENT=	Miscellaneous utilities
@@ -55,7 +55,6 @@ SUBDIR+=	cstream
 SUBDIR+=	cuecat
 SUBDIR+=	cuetools
 SUBDIR+=	cw
-SUBDIR+=	deckster
 SUBDIR+=	dgpsip
 SUBDIR+=	dialog
 SUBDIR+=	dirdiff
@@ -222,7 +221,6 @@ SUBDIR+=	most
 SUBDIR+=	mousetweaks
 SUBDIR+=	mtail
 SUBDIR+=	multitail
-SUBDIR+=	nora
 SUBDIR+=	nq
 SUBDIR+=	nxtvepg
 SUBDIR+=	nyancat
@@ -373,7 +371,6 @@ SUBDIR+=	ruby-transaction-simple
 SUBDIR+=	ruby-typed-array
 SUBDIR+=	ruby-windows_error
 SUBDIR+=	rust-kanban
-SUBDIR+=	rustentia
 SUBDIR+=	s6-portable-utils
 SUBDIR+=	sch
 SUBDIR+=	sci

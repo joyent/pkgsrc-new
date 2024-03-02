@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2023/11/15 23:19:34 jym Exp $
+# $NetBSD: Makefile,v 1.3 2024/02/29 10:28:24 jperkin Exp $
 
-DISTNAME=	bulk-test-php-20231115
+DISTNAME=	bulk-test-php-20240227
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -17,11 +17,12 @@ NO_BIN_ON_FTP=		${RESTRICTED}
 
 # Large programs and applications
 DEPENDS+=	${PHP_PKG_PREFIX}-dotclear-[0-9]*:../../www/php-dotclear
-DEPENDS+=	wordpress-[0-9]*:../../www/wordpress
+DEPENDS+=	${PHP_PKG_PREFIX}-wordpress-[0-9]*:../../www/wordpress
 DEPENDS+=	${PHP_PKG_PREFIX}-nextcloud-[0-9]*:../../www/php-nextcloud
 DEPENDS+=	${PHP_PKG_PREFIX}-owncloud-[0-9]*:../../www/php-owncloud
 DEPENDS+=	${PHP_PKG_PREFIX}-davical-[0-9]*:../../www/davical
-DEPENDS+=	moodle-[0-9]*:../../www/moodle
+# does not support the current 8.2 default of php
+#DEPENDS+=	moodle-[0-9]*:../../www/moodle
 DEPENDS+=	${PHP_PKG_PREFIX}-fpm-[0-9]*:../../www/php-fpm
 DEPENDS+=	${PHP_PKG_PREFIX}-roundcube-[0-9]*:../../mail/roundcube
 

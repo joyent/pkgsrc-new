@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1783 2024/02/22 13:07:44 adam Exp $
+# $NetBSD: Makefile,v 1.1787 2024/02/26 19:28:41 pin Exp $
 #
 
 COMMENT=	Packages related to the World Wide Web
@@ -91,7 +91,6 @@ SUBDIR+=	clisp-fastcgi
 SUBDIR+=	cobalt
 SUBDIR+=	cppcms
 SUBDIR+=	crates-io-cli
-SUBDIR+=	cratuity
 SUBDIR+=	crawl
 SUBDIR+=	cronolog
 SUBDIR+=	curl
@@ -236,7 +235,6 @@ SUBDIR+=	litehtml
 SUBDIR+=	litmus
 SUBDIR+=	llgal
 SUBDIR+=	logswan
-SUBDIR+=	longboard
 SUBDIR+=	lua-curl
 SUBDIR+=	lua-http
 SUBDIR+=	lua-psl
@@ -643,6 +641,7 @@ SUBDIR+=	php-apcu
 SUBDIR+=	php-apcu4
 SUBDIR+=	php-apcu_bc
 SUBDIR+=	php-basercms
+SUBDIR+=	php-concrete-cms
 SUBDIR+=	php-concrete5
 SUBDIR+=	php-contao-manager
 SUBDIR+=	php-curl
@@ -1178,7 +1177,6 @@ SUBDIR+=	www6to4
 SUBDIR+=	wwwcount
 SUBDIR+=	wwwoffle
 SUBDIR+=	xh
-SUBDIR+=	xurl
 SUBDIR+=	yahttp
 SUBDIR+=	yaws
 SUBDIR+=	z-push

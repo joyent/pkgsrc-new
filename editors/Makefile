@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.244 2023/12/25 18:14:34 wiz Exp $
+# $NetBSD: Makefile,v 1.247 2024/02/26 19:17:25 pin Exp $
 #
 
 COMMENT=	Text and binary editors
@@ -12,11 +12,8 @@ SUBDIR+=	abiword-plugins
 SUBDIR+=	beav
 SUBDIR+=	beaver
 SUBDIR+=	biew
-SUBDIR+=	bred
 SUBDIR+=	bvi
 SUBDIR+=	ce
-SUBDIR+=	ced
-SUBDIR+=	cesium
 SUBDIR+=	codeblocks
 SUBDIR+=	codelite
 SUBDIR+=	cooledit
