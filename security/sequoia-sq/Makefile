@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2024/02/28 19:19:15 pin Exp $
+# $NetBSD: Makefile,v 1.4 2024/03/02 12:16:19 wiz Exp $
 
-DISTNAME=	sequoia-sq-0.33.0
+DISTNAME=	sequoia-sq-0.34.0
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GITLAB:=sequoia-pgp/}
 GITLAB_PROJECT=	sequoia-sq
@@ -11,9 +12,11 @@ HOMEPAGE=	https://sequoia-pgp.gitlab.io/sq-user-guide/
 COMMENT=	Sequoia-PGP command line tool
 LICENSE=	gnu-gpl-v2
 
+TOOL_DEPENDS+=	capnproto-[0-9]*:../../devel/capnproto
+
 .include "cargo-depends.mk"
 
-WRKSRC=		${WRKDIR}/sequoia-sq-v0.33.0-195ef2bf9b218ff4d6f25b1854f9f4558f449672
+WRKSRC=		${WRKDIR}/sequoia-sq-v0.34.0-696bf3a677fe8a34ed02c6e44afa1cc3c1e273df
 
 USE_TOOLS+=	pkg-config
 

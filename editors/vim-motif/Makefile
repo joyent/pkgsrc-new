@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.43 2023/09/16 12:43:14 rhialto Exp $
+# $NetBSD: Makefile,v 1.45 2024/02/29 19:37:26 bsiegert Exp $
 
 PKGNAME=		vim-motif-${VIM_VERSION}.${VIM_PATCHLEVEL}
+PKGREVISION=		1
 
 COMMENT=		Vim editor (vi clone) with X11 Motif GUI
 
@@ -10,6 +11,8 @@ DEPENDS+=		vim-share-${VIM_VERSION}.${VIM_PATCHLEVEL}{,nb*}:../../editors/vim-sh
 CONFLICTS+=		vim-[0-9]* vim-gtk2-[0-9]* vim-gtk3-[0-9]*
 
 CONFIGURE_ARGS+=	--enable-gui=motif
+CONFIGURE_ARGS+=	GUI_INC_LOC=-I${MOTIFBASE:Q}/include
+CONFIGURE_ARGS+=	GUI_LIB_LOC=-L${MOTIFBASE:Q}/lib
 CONFIGURE_ARGS+=	--with-tlib=${BUILDLINK_LIBNAME.termcap}
 
 CONFIGURE_ENV+=		MOTIFBASE=${MOTIFBASE}
