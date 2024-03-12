@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1562 2024/03/01 03:29:56 riastradh Exp $
+# $NetBSD: Makefile,v 1.1565 2024/03/11 07:49:21 wiz Exp $
 #
 
 COMMENT=	Networking tools
@@ -59,7 +59,6 @@ SUBDIR+=	bwm-ng
 SUBDIR+=	bwping
 SUBDIR+=	cacti
 SUBDIR+=	cacti-spine
-SUBDIR+=	calypso
 SUBDIR+=	castor
 SUBDIR+=	cclive
 SUBDIR+=	ccrtp
@@ -376,6 +375,7 @@ SUBDIR+=	mate-user-share
 SUBDIR+=	mbrowse
 SUBDIR+=	mcast-tools
 SUBDIR+=	md-whois
+SUBDIR+=	megacmd
 SUBDIR+=	megatools
 SUBDIR+=	messagelib
 SUBDIR+=	mikutter
@@ -918,6 +918,7 @@ SUBDIR+=	snowflake
 SUBDIR+=	socat
 SUBDIR+=	socket++
 SUBDIR+=	socks4
+SUBDIR+=	softether
 SUBDIR+=	solaris-tap
 SUBDIR+=	speedtest-cli
 SUBDIR+=	speedtouch

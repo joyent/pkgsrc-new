@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.691 2024/02/29 14:15:41 bsiegert Exp $
+# $NetBSD: Makefile,v 1.694 2024/03/11 08:03:55 wiz Exp $
 #
 
 COMMENT=	Audio tools, players, and libraries
@@ -75,6 +75,7 @@ SUBDIR+=	eawpatches
 SUBDIR+=	eflite
 SUBDIR+=	emixer
 SUBDIR+=	espeak
+SUBDIR+=	espeak-ng
 SUBDIR+=	exaile
 SUBDIR+=	eyeD3
 SUBDIR+=	ezstream
@@ -282,6 +283,7 @@ SUBDIR+=	mbrolavox-en1
 SUBDIR+=	mbrolavox-us1
 SUBDIR+=	mbrolavox-us2
 SUBDIR+=	mbrolavox-us3
+SUBDIR+=	midish
 SUBDIR+=	mikmod
 SUBDIR+=	milkytracker
 SUBDIR+=	minimp3
@@ -498,6 +500,7 @@ SUBDIR+=	xmms-wma
 SUBDIR+=	xmp
 SUBDIR+=	xmradio
 SUBDIR+=	xwave
+SUBDIR+=	yasr
 SUBDIR+=	ykchorus
 SUBDIR+=	ympd
 SUBDIR+=	ymuse

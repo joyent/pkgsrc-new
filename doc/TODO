@@ -1,4 +1,4 @@
-$NetBSD: TODO,v 1.24147 2024/03/03 21:14:25 wiz Exp $
+$NetBSD: TODO,v 1.24169 2024/03/11 14:39:59 wiz Exp $
 
 Suggested new packages
 ======================
@@ -457,7 +457,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o arm-trusted-firmware-rk3328-2.4
 	o arm-trusted-firmware-rk3399-2.4
 	o arm-trusted-firmware-sun50i_a64-2.4
-	o arti-1.1.13
+	o arti-1.2.0
 	o asapm-3.1
 	o asn1c-0.9.28
 	o asp2php-2008-08-13
@@ -539,7 +539,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o cross-binutils-2.36.1
 	o cross-h8300-hms-binutils-2.17
 	o csound6-6.18.1
-	o csvkit-1.0.5
+	o csvkit-1.4.0
 	o ctemplate-2.4
 	o cups-filters-1.28.17
 	o cutter-1.2.7
@@ -597,6 +597,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o epubcheck-4.0.2
 	o epstool-3.0.9
 	o eric5-5.4.6
+	o erlang-26.2.3
 	o es-0.83
 	o esh-0.8.5
 	o ess-18.10.2
@@ -714,6 +715,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o gnopernicus-1.1.2
 	o gnu-crypto-2.1.0
 	o gnucap-20210107
+	o gnunet-0.21
 	o gnutime-1.9
 	o go-ffuf-1.3.0
 	o go-fsnotify-1.4.9
@@ -731,6 +733,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o gprolog-1.5.0 [adds arm64 support]
 	o gps-17.0
 	o gradle-7.0
+	o grafana-10.4.0
 	o grafx2-2.8.3137
 	o grantlee-5.0.0
 	o greed-4.2
@@ -813,6 +816,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o jed-0.99-18
 	o jetty7-7.6.17
 	o jetty9-9.3.7
+	o jj-0.15.1 [needs rust-1.76]
 	o jools-1.0
 	o jpilot-syncmal-0.81
 	o jrep-1.1.1
@@ -890,6 +894,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o liquidwar-6.0.0.11
 	o lirc-0.9.3
 	o llvm-17.0.6 [wip]
+	o llvm-18.1.1
 	o lmbench-3
 	o log4cxx-0.11.0
 	o lohit-fonts-2.4.2
@@ -970,6 +975,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o newmail-1.0.2
 	o nicotine-plus-3.2.9
 	o nios2-binutils-2.36.1
+	o nodejs-21.7.1
 	o ns-3.14.1
 	o ns-plugger-common-5.1.3
 	o ntop-5.0
@@ -1010,7 +1016,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o openssl-3.2.1
 	o openxenmanager-0.83
 	o opera-26
-	o opus-1.4
 	o or1k-none-elf-binutils-2.36.1
 	o or1k-none-elf-gcc-9.3.0
 	o ordCalc-0.3.2
@@ -1146,7 +1151,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o py-musicbrainz-0.7.4
 	o py-musicbrainz-ngs-0.7.1
 	o py-newt-0.52.21
-	o py-obspy-1.4.0
 	o py-octoprint-1.9.3
 	o py-omniORBpy-3.7
 	o py-onionbalance-0.2.2
@@ -1157,7 +1161,9 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o py-pytz_deprecation_shim-0.1.0.post0
 	o py-qtgraph-qt5-0.12.1
 	o py-quixote-3.3
+	o py-rapidfuzz-3.6.2
 	o py-sbws-1.1.0
+	o py-scard-2.0.8
 	o py-scgi-2.0
 	o py-simpletal-5.1
 	o py-sybase-0.37
@@ -1256,7 +1262,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o softhsm-2.6.1
 	o sparsehash-2.0.4
 	o spcaview-20060501
-	o speech-dispatcher-0.11.5
+	o speech-dispatcher-0.11.5 [wip]
 	o spiped-1.6.1b
 	o spl-1.0pre6
 	o squeak-5.0
@@ -1285,6 +1291,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o tacacs-4.0.4.29a
 	o tacacs-shrubbery-4.0.4.29a
 	o tads-3.0.16
+	o taisei-1.4
 	o taplo-lsp-0.7.0
 	o tc-hasida-table-0.8 [wip]
 	o tcl-tDOM-0.9.2
@@ -1324,7 +1331,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o top-3.8beta1
 	o topgit-0.19.13 (at https://github.com/mackyle/topgit)
 	o tor-browser-11.0.9 [wip]
-	o tor-browser-13.0.10
+	o tor-browser-13.0.11
 	o torrentzip-2.1.0
 	o trafficserver-9.0.1
 	o translate-toolkit-3.3.4

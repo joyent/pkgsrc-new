@@ -145,7 +145,7 @@ dca			Enable DTS Coherent Acoustics support using libdca.
 debug			Enable debugging facilities in the package.
 debug-info		Enable debug info in generated binaries (e.g. for crash analysis), but not full scale debugging.
 deliver-suid		Install deliver executable setuid root.
-disable-compile-inits	Disable compile time implicit initialization.
+disable-compile-inits	Ghostscript: do not include some data into the compiled binary, read it from the file system instead.
 disable-filter-url	Disable php://filter URL feature.
 disable-ld		Disable building GNU ld in binutils.
 djbdns-cachestats	Patch to add stats for cache hits/misses.
@@ -843,7 +843,8 @@ socks4			Enable Socks4 support.
 socks5			Enable Socks5 support.
 softhsm			Enable SoftHSM for key management.
 softhsm2		Enable SoftHSM version 2 for key management.
-spacetime		Enable memory profiling with Spacetime
+sonic			Enable Sonic audio algorithm support.
+spacetime		Enable memory profiling with Spacetime.
 spamassassin		Enable SpamAssassin support.
 spamassassin-perl-warnings	Enable Perl warnings at run-time.
 spamassassin-taint-checks	Enable Perl taint checks to improve security.
