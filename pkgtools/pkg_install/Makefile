@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.239 2024/01/26 12:40:04 riastradh Exp $
+# $NetBSD: Makefile,v 1.241 2024/03/12 23:22:35 snj Exp $
 
 # Notes to package maintainers:
 #
@@ -195,12 +195,11 @@ pre-configure:
 .if empty(USE_BUILTIN.libarchive:M[yY][eE][sS])
 	cd ${WRKDIR}/libarchive && ${SETENV} ${_CONFIGURE_SCRIPT_ENV}	\
 		${CONFIG_SHELL} ${CONFIG_SHELL_FLAGS} ./configure	\
-		--disable-bsdcpio --disable-bsdtar --disable-shared	\
-		--disable-dependency-tracking --without-expat		\
-		--disable-maintainer-mode				\
-		--without-iconv --without-lzo2 --without-nettle		\
-		--without-lzmadec --without-lzma			\
-		--without-xml2 --without-lz4 --without-zstd		\
+		--disable-bsdcat --disable-bsdcpio --disable-bsdtar	\
+		--disable-bsdunzip --disable-shared			\
+		--disable-dependency-tracking --disable-maintainer-mode	\
+		--without-expat --without-xml2 --without-lz4 --without-lzo2 \
+		--without-iconv --without-nettle --without-zstd		\
 		${LIBARCHIVE_CONFIGURE_ARGS}
 	cd ${WRKDIR}/libarchive && ${BUILD_MAKE_CMD}
 .endif
