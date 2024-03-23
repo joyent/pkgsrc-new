@@ -1,0 +1,5 @@
+$NetBSD$
+
+BLAKE2s (pgvector-0.6.2.tar.gz) = ada5ac7c6d195d6154f676f34609cdfd74df637509d8518488c3ce3ab5b42717
+SHA512 (pgvector-0.6.2.tar.gz) = 745ec77d6540a01a867e0b44964c583ff17b78749ea2b2c8555d7f5605d4f0956d68b921e99a03317e1c30fb4ba5f1b4426a8a06fa7e28f1b6ae365d8a41a661
+Size (pgvector-0.6.2.tar.gz) = 82070 bytes

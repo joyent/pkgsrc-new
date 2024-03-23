@@ -3272,3 +3272,4 @@ Changes to the packages collection and infrastructure in 2024:
 	Updated x11/i3lock-color to 2.13.c.5 [nikita 2024-03-19]
 	Added lang/bython version 0.8 [mef 2024-03-20]
 	Updated databases/timescaledb-tune to 0.15.0 [bewell 2024-03-22]
+	Added databases/postgresql-pgvector version 0.6.2 [bewell 2024-03-22]
