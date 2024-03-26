@@ -16,13 +16,6 @@ CHECK_BUILTIN.ncursesw:=	yes
 .include "builtin.mk"
 CHECK_BUILTIN.ncursesw:=	no
 .if defined(IS_BUILTIN.ncursesw) && !empty(IS_BUILTIN.ncursesw:M[nN][oO])
-PKG_BUILD_DEPENDS.ncurses!=	\
-	echo "";		\
-	${PKG_INFO} -qn ncursesw 2> /dev/null \
-	|| { cd ../../devel/ncursesw && ${MAKE} ${MAKEFLAGS} show-depends; }
-.  for d in ${PKG_BUILD_DEPENDS.ncurses:Mncurses[-><]*}
-BUILDLINK_API_DEPENDS.ncurses+=	${d}
-.  endfor
 USE_NCURSES=			yes
 .endif
 
