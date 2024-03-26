@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.11 2023/11/19 16:02:44 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2024/03/25 06:28:27 adam Exp $
 
-DISTNAME=	typeguard-4.1.5
+DISTNAME=	typeguard-4.2.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=	2
 CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITE_PYPI:=t/typeguard/}
 
@@ -28,8 +27,8 @@ pre-test:
 .if ${PYTHON_VERSION} < 310
 DEPENDS+=	${PYPKGPREFIX}-importlib-metadata>=3.6:../../devel/py-importlib-metadata
 .endif
-.if ${PYTHON_VERSION} < 312
-DEPENDS+=	${PYPKGPREFIX}-typing-extensions>=4.7.0:../../devel/py-typing-extensions
+.if ${PYTHON_VERSION} < 313
+DEPENDS+=	${PYPKGPREFIX}-typing-extensions>=4.10.0:../../devel/py-typing-extensions
 .endif
 
 .include "../../lang/python/wheel.mk"

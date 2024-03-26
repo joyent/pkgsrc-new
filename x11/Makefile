@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1013 2024/03/18 09:13:10 pin Exp $
+# $NetBSD: Makefile,v 1.1016 2024/03/24 12:44:56 adam Exp $
 #
 
 COMMENT=	Packages to support the X Window System
@@ -113,8 +113,8 @@ SUBDIR+=	hs-X11-xft
 SUBDIR+=	hsetroot
 SUBDIR+=	i3lock
 SUBDIR+=	i3lockr
-SUBDIR+=	i3lock-color
 SUBDIR+=	iceauth
+SUBDIR+=	i3lock-color
 SUBDIR+=	ico
 SUBDIR+=	imwheel
 SUBDIR+=	jolly
@@ -270,6 +270,7 @@ SUBDIR+=	p5-Tk
 SUBDIR+=	p5-Wx
 SUBDIR+=	p5-Wx-Perl-ProcessStream
 SUBDIR+=	p5-X11-Protocol
+SUBDIR+=	p5-X11-Protocol-Other
 SUBDIR+=	p5-gtk3
 SUBDIR+=	picom
 SUBDIR+=	pixman
@@ -287,6 +288,7 @@ SUBDIR+=	py-qt5
 SUBDIR+=	py-qt5-qscintilla
 SUBDIR+=	py-qt5-webengine
 SUBDIR+=	py-qt6
+SUBDIR+=	py-qt6-qscintilla
 SUBDIR+=	py-qtgraph-qt5
 SUBDIR+=	py-qwt-qt5
 SUBDIR+=	py-sip-qt5
@@ -345,6 +347,7 @@ SUBDIR+=	qt5-qtx11extras
 SUBDIR+=	qt5-qtxmlpatterns
 SUBDIR+=	qt5-styleplugins
 SUBDIR+=	qt5ct
+SUBDIR+=	qt6-qscintilla
 SUBDIR+=	qt6-qtbase
 SUBDIR+=	qt6-qtserialport
 SUBDIR+=	qt6ct

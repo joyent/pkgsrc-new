@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.91 2024/02/25 19:51:00 markd Exp $
+# $NetBSD: Makefile,v 1.93 2024/03/25 11:05:25 markd Exp $
 
 DISTNAME=	collection-latexextra
-PKGNAME=	texlive-${DISTNAME}-2023pre10
+PKGNAME=	texlive-${DISTNAME}-2024pre2
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
-TEXLIVE_REV=	69928
+TEXLIVE_REV=	70717
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://www.tug.org/texlive/
@@ -58,6 +58,7 @@ DEPENDS+=	tex-arabicfront-[0-9]*:../../print/tex-arabicfront
 # depend arraycols
 # depend arrayjobx
 # depend arraysort
+DEPENDS+=	tex-arydshln-[0-9]*:../../print/tex-arydshln
 # depend arydshln
 # depend asciilist
 DEPENDS+=	tex-askinclude-[0-9]*:../../print/tex-askinclude
@@ -118,6 +119,7 @@ DEPENDS+=	tex-beamerthemenirma-[0-9]*:../../print/tex-beamerthemenirma
 # depend bearwear
 # depend beaulivre
 # depend beautybook
+# depend beautynote
 DEPENDS+=	tex-beton-[0-9]*:../../print/tex-beton
 # depend bewerbung
 # depend bez123
@@ -211,6 +213,7 @@ DEPENDS+=	tex-chngcntr-[0-9]*:../../print/tex-chngcntr
 DEPENDS+=	tex-classpack-[0-9]*:../../print/tex-classpack
 # depend clefval
 DEPENDS+=	tex-cleveref-[0-9]*:../../print/tex-cleveref
+# depend cleveref-forward
 # depend cleveref-usedon
 # depend clicks
 # depend clipboard
@@ -306,6 +309,7 @@ DEPENDS+=	tex-cutwin-[0-9]*:../../print/tex-cutwin
 # depend darkmode
 DEPENDS+=	tex-dashbox-[0-9]*:../../print/tex-dashbox
 DEPENDS+=	tex-dashrule-[0-9]*:../../print/tex-dashrule
+# depend dashrulex
 # depend dashundergaps
 # depend dataref
 DEPENDS+=	tex-datatool-[0-9]*:../../print/tex-datatool
@@ -371,6 +375,7 @@ DEPENDS+=	tex-diagbox-[0-9]*:../../print/tex-diagbox
 # depend diagnose
 # depend dialogl
 # depend dichokey
+# depend didec
 # depend dimnum
 DEPENDS+=	tex-dinbrief-[0-9]*:../../print/tex-dinbrief
 # depend directory
@@ -560,6 +565,7 @@ DEPENDS+=	tex-fnpara-[0-9]*:../../print/tex-fnpara
 # depend foilhtml
 # depend foliono
 DEPENDS+=	tex-fontaxes-[0-9]*:../../print/tex-fontaxes
+# depend fontscale
 # depend fontsetup
 # depend fontsize
 # depend fonttable
@@ -773,6 +779,7 @@ DEPENDS+=	tex-labels-[0-9]*:../../print/tex-labels
 # depend labels4easylist
 # depend labelschanged
 # depend lambdax
+# depend lastbib
 # depend lastpackage
 DEPENDS+=	tex-lastpage-[0-9]*:../../print/tex-lastpage
 # depend latex-amsmath-dev
@@ -817,6 +824,7 @@ DEPENDS+=	tex-listingsutf8-[0-9]*:../../print/tex-listingsutf8
 # depend listlbls
 # depend listliketab
 # depend listofsymbols
+# depend litebook
 # depend litesolution
 # depend litetable
 DEPENDS+=	tex-lkproof-[0-9]*:../../print/tex-lkproof
@@ -1378,7 +1386,6 @@ DEPENDS+=	tex-textpos-[0-9]*:../../print/tex-textpos
 # depend texvc
 # depend theoremref
 # depend thinsp
-DEPENDS+=	tex-thmtools-[0-9]*:../../print/tex-thmtools
 # depend threadcol
 DEPENDS+=	tex-threeparttable-[0-9]*:../../print/tex-threeparttable
 DEPENDS+=	tex-threeparttablex-[0-9]*:../../print/tex-threeparttablex
@@ -1446,6 +1453,7 @@ DEPENDS+=	tex-units-[0-9]*:../../print/tex-units
 # depend upmethodology
 DEPENDS+=	tex-upquote-[0-9]*:../../print/tex-upquote
 # depend uri
+# depend useclass
 # depend ushort
 # depend uspace
 # depend utf8add

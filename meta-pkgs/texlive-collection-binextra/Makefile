@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.28 2024/02/03 05:50:23 markd Exp $
+# $NetBSD: Makefile,v 1.30 2024/03/25 10:58:32 markd Exp $
 
 DISTNAME=	collection-binextra
-PKGNAME=	texlive-${DISTNAME}-2023pre3
+PKGNAME=	texlive-${DISTNAME}-2024pre1
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
-TEXLIVE_REV=	69527
+TEXLIVE_REV=	70681
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://www.tug.org/texlive/
@@ -55,6 +55,7 @@ DEPENDS+=	gsftopkk>=1.19.2nb4:../../fonts/gsftopkk
 # depend hook-pre-commit-pkg
 # depend installfont
 # depend ketcindy
+# depend l3sys-query
 DEPENDS+=	lacheck-[0-9]*:../../print/lacheck
 # depend latex-git-log
 # depend latex-papersize

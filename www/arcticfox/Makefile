@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.42 2024/01/30 14:22:36 ryoon Exp $
+# $NetBSD: Makefile,v 1.45 2024/03/21 21:42:07 nia Exp $
 
-DISTNAME=	arcticfox-43.0
-PKGREVISION=	5
+DISTNAME=	arcticfox-43.1
+PKGREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GITHUB:=rmottola/}
 GITHUB_PROJECT=	Arctic-Fox
 GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	nia@NetBSD.org
-HOMEPAGE=	https://github.com/wicknix/Arctic-Fox
+HOMEPAGE=	https://github.com/rmottola/Arctic-Fox
 COMMENT=	Web browser for aging systems, forked from Firefox
 LICENSE=	mpl-1.1
 
@@ -41,13 +41,12 @@ CONFIGURE_ARGS+=	--enable-release
 CONFIGURE_ARGS+=	--enable-strip
 CONFIGURE_ARGS+=	--with-branding=browser/branding/arcticfox
 
+# gtk3 now supported and default, but gtk2 less buggy
+CONFIGURE_ARGS+=	--enable-default-toolkit=cairo-gtk2
+
 # Necessary for PaX safety on NetBSD.
 CONFIGURE_ARGS+=	--disable-precompiled-startupcache
 
-CONFIGURE_ARGS+=	--enable-system-cairo
-CONFIGURE_ARGS+=	--enable-system-pixman
-CONFIGURE_ARGS+=	--enable-system-hunspell
-CONFIGURE_ARGS+=	--enable-system-ffi
 CONFIGURE_ARGS+=	--with-system-bz2
 # Needs libjpeg-turbo.
 # CONFIGURE_ARGS+=	--with-system-jpeg
@@ -58,6 +57,10 @@ CONFIGURE_ARGS+=	--with-system-libvpx
 CONFIGURE_ARGS+=	--with-system-nss
 CONFIGURE_ARGS+=	--with-system-nspr
 CONFIGURE_ARGS+=	--with-system-zlib
+CONFIGURE_ARGS+=	--enable-system-cairo
+CONFIGURE_ARGS+=	--enable-system-hunspell
+CONFIGURE_ARGS+=	--enable-system-ffi
+CONFIGURE_ARGS+=	--enable-system-pixman
 
 .if ${MACHINE_ARCH} == "alpha" || ${MACHINE_ARCH} == "sparc64"
 # Without this NetBSD/sparc64 starts, but crashes on some sites
@@ -93,9 +96,6 @@ REPLACE_PYTHON+=		xpcom/typelib/xpt/tools/xpt.py
 PYTHON_VERSIONS_ACCEPTED=	27
 PYTHON_FOR_BUILD_ONLY=		tool
 
-NOT_PAX_MPROTECT_SAFE+=		lib/${PKGNAME_NOREV}/arcticfox
-NOT_PAX_MPROTECT_SAFE+=		lib/${PKGNAME_NOREV}/arcticfox-bin
-
 pre-configure:
 	${MKDIR} ${CONFIGURE_DIRS}
 	cd ${WRKSRC} && autoconf-2.13
@@ -127,7 +127,6 @@ post-install:
 BUILDLINK_API_DEPENDS.libevent+=	libevent>=1.1
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
-.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../graphics/cairo/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/libwebp/buildlink3.mk"
