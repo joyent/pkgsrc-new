@@ -3612,3 +3612,4 @@ Changes to the packages collection and infrastructure in 2024:
 	Updated net/slumber to 0.15.0 [pin 2024-03-25]
 	Updated audio/termusic to 0.9.0 [pin 2024-03-25]
 	Updated devel/remake to 1.6 [nikita 2024-03-25]
+	Updated databases/timescaledb-tune to 0.16.0 [arai 2024-03-27]
