@@ -66,7 +66,6 @@ MYSQL_PKGSRCDIR.mariadb1011=	../../databases/mariadb1011-client
 
 .for ver in ${MYSQL_VERSIONS_ALL}
 MYSQL_OK.${ver}=		no
-MYSQL_INSTALLED.${ver}=		no
 _SYS_VARS.mysql+=		MYSQL_PKGBASE.${ver} MYSQL_PKGSRCDIR.${ver}
 .endfor
 
@@ -92,7 +91,7 @@ MYSQL_VERSIONS_ACCEPTED:=	${MYSQL_VERSIONS_ACCEPTED:tl}
 #
 .for ver in ${MYSQL_VERSIONS_ACCEPTED}
 MYSQL_OK.${ver}=		yes
-MYSQL_INSTALLED.${ver}!=					\
+MYSQL_INSTALLED_CMD.${ver}=					\
 	if ${PKG_INFO} -qe ${MYSQL_PKGBASE.${ver}:Q}; then	\
 		${ECHO} yes;					\
 	else							\
@@ -115,12 +114,14 @@ MYSQL_INSTALLED.${ver}!=					\
 .if defined(MYSQL_VERSION_REQD)
 MYSQL_VERSION=	${MYSQL_VERSION_REQD}
 .elif ${MYSQL_OK.${MYSQL_VERSION_DEFAULT}} == "yes" && \
-      ${MYSQL_INSTALLED.${MYSQL_VERSION_DEFAULT}} == "yes"
+      ${MYSQL_INSTALLED_CMD.${MYSQL_VERSION_DEFAULT}:sh} == "yes"
 MYSQL_VERSION=	${MYSQL_VERSION_DEFAULT}
 .else
 .  for ver in ${MYSQL_VERSIONS_ACCEPTED}
-.    if ${MYSQL_INSTALLED.${ver}} == "yes"
-MYSQL_VERSION?=	${ver}
+.    if !defined(MYSQL_VERSION)
+.      if ${MYSQL_INSTALLED_CMD.${ver}:sh} == "yes"
+MYSQL_VERSION=	${ver}
+.      endif
 .    endif
 .  endfor
 .endif
