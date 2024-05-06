@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.5 2023/04/23 17:45:42 nils Exp $
 BLAKE2s (dehydrated-0.7.1.tar.gz) = 1ca1089411d9f07690dc52d1ea1d7806eed9acc58f3c535ac7f4c5421795e897
 SHA512 (dehydrated-0.7.1.tar.gz) = 1d584c3876cdc1ef213b2feb02e15d2b47ef2b6504e8a837ad45d9d14929a82de28bee7395a75659721ae18bd8f26f4f2759ad8eaef66c671c7085c9859f6555
 Size (dehydrated-0.7.1.tar.gz) = 120575 bytes
+SHA1 (patch-hexdump) = 2a6883c7d260ad782b18cf79d62a5be93843dca6
