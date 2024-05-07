@@ -1,0 +1,8 @@
+$NetBSD: distinfo,v 1.115 2023/10/25 16:04:47 osa Exp $
+
+BLAKE2s (freenginx-1.26.0.tar.gz) = 5ec64f4a7b8073d89c14680b58b08e3622bb839176bff97900fd257a9eda4db3
+SHA512 (freenginx-1.26.0.tar.gz) = 5804671c8195c00cb52440585dd84d3fb77964624a8154e2f8c523f859c3d2bd0e35872945acbb3b2edd53c6789938e059208cac8463ff87f1be07b17ca99164
+Size (freenginx-1.26.0.tar.gz) = 1219500 bytes
+SHA1 (patch-auto_cc_conf) = 5e6a479ba419cd16dedeb3b4c47dc685d126ef6a
+SHA1 (patch-auto_install) = 3b3a0f9f4c005b707664554fa57a58c9e3b7de60
+SHA1 (patch-conf_nginx.conf) = c87c76604a5aae64f8c039f90f9291e3134f64e0
