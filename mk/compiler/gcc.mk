@@ -449,6 +449,7 @@ _IS_BUILTIN_GCC=	NO
 # Distill the GCC_REQD list into a single _GCC_REQD value that is the
 # highest version of GCC required.
 #
+.if !defined(_GCC_REQD)
 _GCC_STRICTEST_REQD?=	none
 .for _version_ in ${GCC_REQD}
 .  for _pkg_ in gcc-${_version_}
@@ -471,6 +472,7 @@ _GCC_STRICTEST_REQD=	${_version_}
 .  endfor
 .endfor
 _GCC_REQD=	${_GCC_STRICTEST_REQD}
+.endif
 
 # Determine which GCC version is required by examining _GCC_REQD.
 _NEED_GCC6?=	no
@@ -984,7 +986,7 @@ _NEED_NEWER_GCC!=	\
 PKG_FAIL_REASON+=	"Unable to satisfy dependency: ${_GCC_DEPENDS}"
 .endif
 
-.if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS])
+.if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS]) && !defined(_GCC_PREFIX)
 #
 # Ensure that the correct rpath is passed to the linker if we need to
 # link against gcc shared libs.
@@ -1026,9 +1028,8 @@ _GCC_LDFLAGS=	# empty
 .  for _dir_ in ${_GCC_LIBDIRS:N*not_found*}
 _GCC_LDFLAGS+=	-L${_dir_} ${COMPILER_RPATH_FLAG}${_dir_}
 .  endfor
-.endif
-
 LDFLAGS+=	${_GCC_LDFLAGS}
+.endif
 
 # Point the variables that specify the compiler to the installed
 # GCC executables.
