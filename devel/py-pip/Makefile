@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.73 2024/05/26 01:56:12 gutteridge Exp $
+# $NetBSD: Makefile,v 1.75 2024/06/27 05:58:54 adam Exp $
 
-DISTNAME=	pip-24.0
+DISTNAME=	pip-24.1.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/pip/}
@@ -25,8 +25,7 @@ PYTHON_VERSIONS_INCOMPATIBLE=	27
 FILES_SUBST+=  PYMAJORVERSION=${PYTHON_VERSION:C/^([0-9]).*/\1/}
 
 post-install:
-	cd ${DESTDIR}${PREFIX}/bin && ${RM} -f pip pip[2-3]
-	${CHMOD} -R go-w ${DESTDIR}${PREFIX}/${PYSITELIB}
+	cd ${DESTDIR}${PREFIX}/bin && ${RM} -f pip3 && ${MV} pip pip-${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/wheel.mk"

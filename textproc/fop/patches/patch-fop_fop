@@ -1,0 +1,15 @@
+$NetBSD: patch-fop_fop,v 1.1 2024/06/27 13:44:26 ktnb Exp $
+
+The fop script needs JAVA_HOME set, so prepare a variable to sed into.
+
+--- fop/fop.orig	2024-06-13 19:53:39.993261804 +0000
++++ fop/fop
+@@ -89,6 +89,8 @@ case "`uname`" in
+            ;;
+ esac
+ 
++JAVA_HOME=@PKG_JAVA_HOME@
++
+ if [ -z "$FOP_HOME" -o ! -d "$FOP_HOME" ] ; then
+   ## resolve links - $0 may be a link to fop's home
+   PRG="$0"

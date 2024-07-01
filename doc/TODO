@@ -1,4 +1,4 @@
-$NetBSD: TODO,v 1.24559 2024/06/25 07:08:40 adam Exp $
+$NetBSD: TODO,v 1.24600 2024/07/01 09:19:51 wiz Exp $
 
 Suggested new packages
 ======================
@@ -427,7 +427,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o aide-0.16
 	o album-4.17
 	o alevt-1.6.2
-	o alsa-lib-1.2.12
 	o alsa-plugins-1.2.7.1
 	o amanda-3.5.2
 	o amavis-perl-0.3.12 [called just amavis]
@@ -450,7 +449,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o apache-tomcat85-8.5.65
 	o apache-tomcat9-9.0.45
 	o apollo-1.7
-	o appstream-glib-0.8.3
 	o ardour-8.4
 	o argtable-2.9
 	o argus-20121202
@@ -463,8 +461,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o arm-trusted-firmware-rk3328-2.4
 	o arm-trusted-firmware-rk3399-2.4
 	o arm-trusted-firmware-sun50i_a64-2.4
-	o arti-1.2.3 [wip]
-	o arti-1.2.4
+	o arti-1.2.5 [wip, https://gitlab.torproject.org/tpo/core/rust-pwd-grp/-/issues/4]
 	o asapm-3.1
 	o asn1c-0.9.28
 	o asp2php-2008-08-13
@@ -511,12 +508,12 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o cacti-spine-1.2.16
 	o calc-2.11.10.1
 	o calcoo-2.1.0
-	o calibre-7.12.0 [requires py-qt6/py-qt6-webengine]
+	o calibre-7.13.0 [requires py-qt6/py-qt6-webengine]
 	o calligra-3.0.1 [in wip; koffice successor]
 	o camlp4-4.12
 	o carbons-purple-0.2.3
 	o cardboard-schedule-1.14c [at http://www.bright-green.com/downloads/]
-	o cargo-c-0.10.0
+	o cargo-c-0.10.0 [wip, needs rust 1.77]
 	o cddbd-1.5.2
 	o cdrdao-1.2.5
 	o cdrkit-1.1.10
@@ -550,7 +547,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o csvkit-1.4.0
 	o ctemplate-2.4
 	o cups-filters-2.0.0
-	o cutter-1.2.7
 	o cvs2svn-2.5.0
 	o cvs-fast-export-1.56
 	o cxref-1.6e
@@ -636,7 +632,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o flatbuffers-1.12.0
 	o flow-tools-0.411
 	o fluent-bit-1.7.4
-	o fop-2.6
 	o fortunes-calvin-0.3
 	o fortunes-de-0.34
 	o fplll-5.4.0
@@ -666,7 +661,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o gcal-4.1
 	o gcc-14.1
 	o gcc-mips-current-7.1.0
-	o gcc12-12.4
 	o gcin-1.5.5
 	o gcombust-0.1.55
 	o gdb-14.2
@@ -736,10 +730,12 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o gpick-0.3 [wip]
 	o gprolog-1.5.0 [adds arm64 support]
 	o gps-17.0
+	o grafana-11.1.0
 	o grafx2-2.8.3137
 	o grantlee-5.0.0
 	o greed-4.2
 	o gromacs-2021.1
+	o grpc-1.65.0
 	o gss-1.0.3
 	o gst-plugins1-omx-1.10.0
 	o gtklevel9-5.1
@@ -779,7 +775,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o icdprog-0.5
 	o icedtea-web-1.6.2
 	o ices-mp3-2.0.2
-	o icewm-3.6
 	o icinga-base-2.12.3
 	o idzebra-2.2.2
 	o ike-2.0.1 [pkg/37032]
@@ -853,7 +848,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o libcap-2.49
 	o libcarddav-14.0.13
 	o libcec-6.0.2
-	o libcups-2.4.10
 	o libdevq-0.0.4
 	o libdsk-1.5.19
 	o libflash-0.4.13
@@ -874,7 +868,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o liboobs-2.32.0
 	o liboop-1.0.1
 	o libpgm-5.2.122
-	o libproxy-0.5.7
 	o libquantum-1.1.0 [pkg/43728, development release]
 	o librdkafka-1.6.1
 	o librelp-1.10.0
@@ -938,8 +931,10 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o mingw-binutils-2.36.1
 	o mini_sendmail-1.3.9
 	o miniircd-2.1
+	o miniupnpd-2.3.7
 	o mipsel-none-elf-binutils-2.36.1
 	o mipsel-none-elf-gcc-9.3.0
+	o mit-krb5-1.21.3
 	o mit-scheme-bin-9.2
 	o modular-xorg-xwayland-24.1.0
 	o mold-2.32
@@ -1125,22 +1120,16 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o py-HappyDoc-3.0
 	o py-MyHDL-0.11
 	o py-OTXv2-1.5.2
-	o py-cairo-1.26.1
 	o py-cassa-1.11.0
 	o py-configparser-5.0.0 [drops python-2.x support; pkgsrc only needs this package for python 2.x]
 	o py-ephem3-3.7.6.0
 	o py-fecon235-6.18.1203
 	o py-filebytes-0.10.2
-	o py-filelock-3.15.4
 	o py-foolscap-23.3.0
 	o py-gammu-3.1
 	o py-gcovr-6.0
-	o py-google-api-python-client-2.134.0
-	o py-hatchling-1.25.0
 	o py-hgview-1.9.0
 	o py-hyperscan-0.7.7
-	o py-icalendar-5.0.13
-	o py-importlib-metadata-7.2.0
 	o py-input-pad-1.4.2
 	o py-mock-5.0.2
 	o py-musicbrainz-0.7.4
@@ -1151,25 +1140,16 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o py-omniORBpy-3.7
 	o py-onionbalance-0.2.2
 	o py-pdf-parser-0.7.4
-	o py-pdm_backend-2.3.1
-	o py-pip-24.1
 	o py-postgresql-5.1.2
-	o py-proto-plus-1.24.0
-	o py-psutil-6.0.0
+	o py-pycnite-2024.6.28
 	o py-pymc3-3.8
 	o py-pytz_deprecation_shim-0.1.0.post0
-	o py-qt-builder-1.16.3
 	o py-qtgraph-qt5-0.12.1
 	o py-quixote-3.3
-	o py-ruff-0.4.10
+	o py-ruff-0.5.0
 	o py-sbws-1.1.0
 	o py-scgi-2.0
-	o py-scikit-build-0.18.0
-	o py-setuptools-70.1.0
 	o py-simpletal-5.1
-	o py-sip6-6.8.5
-	o py-sphinx-autoapi-3.1.2
-	o py-sphinx-autodoc-typehints-2.2.2
 	o py-sybase-0.37
 	o py-syslog-ng-3.31.2
 	o py-terminator-2.1.1
