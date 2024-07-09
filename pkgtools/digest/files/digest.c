@@ -314,7 +314,7 @@ main(int argc, char **argv)
 
 		threads = malloc(sizeof(pthread_t) * (size_t)num_threads);
 		for (i = 0; i < num_threads; i++) {
-			if (pthread_create(&threads[i], 1, digest_file_thread, NULL) != 0) {
+			if (pthread_create(&threads[i], NULL, digest_file_thread, NULL) != 0) {
 				perror("digest: pthread_create");
 				exit(EXIT_FAILURE);
 			}
