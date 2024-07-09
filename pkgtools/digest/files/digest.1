@@ -31,7 +31,8 @@
 .Nd calculate message digests
 .Sh SYNOPSIS
 .Nm
-.Op Fl "Vt"
+.Op Fl FVt
+.Op Fl j Ar jobs
 .Ar algorithm
 .Op Ar
 .Sh DESCRIPTION
@@ -39,6 +40,21 @@ The
 .Nm
 utility calculates message digests of files or,
 if no file is specified, standard input.
+.Pp
+If the
+.Fl F
+command line option is specified,
+.Nm
+will treat standard input as a newline-delimited list of filenames to be
+calculated.
+.Pp
+The
+.Fl j
+option specifies the number of concurrent jobs that will be created for
+calculating digests.
+Each job processes one input file at a time.
+If the number of jobs is greater than the number of input files it will be
+reduced accordingly.
 .Pp
 It can also run self tests via the
 .Fl t
