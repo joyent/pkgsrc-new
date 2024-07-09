@@ -37,6 +37,7 @@
 #include <blake2b.h>
 #include <blake2s.h>
 #include <md5.h>
+#include <pthread.h>
 #include <rmd160.h>
 #include <sha1.h>
 #include <sha2.h>
@@ -126,6 +127,21 @@ static alg_t algorithms[] = {
 	{ NULL }
 };
 
+typedef struct jobs_t {
+	alg_t *alg;
+	int success;
+	char *filename;
+	char *digest;
+} jobs_t;
+
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+
+int num_threads = 4;
+int jobs_count = 0;
+int current_job = 0;
+jobs_t *jobs = NULL;
+
 /* find an algorithm, given a name */
 static alg_t *
 find_algorithm(const char *a)
@@ -169,6 +185,28 @@ digest_file(char *fn, alg_t *alg)
 	return (rc);
 }
 
+/* compute a digest as part of a threaded workflow */
+static void *
+digest_file_thread(void *arg)
+{
+	while(1) {
+		pthread_mutex_lock(&mutex);
+
+		if (current_job >= jobs_count) {
+			pthread_mutex_unlock(&mutex);
+			break;
+		}
+
+		jobs_t *job = &jobs[current_job++];
+		pthread_mutex_unlock(&mutex);
+
+		if ((*job->alg->hash_file)(job->filename, job->digest) != NULL)
+			job->success = 1;
+	}
+
+	return NULL;
+}
+
 int
 main(int argc, char **argv)
 {
@@ -181,11 +219,16 @@ main(int argc, char **argv)
 	(void) setlocale(LC_ALL, "");
 #endif
 	test = 0;
-	while ((i = getopt(argc, argv, "Vt")) != -1) {
+	while ((i = getopt(argc, argv, "Vj:t")) != -1) {
 		switch(i) {
 		case 'V':
 			printf("%s\n", VERSION);
 			return EXIT_SUCCESS;
+		case 'j': {
+			int j = atoi(optarg);
+			num_threads = (j < 1) ? 1 : j;
+			break;
+		}
 		case 't':
 			test = 1;
 			break;
@@ -203,7 +246,8 @@ main(int argc, char **argv)
 	}
 	/* check for correct usage */
 	if (argc == optind) {
-		(void) fprintf(stderr, "Usage: %s algorithm [file...]\n",
+		(void) fprintf(stderr,
+		    "Usage: %s [-V] [-j jobs] algorithm [file...]\n",
 		    argv[0]);
 		return EXIT_FAILURE;
 	}
@@ -219,12 +263,41 @@ main(int argc, char **argv)
 			ok = 0;
 		}
 	} else {
-		for (i = optind + 1 ; i < argc ; i++) {
-			if (!digest_file(argv[i], alg)) {
-				fprintf(stderr, "%s\n", argv[i]);
+		pthread_t *threads;
+
+		jobs_count = argc - (optind + 1);
+		jobs = malloc(sizeof(jobs_t) * (size_t)jobs_count);
+
+		for (i = 0; i < jobs_count ; i++) {
+			alg_t *a = find_algorithm(argv[optind]);
+			jobs[i].alg = a;
+			jobs[i].filename = argv[i + optind + 1];
+			jobs[i].digest = malloc((size_t)(a->hash_len * 2 + 1));
+			jobs[i].success = 0;
+		}
+
+		if (jobs_count < num_threads)
+			num_threads = jobs_count;
+
+		threads = malloc(sizeof(pthread_t) * (size_t)num_threads);
+		for (i = 0; i < num_threads; i++) {
+			pthread_create(&threads[i], NULL, digest_file_thread, NULL);
+		}
+		for (i = 0; i < num_threads; i++) {
+			pthread_join(threads[i], NULL);
+		}
+
+		for (i = 0; i < jobs_count; i++) {
+			if (!jobs[i].success) {
 				ok = 0;
+				(void) printf("%s\n", jobs[i].filename);
+			} else {
+				(void) printf("%s (%s) = %s\n",
+				    jobs[i].alg->name, jobs[i].filename,
+				    jobs[i].digest);
 			}
 		}
 	}
+
 	return (ok) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
