@@ -38,6 +38,9 @@ AC_C_BIGENDIAN
 # Checks for library functions.
 AC_FUNC_STRERROR_R
 AC_CHECK_FUNCS([setlocale])
+AC_SEARCH_LIBS([pthread_create],[pthread],[],[
+	AC_MSG_ERROR([unable to find pthread_create()])
+])
 #
 AH_BOTTOM([
 #ifdef HAVE_SYS_CDEFS_H
