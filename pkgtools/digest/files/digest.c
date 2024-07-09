@@ -251,7 +251,7 @@ main(int argc, char **argv)
 	/* check for correct usage */
 	if (argc == optind) {
 		(void) fprintf(stderr,
-		    "Usage: %s [-V] [-j jobs] algorithm [file...]\n",
+		    "Usage: %s [-FV] [-j jobs] algorithm [file...]\n",
 		    argv[0]);
 		return EXIT_FAILURE;
 	}
@@ -272,7 +272,10 @@ main(int argc, char **argv)
 		if (file_mode) {
 			char filename[PATH_MAX], *eol;
 			size_t jobs_size = 64;
-			jobs = malloc(sizeof(jobs_t) * jobs_size);
+			if ((jobs = malloc(sizeof(jobs_t) * jobs_size)) == NULL) {
+				perror("digest: malloc");
+				exit(EXIT_FAILURE);
+			}
 
 			while(fgets(filename, PATH_MAX, stdin) != NULL) {
 				eol = strchr(filename, '\n');
@@ -288,7 +291,10 @@ main(int argc, char **argv)
 
 				if (++jobs_count >= jobs_size) {
 					jobs_size *= 2;
-					jobs = realloc(jobs, sizeof(jobs_t) * jobs_size);
+					if ((jobs = realloc(jobs, sizeof(jobs_t) * jobs_size)) == NULL) {
+						perror("digest: realloc");
+						exit(EXIT_FAILURE);
+					}
 				}
 			}
 		} else {
@@ -308,10 +314,16 @@ main(int argc, char **argv)
 
 		threads = malloc(sizeof(pthread_t) * (size_t)num_threads);
 		for (i = 0; i < num_threads; i++) {
-			pthread_create(&threads[i], NULL, digest_file_thread, NULL);
+			if (pthread_create(&threads[i], 1, digest_file_thread, NULL) != 0) {
+				perror("digest: pthread_create");
+				exit(EXIT_FAILURE);
+			}
 		}
 		for (i = 0; i < num_threads; i++) {
-			pthread_join(threads[i], NULL);
+			if (pthread_join(threads[i], NULL) != 0) {
+				perror("digest: pthread_join");
+				exit(EXIT_FAILURE);
+			}
 		}
 
 		for (i = 0; i < jobs_count; i++) {
