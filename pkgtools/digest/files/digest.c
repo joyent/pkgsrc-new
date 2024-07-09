@@ -211,6 +211,7 @@ int
 main(int argc, char **argv)
 {
 	alg_t  *alg;
+	int	file_mode = 0;
 	int	test;
 	int	ok;
 	int	i;
@@ -219,8 +220,11 @@ main(int argc, char **argv)
 	(void) setlocale(LC_ALL, "");
 #endif
 	test = 0;
-	while ((i = getopt(argc, argv, "Vj:t")) != -1) {
+	while ((i = getopt(argc, argv, "FVj:t")) != -1) {
 		switch(i) {
+		case 'F':
+			file_mode = 1;
+			break;
 		case 'V':
 			printf("%s\n", VERSION);
 			return EXIT_SUCCESS;
@@ -257,7 +261,7 @@ main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	ok = 1;
-	if (argc == optind + 1) {
+	if (argc == optind + 1 && !file_mode) {
 		if (!digest_file(NULL, alg)) {
 			fprintf(stderr, "stdin\n");
 			ok = 0;
@@ -265,15 +269,38 @@ main(int argc, char **argv)
 	} else {
 		pthread_t *threads;
 
-		jobs_count = argc - (optind + 1);
-		jobs = malloc(sizeof(jobs_t) * (size_t)jobs_count);
+		if (file_mode) {
+			char filename[PATH_MAX], *eol;
+			size_t jobs_size = 64;
+			jobs = malloc(sizeof(jobs_t) * jobs_size);
 
-		for (i = 0; i < jobs_count ; i++) {
-			alg_t *a = find_algorithm(argv[optind]);
-			jobs[i].alg = a;
-			jobs[i].filename = argv[i + optind + 1];
-			jobs[i].digest = malloc((size_t)(a->hash_len * 2 + 1));
-			jobs[i].success = 0;
+			while(fgets(filename, PATH_MAX, stdin) != NULL) {
+				eol = strchr(filename, '\n');
+				/* skip blank or incomplete lines */
+				if (eol == NULL || filename == eol)
+					continue;
+				*eol = '\0';
+
+				jobs[jobs_count].alg = alg;
+				jobs[jobs_count].filename = strdup(filename);
+				jobs[jobs_count].digest = malloc((size_t)(alg->hash_len * 2 + 1));
+				jobs[jobs_count].success = 0;
+
+				if (++jobs_count >= jobs_size) {
+					jobs_size *= 2;
+					jobs = realloc(jobs, sizeof(jobs_t) * jobs_size);
+				}
+			}
+		} else {
+			jobs_count = argc - (optind + 1);
+			jobs = malloc(sizeof(jobs_t) * (size_t)jobs_count);
+
+			for (i = 0; i < jobs_count ; i++) {
+				jobs[i].alg = alg;
+				jobs[i].filename = argv[i + optind + 1];
+				jobs[i].digest = malloc((size_t)(alg->hash_len * 2 + 1));
+				jobs[i].success = 0;
+			}
 		}
 
 		if (jobs_count < num_threads)
