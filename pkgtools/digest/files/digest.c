@@ -36,6 +36,7 @@
 #endif
 #include <blake2b.h>
 #include <blake2s.h>
+#include <limits.h>
 #include <md5.h>
 #include <pthread.h>
 #include <rmd160.h>
