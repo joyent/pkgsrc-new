@@ -70,16 +70,13 @@ _DISTINFO_ARGS_COMMON+=	${_PATCH_DIGEST_ALGORITHMS:S/^/-p /}
 _DISTINFO_ARGS_PATCHSUM+=	${PATCHDIR}/patch-*
 _DISTINFO_ARGS_PATCHSUM+=	${PATCHDIR}/emul-*-patch-*
 
-_DISTINFO_INPUTFILE=		${DISTINFO_FILE}.filelist
-
 distinfo:
-.for file in ${_CKSUMFILES}
-	@${ECHO} ${file} >> ${_DISTINFO_INPUTFILE}
-.endfor
 	${RUN}set -e;							\
 	newfile=${DISTINFO_FILE}.$$$$;					\
-	if ${_DISTINFO_CMD} ${_DISTINFO_ARGS_COMMON}			\
-		-I ${_DISTINFO_INPUTFILE} ${_DISTINFO_ARGS_PATCHSUM} > $$newfile;				\
+	{								\
+		${_CKSUMFILES:@file@${ECHO} ${file};@}			\
+	} | if ${_DISTINFO_CMD} ${_DISTINFO_ARGS_COMMON}		\
+		-I - ${_DISTINFO_ARGS_PATCHSUM} > $$newfile;		\
 	then								\
 		${RM} -f $$newfile;					\
 		${ECHO_MSG} "=> distinfo: unchanged.";			\
@@ -87,16 +84,14 @@ distinfo:
 		${RM} -f ${DISTINFO_FILE};				\
 		${MV} -f $$newfile ${DISTINFO_FILE};			\
 	fi
-	@rm ${_DISTINFO_INPUTFILE}
 
 makesum:
-.for file in ${_CKSUMFILES}
-	@${ECHO} ${file} >> ${_DISTINFO_INPUTFILE}
-.endfor
 	${RUN}set -e;							\
 	newfile=${DISTINFO_FILE}.$$$$;					\
-	if ${_DISTINFO_CMD} ${_DISTINFO_ARGS_COMMON}			\
-		-I ${_DISTINFO_INPUTFILE} > $$newfile;			\
+	{								\
+		${_CKSUMFILES:@file@${ECHO} ${file};@}			\
+	} | if ${_DISTINFO_CMD} ${_DISTINFO_ARGS_COMMON}		\
+		-I - > $$newfile;					\
 	then								\
 		${RM} -f $$newfile;					\
 		${ECHO_MSG} "=> distinfo: distfiles part unchanged.";	\
@@ -104,7 +99,6 @@ makesum:
 		${RM} -f ${DISTINFO_FILE};				\
 		${MV} -f $$newfile ${DISTINFO_FILE};			\
 	fi
-	@rm ${_DISTINFO_INPUTFILE}
 
 makepatchsum:
 	${RUN}set -e;							\
