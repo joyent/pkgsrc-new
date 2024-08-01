@@ -5,9 +5,6 @@ GCC_PKGNAME=		gcc8
 
 DISTNAME=	gcc-${GCC8_DIST_VERSION}
 PKGNAME=	${GCC_PKGNAME}-${GCC8_DIST_VERSION}
-## When bumping the PKGREVISION of this package the PKGREVISION of
-## lang/gcc8-libs needs to be bumped to be at least 1 more than the
-## PKGREVISION of this package!
 PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GNU:=gcc/gcc-${GCC8_DIST_VERSION}/}

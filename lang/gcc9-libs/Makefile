@@ -5,10 +5,6 @@ GCC_PKGNAME=	gcc9
 
 DISTNAME=	gcc-${GCC9_DIST_VERSION}
 PKGNAME=	${GCC_PKGNAME}-libs-${GCC9_DIST_VERSION}
-
-## The PKGREVISION of this package needs to be at least 1 more than the
-## PKGREVISION of the lang/gcc9 package so that with the dependence pattern
-## '{gcc9,gcc9-libs}>=9.2.*' pkg_add will choose gcc9-libs over gcc9.
 PKGREVISION=	2
 
 CATEGORIES=	lang

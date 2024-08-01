@@ -5,10 +5,6 @@ GCC_PKGNAME=	gcc13
 
 DISTNAME=	gcc-${GCC13_DIST_VERSION}
 PKGNAME=	${GCC_PKGNAME}-libs-${GCC13_DIST_VERSION}
-
-## The PKGREVISION of this package needs to be at least 1 more than the
-## PKGREVISION of the lang/gcc13 package so that with the dependence pattern
-## '{gcc13,gcc13-libs}>=13.1.*' pkg_add will choose gcc13-libs over gcc13.
 PKGREVISION=	1
 
 CATEGORIES=	lang

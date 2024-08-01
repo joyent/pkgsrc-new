@@ -5,9 +5,6 @@ GCC_PKGNAME=	gcc9
 
 DISTNAME=	gcc-${GCC9_DIST_VERSION}
 PKGNAME=	${GCC_PKGNAME}-${GCC9_DIST_VERSION}
-## When bumping the PKGREVISION of this package the PKGREVISION of
-## lang/gcc9-libs needs to be bumped to be at least 1 more than the
-## PKGREVISION of this package!
 PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GNU:=gcc/gcc-${GCC9_DIST_VERSION}/}

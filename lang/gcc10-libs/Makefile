@@ -5,12 +5,7 @@ GCC_PKGNAME=	gcc10
 
 DISTNAME=	gcc-${GCC10_DIST_VERSION}
 PKGNAME=	${GCC_PKGNAME}-libs-${GCC10_DIST_VERSION}
-
-## The PKGREVISION of this package needs to be at least 1 more than the
-## PKGREVISION of the lang/gcc10 package so that with the dependence pattern
-## '{gcc10,gcc10-libs}>=10.2.*' pkg_add will choose gcc10-libs over gcc10.
 PKGREVISION=	3
-
 CATEGORIES=	lang
 MASTER_SITES=	# empty
 DISTFILES=	# empty

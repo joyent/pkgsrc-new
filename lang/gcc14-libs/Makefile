@@ -5,10 +5,6 @@ GCC_PKGNAME=	gcc14
 
 DISTNAME=	gcc-${GCC14_DIST_VERSION}
 PKGNAME=	${GCC_PKGNAME}-libs-${GCC14_DIST_VERSION}
-
-## The PKGREVISION of this package needs to be at least 1 more than the
-## PKGREVISION of the lang/gcc14 package so that with the dependence pattern
-## '{gcc14,gcc14-libs}>=14.1.*' pkg_add will choose gcc14-libs over gcc14.
 PKGREVISION=	1
 
 CATEGORIES=	lang

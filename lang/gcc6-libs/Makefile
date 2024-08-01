@@ -5,10 +5,6 @@ GCC_PKGNAME=	gcc6
 
 DISTNAME=	gcc-${GCC6_DIST_VERSION}
 PKGNAME=	${GCC_PKGNAME}-libs-${GCC6_DIST_VERSION}
-
-## The PKGREVISION of this package needs to be at least 1 more than the
-## PKGREVISION of the lang/gcc6 package so that with the dependence pattern
-## '{gcc6,gcc6-libs}>=6.1.*' pkg_add will choose gcc6-libs over gcc6.
 PKGREVISION=	10
 
 CATEGORIES=	lang

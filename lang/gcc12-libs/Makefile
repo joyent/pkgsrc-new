@@ -5,10 +5,6 @@ GCC_PKGNAME=	gcc12
 
 DISTNAME=	gcc-${GCC12_DIST_VERSION}
 PKGNAME=	${GCC_PKGNAME}-libs-${GCC12_DIST_VERSION}
-
-## The PKGREVISION of this package needs to be at least 1 more than the
-## PKGREVISION of the lang/gcc12 package so that with the dependence pattern
-## '{gcc12,gcc12-libs}>=12.1.*' pkg_add will choose gcc12-libs over gcc12.
 PKGREVISION=	1
 
 CATEGORIES=	lang

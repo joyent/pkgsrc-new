@@ -6,9 +6,6 @@ GCC_PKGNAME=		gcc7
 DISTNAME=	gcc-${GCC7_DIST_VERSION}
 PKGNAME=	${GCC_PKGNAME}-${GCC7_DIST_VERSION}
 PKGREVISION=	6
-## When bumping the PKGREVISION of this package the PKGREVISION of
-## lang/gcc7-libs needs to be bumped to be at least 1 more than the
-## PKGREVISION of this package!
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GNU:=gcc/gcc-${GCC7_DIST_VERSION}/}
 EXTRACT_SUFX=	.tar.xz
