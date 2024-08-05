@@ -50,9 +50,13 @@ checksum checksum-phase:
 	fi
 .endif
 
+.if defined(TOOLS_PLATFORM.mktool)
+_DISTINFO_CMD=	${TOOLS_PLATFORM.mktool} distinfo
+.else
 _DISTINFO_CMD=	${PKGSRC_SETENV} DIGEST=${TOOLS_DIGEST:Q} SED=${TOOLS_SED:Q} \
 			TEST=${TOOLS_TEST:Q} WC=${TOOLS_WC:Q}	\
 		${AWK} -f ${PKGSRCDIR}/mk/checksum/distinfo.awk --
+.endif
 
 .if exists(${DISTDIR})
 _DISTINFO_ARGS_COMMON+=	-d ${DISTDIR}
