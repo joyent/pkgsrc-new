@@ -25,11 +25,14 @@ _PATCH_DIGEST_ALGORITHMS?=	SHA1
 #
 _COOKIE.checksum=	${_COOKIE.extract}
 
+.if defined(TOOLS_PLATFORM.mktool)
+_CHECKSUM_CMD=	${TOOLS_PLATFORM.mktool} checksum
+.else
 _CHECKSUM_CMD=								\
 	${PKGSRC_SETENV}						\
 	    DIGEST=${TOOLS_DIGEST:Q} SED=${TOOLS_CMDLINE_SED:Q}		\
 	    ${AWK} -f ${PKGSRCDIR}/mk/checksum/checksum.awk --
-
+.endif
 
 .if defined(NO_CHECKSUM) || empty(_CKSUMFILES)
 checksum checksum-phase:
