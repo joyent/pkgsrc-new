@@ -94,7 +94,15 @@ fetch: ${_FETCH_TARGETS}
 .if !target(do-fetch)
 .  if !empty(_ALLFILES)
 do-fetch: ${_ALLFILES:S/^/${DISTDIR}\//}
+.    if defined(TOOLS_PLATFORM.mktool)
+	@{ ${_ALLFILES:@f@						\
+		unsorted_sites="${SITES.${f}}";				\
+		sites="${_ORDERED_SITES} ${_MASTER_SITE_BACKUP}";	\
+		echo $f ${DISTDIR} $$sites;				\
+	@} } | ${TOOLS_PLATFORM.mktool} fetch -I - -d ${DISTDIR} -f ${DISTINFO_FILE}
+.    else
 	@${DO_NADA}
+.    endif
 .  else
 do-fetch:
 	@${DO_NADA}
@@ -112,7 +120,10 @@ post-fetch:
 .endif
 
 .for _file_ in ${_ALLFILES}
-.  if empty(PKG_RESUME_TRANSFERS:M[yY][eE][sS]) && \
+.  if defined(TOOLS_PLATFORM.mktool)
+${DISTDIR}/${_file_}:
+	@${DO_NADA}
+.  elif empty(PKG_RESUME_TRANSFERS:M[yY][eE][sS]) && \
       exists(${DISTDIR}/${_file_})
 ${DISTDIR}/${_file_}:
 	@${DO_NADA}
