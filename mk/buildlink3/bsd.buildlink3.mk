@@ -662,7 +662,7 @@ ${_BLNK_COOKIE.${_pkg_}}:
 		${ERROR_MSG} "[bsd.buildlink3.mk] X11BASE is not set correctly."; \
 		exit 1;							\
 	}
-.if ${_PKGSRC_USE_MKTOOLS} == "yes"
+.if defined(TOOLS_PLATFORM.mktool) || ${_PKGSRC_USE_MKTOOLS} == "yes"
 	${RUN}								\
 	case "${BUILDLINK_PREFIX.${_pkg_}}" in				\
 	${LOCALBASE})   buildlink_dir="${BUILDLINK_DIR}" ;;		\
