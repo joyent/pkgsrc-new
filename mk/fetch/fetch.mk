@@ -95,10 +95,10 @@ fetch: ${_FETCH_TARGETS}
 .  if !empty(_ALLFILES)
 do-fetch: ${_ALLFILES:S/^/${DISTDIR}\//}
 .    if defined(TOOLS_PLATFORM.mktool)
-	@{ ${_ALLFILES:@f@						\
-		unsorted_sites="${SITES.${f:T}}";			\
+	@{ ${_ALLFILES:@file@						\
+		unsorted_sites="${SITES.${file:T}}";			\
 		sites="${_ORDERED_SITES} ${_MASTER_SITE_BACKUP}";	\
-		echo $f ${DISTDIR} $$sites;				\
+		echo ${file} ${DISTDIR} $$sites;			\
 	@} } | ${TOOLS_PLATFORM.mktool} fetch -I - -d ${DISTDIR} -f ${DISTINFO_FILE}
 .    else
 	@${DO_NADA}
