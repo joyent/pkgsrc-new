@@ -57,7 +57,7 @@ _CHECK_SHLIBS_FILELIST_CMD?=	${SED} -e '/^@/d' ${PLIST} |		\
     !empty(CHECK_SHLIBS_SUPPORTED:M[Yy][Ee][Ss]) && \
     ${_USE_CHECK_SHLIBS_NATIVE} == "yes"
 CHECK_SHLIBS_NATIVE_ENV=
-.if defined(TOOLS_PLATFORM.mktool)
+.if !empty(TOOLS_PLATFORM.mktool)
 CHECK_SHLIBS_NATIVE?=		${TOOLS_PLATFORM.mktool} check-shlibs
 CHECK_SHLIBS_NATIVE_ENV+=	PKG_ADMIN_CMD=${PKG_ADMIN:Q}
 .endif

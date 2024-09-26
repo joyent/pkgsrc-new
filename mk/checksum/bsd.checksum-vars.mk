@@ -12,6 +12,6 @@
 
 DISTINFO_FILE?=		${PKGDIR}/distinfo
 
-.if !empty(_CKSUMFILES) && !defined(TOOLS_PLATFORM.mktool)
+.if !empty(_CKSUMFILES) && empty(TOOLS_PLATFORM.mktool)
 USE_TOOLS+=	digest:bootstrap
 .endif

@@ -36,7 +36,7 @@ local_patches=	${:!echo ${LOCALPATCHES}/${PKGPATH}/*!:N*/CVS:N*/\*}
 USE_TOOLS+=	patch
 .endif
 .if (!empty(PATCHFILES) || !empty(pkgsrc_patches)) \
-  && !defined(TOOLS_PLATFORM.mktool)
+  && empty(TOOLS_PLATFORM.mktool)
 USE_TOOLS+=	digest:bootstrap
 .endif
 

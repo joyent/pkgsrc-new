@@ -25,7 +25,7 @@ _PATCH_DIGEST_ALGORITHMS?=	SHA1
 #
 _COOKIE.checksum=	${_COOKIE.extract}
 
-.if defined(TOOLS_PLATFORM.mktool)
+.if !empty(TOOLS_PLATFORM.mktool)
 _CHECKSUM_CMD=	${TOOLS_PLATFORM.mktool} checksum
 .else
 _CHECKSUM_CMD=								\
@@ -53,7 +53,7 @@ checksum checksum-phase:
 	fi
 .endif
 
-.if defined(TOOLS_PLATFORM.mktool)
+.if !empty(TOOLS_PLATFORM.mktool)
 _DISTINFO_CMD=	${TOOLS_PLATFORM.mktool} distinfo
 .else
 _DISTINFO_CMD=	${PKGSRC_SETENV} DIGEST=${TOOLS_DIGEST:Q} SED=${TOOLS_SED:Q} \

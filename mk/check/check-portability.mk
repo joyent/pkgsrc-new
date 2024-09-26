@@ -43,7 +43,7 @@ CHECK_PORTABILITY_SKIP?=	${REPLACE_BASH}
 pre-configure-checks-hook: _check-portability
 .endif
 
-.if defined(TOOLS_PLATFORM.mktool)
+.if !empty(TOOLS_PLATFORM.mktool)
 CHECK_PORTABILITY_PROGRAM=	${TOOLS_PLATFORM.mktool} check-portability
 .else
 CHECK_PORTABILITY_PROGRAM=	${SH} ${PKGSRCDIR}/mk/check/check-portability.sh

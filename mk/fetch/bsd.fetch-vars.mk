@@ -107,7 +107,7 @@ _BOOTSTRAP_VERBOSE=	# defined
 .endif
 
 .if !empty(_CKSUMFILES) && defined(FAILOVER_FETCH) \
-  && !defined(TOOLS_PLATFORM.mktool)
+  && empty(TOOLS_PLATFORM.mktool)
 USE_TOOLS+=	digest:bootstrap
 .endif
 

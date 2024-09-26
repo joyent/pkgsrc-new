@@ -361,7 +361,7 @@ _DEBUG_SKIP_PATTERNS+=	*.dyn_hi *.hi *.p_hi
 ###
 .PHONY: install-ctf
 install-ctf: plist
-.if defined(TOOLS_PLATFORM.mktool)
+.if !empty(TOOLS_PLATFORM.mktool)
 	${RUN}								\
 	${STEP_MSG} "Generating CTF data";				\
 	${RM} -f ${WRKDIR}/.ctfdata ${WRKDIR}/.ctferr;			\
