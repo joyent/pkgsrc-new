@@ -94,7 +94,7 @@ fetch: ${_FETCH_TARGETS}
 .if !target(do-fetch)
 .  if !empty(_ALLFILES)
 do-fetch: ${_ALLFILES:S/^/${DISTDIR}\//}
-.    if !empty(TOOLS_PLATFORM.mktool)
+.    if ${FETCH_USING} == "mktool" && !empty(TOOLS_PLATFORM.mktool)
 	@{ ${_ALLFILES:@file@						\
 		unsorted_sites="${SITES.${file:T}}";			\
 		sites="${_ORDERED_SITES} ${_MASTER_SITE_BACKUP}";	\
@@ -120,7 +120,7 @@ post-fetch:
 .endif
 
 .for _file_ in ${_ALLFILES}
-.  if !empty(TOOLS_PLATFORM.mktool)
+.  if ${FETCH_USING} == "mktool" && !empty(TOOLS_PLATFORM.mktool)
 ${DISTDIR}/${_file_}:
 	@${DO_NADA}
 .  elif empty(PKG_RESUME_TRANSFERS:M[yY][eE][sS]) && \
