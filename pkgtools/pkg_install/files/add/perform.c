@@ -1137,6 +1137,7 @@ check_requires(struct pkg_task *pkg)
 	const char *data, *eol, *next_line;
 	int ret = 0;
 
+#if 0
 	data = pkg->meta_data.meta_build_info;
 
 	for (; data != NULL && *data != '\0'; data = next_line) {
@@ -1176,6 +1177,7 @@ check_requires(struct pkg_task *pkg)
 			free(libpath);
 		}
 	}
+#endif
 
 	return ret;
 }
